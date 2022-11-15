@@ -21,3 +21,20 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+
+# Loader
+
+# import { useDispatch, useSelector } from 'react-redux'
+# import { updateFreeLoad } from '../../../Redux/action';
+# import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif"
+
+# const { freeLoad } = useSelector((state) => state);
+# const dispatch = useDispatch();
+
+# useEffect(() => {
+#     dispatch(updateFreeLoad());
+# }, [dispatch]);
+
+# {freeLoad ? <img src={freeLoadGif} alt="" /> : "Data"}
