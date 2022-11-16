@@ -25,6 +25,7 @@ import { userSignUpFun } from '../../../Redux/action'
 // Sign Up Page Return Part
 
 export default function SignUp() {
+    document.title = "Dev Tech Education || Student || SIGN UP"
 
     const { signupLoadingFlag, signupErrorFlag } = useSelector((state) => state);
     const dispatch = useDispatch();
@@ -68,7 +69,7 @@ export default function SignUp() {
         borderRadius: "10px",
         textAlign: "center",
         fontFamily: "play",
-        alignContent: "center",
+        alignItems: "center",
         gap: "50px"
     };
 
@@ -80,7 +81,7 @@ export default function SignUp() {
             style={outerBoxForForm}
             sx={{ width: { xs: "75%", sm: "50%" }, overflow: "hidden" }}
         >
-            <img src={logonight} alt="" className='welcome_signup_logo' />
+            <Link to={"/"}><img src={logonight} alt="" className='welcome_signup_logo' /></Link>
             <Box className='welcome_signup_formOutsideBox'>
                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
                     <InputLabel htmlFor="welcome_signup_name"> Name </InputLabel>

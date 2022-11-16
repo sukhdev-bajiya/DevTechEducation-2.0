@@ -42,6 +42,15 @@ export const userSignUpFun = (data) => (dispatch) => {
 
 export const userSignInFun = (data) => (dispatch) => {
     console.log(data)
+    let obj = { ...data };
+    if (data.username === "123") {
+        obj.role = "admin"
+    } else if (data.username === "231") {
+        obj.role = "teacher"
+    } else if (data.username === "321") {
+        obj.role = "student"
+    }
+    dispatch(signinSuccess(obj))
     // dispatch(signinLoading());
     // fetch(`${process.env.REACT_APP_API_LINK}/auth/signin`)
     //     .then((res) => res.json())

@@ -18,14 +18,27 @@ import { Link } from "react-router-dom";
 
 import { useDispatch, useSelector } from 'react-redux'
 import { userSignInFun } from '../../../Redux/action'
+import { useNavigate } from "react-router-dom";
 
 
 // Sign In Page Return Part
 
 export default function SignIn() {
+    document.title = "Dev Tech Education || SIGNIN"
 
-    const { signinLoadingFlag, signinErrorFlag } = useSelector((state) => state);
+    const { signinSuccessData, signinLoadingFlag, signinErrorFlag } = useSelector((state) => state);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (signinSuccessData !== null && signinSuccessData.role === "admin") {
+            navigate("/admin/dashboard")
+        } else if (signinSuccessData !== null && signinSuccessData.role === "teacher") {
+            navigate("/teacher/dashboard")
+        } else if (signinSuccessData !== null && signinSuccessData.role === "student") {
+            navigate("/student/dashboard")
+        }
+    }, [signinSuccessData]);
 
     const [inputBoxValue, setInputBoxValue] = React.useState({
         password: "",
@@ -57,7 +70,7 @@ export default function SignIn() {
         borderRadius: "10px",
         textAlign: "center",
         fontFamily: "play",
-        alignContent: "center",
+        alignItems: "center",
         gap: "50px"
     };
 
@@ -69,7 +82,7 @@ export default function SignIn() {
             style={outerBoxForForm}
             sx={{ width: { xs: "75%", sm: "50%" }, overflow: "hidden" }}
         >
-            <img src={logonight} alt="" className='welcome_signin_logo' />
+            <Link to={"/"}><img src={logonight} alt="" className='welcome_signin_logo' /></Link>
             <Box className='welcome_signin_formOutsideBox'>
                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
                     <InputLabel htmlFor="welcome_signin_username"> Username </InputLabel>

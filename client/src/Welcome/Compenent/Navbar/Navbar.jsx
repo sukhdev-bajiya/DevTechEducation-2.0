@@ -52,7 +52,7 @@ const Navbar = () => {
                         color: 'inherit',
                         textDecoration: 'none',
                     }} >
-                        <img src={logoday} alt="DEV TECH EDUCATION" className='welcome_navbar_Logo' />
+                        <img src={logoday} alt="DEV TECH EDUCATION" className='navbar_Logo' />
                     </Box>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -102,7 +102,7 @@ const Navbar = () => {
                         color: 'inherit',
                         textDecoration: 'none',
                     }} >
-                        <img src={logoday} alt="DEV TECH EDUCATION" className='welcome_navbar_Logo' />
+                        <img src={logoday} alt="DEV TECH EDUCATION" className='navbar_Logo' />
                     </Box>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
