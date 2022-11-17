@@ -14,12 +14,13 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { useSelector } from 'react-redux';
-
+import { useSelector, useDispatch } from 'react-redux';
+import { signinSuccess } from '../../../Redux/action'
 
 export default function Navbar() {
     const { signinSuccessData } = useSelector((state) => state);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
 
     React.useEffect(() => {
         if (signinSuccessData === null || signinSuccessData.role !== "admin") {
@@ -50,6 +51,12 @@ export default function Navbar() {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
+    const userLogout = () => {
+        localStorage.clear()
+        dispatch(signinSuccess(null))
+        navigate("/")
+    }
+
     const studentNotifications = 21;
 
 
@@ -73,7 +80,7 @@ export default function Navbar() {
             onClose={handleMenuClose}
         >
             <MenuItem onClick={() => { return handleMenuClose, navigate("/admin/profile") }}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+            <MenuItem onClick={() => { return handleMenuClose, userLogout() }}>Logout</MenuItem>
         </Menu>
     );
 

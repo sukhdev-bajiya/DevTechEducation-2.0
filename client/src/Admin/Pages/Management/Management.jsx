@@ -13,14 +13,13 @@ import Box from '@mui/material/Box';
 import SpeedDial from '@mui/material/SpeedDial';
 import SpeedDialIcon from '@mui/material/SpeedDialIcon';
 import SpeedDialAction from '@mui/material/SpeedDialAction';
-import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
-import SaveIcon from '@mui/icons-material/Save';
 import PrintIcon from '@mui/icons-material/Print';
-import ShareIcon from '@mui/icons-material/Share';
+import AddIcon from '@mui/icons-material/Add';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import ManagementCoursesTabPages from './ManagementCourses';
 
-function TabPanel(props) {
-
-
+function ManagementTabPanel(props) {
     const { children, value, index, ...other } = props;
 
     return (
@@ -28,8 +27,8 @@ function TabPanel(props) {
             component="div"
             role="tabpanel"
             hidden={value !== index}
-            id={`action-tabpanel-${index}`}
-            aria-labelledby={`action-tab-${index}`}
+            id={`management_action_tabpanel_${index}`}
+            aria-labelledby={`management_action_tab_${index}`}
             {...other}
         >
             {value === index && <Box sx={{ p: 3 }}>{children}</Box>}
@@ -37,45 +36,38 @@ function TabPanel(props) {
     );
 }
 
-TabPanel.propTypes = {
+ManagementTabPanel.propTypes = {
     children: PropTypes.node,
     index: PropTypes.number.isRequired,
     value: PropTypes.number.isRequired,
 };
 
-function a11yProps(index) {
+function managementTabProps(index) {
     return {
-        id: `action-tab-${index}`,
-        'aria-controls': `action-tabpanel-${index}`,
+        id: `management_action_tab_${index}`,
+        'aria-controls': `management_action_tabpanel_${index}`,
     };
 }
 
-const actions = [
-    { icon: <FileCopyIcon />, name: 'Copy' },
-    { icon: <SaveIcon />, name: 'Save' },
-    { icon: <PrintIcon />, name: 'Print' },
-    { icon: <ShareIcon />, name: 'Share' },
-];
 
 export default function Management() {
     document.title = "Dev Tech Education || Admin || Management"
-    const theme = useTheme();
-    const [value, setValue] = React.useState(0);
 
-    const handleChange = (event, newValue) => {
-        setValue(newValue);
+    const theme = useTheme();
+    const [managementValue, setManagementValue] = React.useState(0);
+
+    const managementHandleChange = (event, newValue) => {
+        setManagementValue(newValue);
     };
 
-    const handleChangeIndex = (index) => {
-        setValue(index);
+    const managementHandleChangeIndex = (index) => {
+        setManagementValue(index);
     };
 
     const transitionDuration = {
         enter: theme.transitions.duration.enteringScreen,
         exit: theme.transitions.duration.leavingScreen,
     };
-
-    const fabs = [0, 1, 2];
 
     return (
         <Box
@@ -86,50 +78,51 @@ export default function Management() {
         >
             <AppBar position="static" color="default">
                 <Tabs
-                    value={value}
-                    onChange={handleChange}
+                    value={managementValue}
+                    onChange={managementHandleChange}
                     indicatorColor="primary"
                     textColor="primary"
                     variant="fullWidth"
                     aria-label="action tabs example"
                 >
-                    <Tab label="COURSES" {...a11yProps(0)} />
-                    <Tab label="TEACHER" {...a11yProps(1)} />
-                    <Tab label="STUDENT" {...a11yProps(2)} />
+                    <Tab label="COURSES" {...managementTabProps(0)} />
+                    <Tab label="TEACHER" {...managementTabProps(1)} />
+                    <Tab label="STUDENT" {...managementTabProps(2)} />
                 </Tabs>
             </AppBar>
             <SwipeableViews
                 axis={theme.direction === 'rtl' ? 'x-reverse' : 'x'}
-                index={value}
-                onChangeIndex={handleChangeIndex}
+                index={managementValue}
+                onChangeIndex={managementHandleChangeIndex}
             >
-                <TabPanel value={value} index={0} dir={theme.direction}>
-                    COURSES
-                </TabPanel>
-                <TabPanel value={value} index={1} dir={theme.direction}>
+                <ManagementTabPanel value={managementValue} index={0} dir={theme.direction}>
+                    <ManagementCoursesTabPages />
+                </ManagementTabPanel>
+                <ManagementTabPanel value={managementValue} index={1} dir={theme.direction}>
                     TEACHER
-                </TabPanel>
-                <TabPanel value={value} index={2} dir={theme.direction}>
+
+                </ManagementTabPanel>
+                <ManagementTabPanel value={managementValue} index={2} dir={theme.direction}>
                     STUDENT
-                </TabPanel>
+                </ManagementTabPanel>
             </SwipeableViews>
-            {fabs.map((fab, index) => (
-                <Zoom
+            {managementFabs.map((fab, index) => (
+                fab === null ? "" : <Zoom
                     // key={fab.color}
                     key={index}
-                    in={value === index}
+                    in={managementValue === index}
                     timeout={transitionDuration}
                     style={{
-                        transitionDelay: `${value === index ? transitionDuration.exit : 0}ms`,
+                        transitionDelay: `${managementValue === index ? transitionDuration.exit : 0}ms`,
                     }}
                     unmountOnExit
                 >
                     <SpeedDial
-                        ariaLabel="SpeedDial basic example"
+                        ariaLabel={fab.ariaLabel}
                         sx={{ position: 'fixed', bottom: 16, right: 16 }}
                         icon={<SpeedDialIcon />}
                     >
-                        {actions.map((action) => (
+                        {fab.actions.map((action) => (
                             <SpeedDialAction
                                 key={action.name}
                                 icon={action.icon}
@@ -142,3 +135,23 @@ export default function Management() {
         </Box>
     );
 }
+
+const managementFabs = [
+    null,
+    {
+        ariaLabel: "Management Admin Teacher Menu Item",
+        actions: [
+            { icon: <DeleteOutlineIcon />, name: 'Delete Teacher' },
+            { icon: <EditIcon />, name: 'Edit Teacher Data' },
+            { icon: <PrintIcon />, name: 'Print Teacher List' },
+            { icon: <AddIcon />, name: 'Add Teacher' },
+        ]
+    }, {
+        ariaLabel: "Management Admin Student Menu Item",
+        actions: [
+            { icon: <DeleteOutlineIcon />, name: 'Delete Student' },
+            { icon: <EditIcon />, name: 'Edit Student Data' },
+            { icon: <PrintIcon />, name: 'Print Student List' },
+            { icon: <AddIcon />, name: 'Add Student' },
+        ]
+    }];
