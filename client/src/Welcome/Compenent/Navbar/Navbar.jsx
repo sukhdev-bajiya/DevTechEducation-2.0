@@ -14,13 +14,10 @@ import AccountCircleRoundedIcon from '@mui/icons-material/AccountCircleRounded';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import { Link } from 'react-router-dom';
-
-
-
-const pages = ['COURSES', 'REFER & EARN', 'EVENTS & CONTESTS'];
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    const navigate = useNavigate();
     const [anchorElNav, setAnchorElNav] = React.useState(null);
     const [anchorElUser, setAnchorElUser] = React.useState(null);
 
@@ -52,7 +49,7 @@ const Navbar = () => {
                         color: 'inherit',
                         textDecoration: 'none',
                     }} >
-                        <img src={logoday} alt="DEV TECH EDUCATION" className='navbar_Logo' />
+                        <img src={logoday} onClick={() => navigate('/')} alt="DEV TECH EDUCATION" className='navbar_Logo' />
                     </Box>
 
                     <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
@@ -84,11 +81,16 @@ const Navbar = () => {
                                 display: { xs: 'block', md: 'none' },
                             }}
                         >
-                            {pages.map((page) => (
-                                <MenuItem key={page} onClick={handleCloseNavMenu}>
-                                    <Typography textAlign="center">{page}</Typography>
-                                </MenuItem>
-                            ))}
+
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" onClick={() => { navigate('/courses') }}>COURSES</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" onClick={() => { navigate('/referandearn') }}>REFER & EARN</Typography>
+                            </MenuItem>
+                            <MenuItem onClick={handleCloseNavMenu}>
+                                <Typography textAlign="center" onClick={() => { navigate('/eventsandcontests') }}>EVENTS & CONTESTS</Typography>
+                            </MenuItem>
                         </Menu>
                     </Box>
 
@@ -102,19 +104,18 @@ const Navbar = () => {
                         color: 'inherit',
                         textDecoration: 'none',
                     }} >
-                        <img src={logoday} alt="DEV TECH EDUCATION" className='navbar_Logo' />
+                        <img src={logoday} onClick={() => navigate('/')} alt="DEV TECH EDUCATION" className='navbar_Logo' />
                     </Box>
-
                     <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-                        {pages.map((page) => (
-                            <Button
-                                key={page}
-                                onClick={handleCloseNavMenu}
-                                sx={{ my: 2, color: 'white', display: 'block' }}
-                            >
-                                {page}
-                            </Button>
-                        ))}
+                        <Button sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={() => { return handleCloseNavMenu(), navigate('/courses') }}
+                        >  COURSES </Button>
+                        <Button sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={() => { return handleCloseNavMenu(), navigate('/referandearn') }}
+                        >  REFER & EARN </Button>
+                        <Button sx={{ my: 2, color: 'white', display: 'block' }}
+                            onClick={() => { return handleCloseNavMenu(), navigate('/eventsandcontests') }}
+                        >  EVENTS & CONTESTS </Button>
                     </Box>
 
                     <Box sx={{ flexGrow: 0 }}>

@@ -6,7 +6,7 @@ const initState = {
     signupSuccessFlag: false,
     signupErrorFlag: false,
     signinLoadingFlag: false,
-    signinSuccessData: localStorage.getItem("signinauthvailed") || null,
+    signinSuccessData: JSON.parse(localStorage.getItem("signinauthvailed")) || null,
     signinErrorFlag: false,
 };
 

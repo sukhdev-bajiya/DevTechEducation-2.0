@@ -14,10 +14,19 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
+import { useSelector } from 'react-redux';
 
 
 export default function Navbar() {
+    const { signinSuccessData } = useSelector((state) => state);
     const navigate = useNavigate();
+
+    React.useEffect(() => {
+        if (signinSuccessData === null || signinSuccessData.role !== "teacher") {
+            navigate("/signin")
+        }
+    },);
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
