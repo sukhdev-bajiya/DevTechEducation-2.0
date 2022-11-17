@@ -1,6 +1,14 @@
 import React from 'react'
 import './Management.css'
 
+import DeleteTeacher from './Teacher/DeleteTeacher';
+import EditTeacherData from './Teacher/EditTeacherData';
+import AddTeacher from './Teacher/AddTeacher';
+import DeleteStudent from './Student/DeleteStudent';
+import EditStudentData from './Student/EditStudentData';
+import AddStudent from './Student/AddStudent';
+import StudentTable from './Student/StudentTable';
+
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
 import { useTheme } from '@mui/material/styles';
@@ -18,12 +26,7 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import ManagementCoursesTabPages from './ManagementCourses';
-import DeleteTeacher from './Teacher/DeleteTeacher';
-import EditTeacherData from './Teacher/EditTeacherData';
-import AddTeacher from './Teacher/AddTeacher';
-import DeleteStudent from './Student/DeleteStudent';
-import EditStudentData from './Student/EditStudentData';
-import AddStudent from './Student/AddStudent';
+
 
 
 export default function Management() {
@@ -90,7 +93,7 @@ export default function Management() {
 
                 </ManagementTabPanel>
                 <ManagementTabPanel value={managementValue} index={2} dir={theme.direction}>
-                    STUDENT Student
+                    <StudentTable />
 
                 </ManagementTabPanel>
             </SwipeableViews>

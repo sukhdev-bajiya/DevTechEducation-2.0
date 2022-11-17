@@ -80,7 +80,7 @@ export default function SignIn() {
             noWrap
             component="div"
             style={outerBoxForForm}
-            sx={{ width: { xs: "75%", sm: "50%" }, overflow: "hidden" }}
+            sx={{ width: { xs: "90%", sm: "50%" }, overflow: "hidden" }}
         >
             <Link to={"/"}><img src={logonight} alt="" className='welcome_signin_logo' /></Link>
             <Box className='welcome_signin_formOutsideBox'>
