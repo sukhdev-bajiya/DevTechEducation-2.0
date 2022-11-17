@@ -50,7 +50,7 @@ export const userSignInFun = (data) => (dispatch) => {
     } else if (data.username === "321") {
         obj.role = "student"
     }
-    localStorage.setItem("signinauthvailed", JSON.stringify(obj))
+    sessionStorage.setItem("signinauthvailed", JSON.stringify(obj))
     dispatch(signinSuccess(obj))
     // dispatch(signinLoading());
     // fetch(`${process.env.REACT_APP_API_LINK}/auth/signin`)

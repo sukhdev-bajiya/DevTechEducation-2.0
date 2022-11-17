@@ -52,7 +52,7 @@ export default function Navbar() {
     };
 
     const userLogout = () => {
-        localStorage.clear()
+        sessionStorage.clear();
         dispatch(signinSuccess(null))
         navigate("/")
     }

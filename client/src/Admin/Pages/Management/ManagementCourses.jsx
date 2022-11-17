@@ -18,17 +18,18 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 
-import AddCourses from './AddCourses'
-import EditCoursesData from './EditCoursesData'
-import DeleteCourses from './DeleteCourses'
-import AddUnitSubject from './AddUnitSubject'
-import EditUnitSubjectData from './EditUnitSubjectData'
-import DeleteUnitSubject from './DeleteUnitSubject'
-import AddLectures from './AddLectures'
-import EditLecturesData from './EditLecturesData'
-import DeleteLectures from './DeleteLectures'
+import AddCourses from './Courses/AddCourses'
+import EditCoursesData from './Courses/EditCoursesData'
+import DeleteCourses from './Courses/DeleteCourses'
+import AddUnitSubject from './UnitAndSubject/AddUnitSubject'
+import EditUnitSubjectData from './UnitAndSubject/EditUnitSubjectData'
+import DeleteUnitSubject from './UnitAndSubject/DeleteUnitSubject'
+import AddLectures from './Lectures/AddLectures'
+import EditLecturesData from './Lectures/EditLecturesData'
+import DeleteLectures from './Lectures/DeleteLectures'
 
 export default function ManagementCoursesTabPages() {
+
     document.title = "Dev Tech Education || Admin || Management"
 
     const theme = useTheme();
@@ -49,7 +50,12 @@ export default function ManagementCoursesTabPages() {
 
     const [openFormDialogFunIndex, setOpenFormDialogFunIndex] = React.useState(-1);
     const openFormDialogFun = (index) => {
-        setOpenFormDialogFunIndex(index);
+        if (openFormDialogFunIndex === index) {
+            setOpenFormDialogFunIndex(-1);
+        } else {
+            setOpenFormDialogFunIndex(index);
+        }
+
     };
     const managementPropItem = [<DeleteCourses />, <EditCoursesData />, null, <AddCourses />, <DeleteUnitSubject />, <EditUnitSubjectData />, null, <AddUnitSubject />, <DeleteLectures />, <EditLecturesData />, null, <AddLectures />]
 
