@@ -2,6 +2,8 @@ import React from 'react'
 import './Signin.css'
 import logonight from '../../../assets/images/logonight.png'
 import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif"
+import ResetPassword from "./ResetPassword"
+import ResetUsername from "./ResetUsername"
 
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -51,9 +53,10 @@ export default function SignIn() {
         setvaluesPasswordViewPart(!valuesPasswordViewPart)
     };
 
-    const signinformdata = () => {
-        setInputBoxValue({ password: "", username: "" })
+    const signinformdata = (event) => {
+        event.preventDefault();
         dispatch(userSignInFun(inputBoxValue))
+        setInputBoxValue({ password: "", username: "" })
     }
 
     // Key press input part
@@ -74,6 +77,19 @@ export default function SignIn() {
         gap: "50px"
     };
 
+    const [openFormDialogFunIndex, setOpenFormDialogFunIndex] = React.useState(-1);
+    const openFormDialogFun = (index) => {
+        if (openFormDialogFunIndex === index) {
+            setOpenFormDialogFunIndex(-1);
+        } else {
+            setOpenFormDialogFunIndex(index);
+        }
+
+    };
+    const managementPropItem = [<ResetPassword />, <ResetUsername />]
+
+
+
     return (
         <Typography
             variant="div"
@@ -83,10 +99,11 @@ export default function SignIn() {
             sx={{ width: { xs: "90%", sm: "50%" }, overflow: "hidden" }}
         >
             <Link to={"/"}><img src={logonight} alt="" className='welcome_signin_logo' /></Link>
-            <Box className='welcome_signin_formOutsideBox'>
+            <form className='welcome_signin_formOutsideBox' onSubmit={signinformdata}>
                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
                     <InputLabel htmlFor="welcome_signin_username"> Username </InputLabel>
                     <Input
+                        required
                         onChange={handleOnChangeInputBoxValue}
                         name="username"
                         value={inputBoxValue.username}
@@ -101,6 +118,7 @@ export default function SignIn() {
                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
                     <InputLabel htmlFor="welcome_signin_password">Password</InputLabel>
                     <Input
+                        required
                         name="password"
                         value={inputBoxValue.password}
                         id="welcome_signin_password"
@@ -122,10 +140,18 @@ export default function SignIn() {
                     />
                 </FormControl>
                 <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                    <Button onClick={signinformdata}>{signinLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signinErrorFlag ? "Enter veiled data" : "Login"} </Button>
+                    <Button type='submit'>{signinLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signinErrorFlag ? "Enter veiled data" : "Login"} </Button>
                 </Stack>
-            </Box>
-            <Box><p> No account? <Link to="/signup" className='welcome_signin_createOne'>Create one</Link> </p></Box>
+            </form>
+
+            <Box><p> No account? <Link to="/signup" className='welcome_signin_createOne'>Create New Account</Link> </p></Box>
+
+            <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
+                <Button onClick={() => openFormDialogFun(0)}>Reset Password</Button>
+                <Button onClick={() => openFormDialogFun(1)}>Reset Username</Button>
+            </Stack>
+
+            {openFormDialogFunIndex !== -1 ? managementPropItem[openFormDialogFunIndex] : ""}
         </Typography>
     );
 } 
