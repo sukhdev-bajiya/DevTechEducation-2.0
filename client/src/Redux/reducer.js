@@ -3,7 +3,7 @@ import { FREE_LOADING, SIGNIN_LOADING, SIGNIN_ERROR, SIGNIN_SUCCESS, SIGNUP_LOAD
 const initState = {
     freeLoad: false,
     signupLoadingFlag: false,
-    signupSuccessFlag: false,
+    signupSuccessData: null,
     signupErrorFlag: false,
     signinLoadingFlag: false,
     signinSuccessData: JSON.parse(sessionStorage.getItem("signinauthvailed")) || null,
@@ -28,7 +28,7 @@ export const reducer = (state = initState, { type, payload }) => {
         case SIGNUP_SUCCESS:
             return {
                 signupLoadingFlag: false,
-                signupSuccessFlag: true
+                signupSuccessFlag: payload
             };
         case SIGNIN_LOADING:
             return {

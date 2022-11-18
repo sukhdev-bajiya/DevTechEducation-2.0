@@ -33,14 +33,16 @@ export default function SignIn() {
     const navigate = useNavigate();
 
     React.useEffect(() => {
-        if (signinSuccessData !== null && signinSuccessData.role === "admin") {
-            navigate("/admin/dashboard")
-        } else if (signinSuccessData !== null && signinSuccessData.role === "teacher") {
-            navigate("/teacher/dashboard")
-        } else if (signinSuccessData !== null && signinSuccessData.role === "student") {
-            navigate("/student/dashboard")
+        if (signinSuccessData !== null && signinSuccessData !== undefined) {
+            if (signinSuccessData.user.role === "admin") {
+                navigate("/admin/dashboard")
+            } else if (signinSuccessData.user.role === "teacher") {
+                navigate("/teacher/dashboard")
+            } else if (signinSuccessData.user.role === "student") {
+                navigate("/student/dashboard")
+            }
         }
-    }, [signinSuccessData, navigate]);
+    }, [signinSuccessData]);
 
     const [inputBoxValue, setInputBoxValue] = React.useState({
         password: "",

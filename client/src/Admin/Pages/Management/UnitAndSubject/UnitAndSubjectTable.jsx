@@ -97,10 +97,10 @@ export default function EnhancedTable() {
                                         >
                                             <TableCell > {index + 1} </TableCell>
                                             <TableCell align="left">{row.name}</TableCell>
-                                            <TableCell align="center">{row.username}</TableCell>
-                                            <TableCell align="center">{row.coursePurchaseItem}</TableCell>
-                                            <TableCell align="center">{row.email}</TableCell>
-                                            <TableCell align="center">{row.number}</TableCell>
+                                            <TableCell align="center">{row.courseItem}</TableCell>
+                                            <TableCell align="center">{row.lecturesItem}</TableCell>
+                                            <TableCell align="center">{row.stars}</TableCell>
+                                            <TableCell align="center">{row.unitAndSubjectCreateDate}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -130,13 +130,13 @@ export default function EnhancedTable() {
     );
 }
 
-function createData(name, username, coursePurchaseItem, email, number) {
+function createData(name, courseItem, lecturesItem, stars, unitAndSubjectCreateDate) {
     return {
         name,
-        username,
-        coursePurchaseItem,
-        email,
-        number,
+        courseItem,
+        lecturesItem,
+        stars,
+        unitAndSubjectCreateDate,
     };
 }
 
@@ -206,7 +206,7 @@ const headCells = [
     {
         id: 'unitAndSubjectCreateDate',
         disablePadding: false,
-        label: 'Date of Unit and Subject',
+        label: 'Total Student',
     },
 ];
 

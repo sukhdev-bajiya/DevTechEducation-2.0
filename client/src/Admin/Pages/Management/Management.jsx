@@ -63,8 +63,7 @@ export default function Management() {
     return (
         <Box
             sx={{
-                bgcolor: 'background.paper',
-                position: 'relative'
+                bgcolor: 'background.paper'
             }}
         >
             <AppBar position="static" color="default">

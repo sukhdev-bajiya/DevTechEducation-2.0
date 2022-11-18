@@ -43,3 +43,9 @@ input[type=number]::-webkit-inner-spin-button {
 input[type=number] {
     appearance: textfield;
 }
+
+.MuiAlert-root {
+    position: fixed;
+    top: 50px;
+    right: 50px;
+}

@@ -23,7 +23,7 @@ export default function Navbar() {
     const dispatch = useDispatch();
 
     React.useEffect(() => {
-        if (signinSuccessData === null || signinSuccessData.role !== "admin") {
+        if (signinSuccessData === null || signinSuccessData.user.role !== "admin") {
             navigate("/signin")
         }
     },);

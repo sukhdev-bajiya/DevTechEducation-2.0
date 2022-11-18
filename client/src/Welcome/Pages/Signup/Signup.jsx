@@ -29,7 +29,7 @@ import { NativeSelect } from '@mui/material';
 export default function SignUp() {
     document.title = "Dev Tech Education || Student || SIGN UP"
 
-    const { signupLoadingFlag, signupErrorFlag } = useSelector((state) => state);
+    const { signupLoadingFlag, signupErrorFlag, signupSuccessData } = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const [inputBoxValue, setInputBoxValue] = React.useState({
@@ -44,6 +44,7 @@ export default function SignUp() {
         securityQuestion2: "Who is your favorite actor, musician, or artist?"
     });
     const [passwordConfirm, setPasswordConfirm] = React.useState("");
+    const [buttonDisable, setButtonDisable] = React.useState(true);
 
     // Password show and hide button part
     const [valuesPasswordViewPart, setvaluesPasswordViewPart] = React.useState(false);
@@ -76,6 +77,12 @@ export default function SignUp() {
     const handleOnChangeInputBoxValue = (e) => {
         const { name, value } = e.target;
         setInputBoxValue({ ...inputBoxValue, [name]: value });
+
+        if (inputBoxValue.name.length > 3 && inputBoxValue.password.length > 7 && inputBoxValue.number.length === 10 && inputBoxValue.dateofbirth !== "" && inputBoxValue.securityAnswer1.length > 2 && inputBoxValue.securityAnswer2.length > 2) {
+            setButtonDisable(false)
+        } else {
+            setButtonDisable(true)
+        }
     };
 
     const outerBoxForForm = {
@@ -266,13 +273,14 @@ export default function SignUp() {
                 </FormControl>
 
                 <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                    <Button type='submit'>{signupLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signupErrorFlag ? "Enter veiled data" : "Sign Up"} </Button>
+                    <Button type='submit' disabled={buttonDisable}>{signupLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signupErrorFlag ? "Enter veiled data" : "Sign Up"} </Button>
                 </Stack>
             </form>
             <Box><p>You Have Already An Account ? <Link to="/signin" className='welcome_signin_createOne'>Sign In</Link> </p></Box>
         </Typography>
     );
 }
+
 
 const forgotPasswordQuestionsList = [
     "What is your favorite movie?",

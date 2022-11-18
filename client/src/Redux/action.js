@@ -31,30 +31,32 @@ export const signinSuccess = (payload) => ({
 
 
 export const userSignUpFun = (data) => (dispatch) => {
-    console.log(data)
-    // dispatch(signupLoading());
-    // fetch(`${process.env.REACT_APP_API_LINK}/auth/signup`)
-    //     .then((res) => res.json())
-    //     .then((res) => { dispatch(signupSuccess(res)) })
-    //     .catch(() => dispatch(signupError()));
+    dispatch(signupLoading());
+    fetch(`${process.env.REACT_APP_API_LINK}/auth/signup`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then((res) => res.json())
+        .then((res) => { return userSignUpFunAlert(res), dispatch(signupSuccess(res)) })
+        .catch(() => dispatch(signupError()));
 };
 
+function userSignUpFunAlert(res) {
+    {
+        res.success ? alert(`User Registered Successfully! \n Your Username ${res.user.username}`)
+            : alert(`Opps some issue! \n ${res.message}`)
+    }
+}
 
 export const userSignInFun = (data) => (dispatch) => {
-    console.log(data)
-    let obj = { ...data };
-    if (data.username === "123") {
-        obj.role = "admin"
-    } else if (data.username === "231") {
-        obj.role = "teacher"
-    } else if (data.username === "321") {
-        obj.role = "student"
-    }
-    sessionStorage.setItem("signinauthvailed", JSON.stringify(obj))
-    dispatch(signinSuccess(obj))
-    // dispatch(signinLoading());
-    // fetch(`${process.env.REACT_APP_API_LINK}/auth/signin`)
-    //     .then((res) => res.json())
-    //     .then((res) => { dispatch(signinSuccess(res)) })
-    //     .catch(() => dispatch(signinError()));
+    dispatch(signinLoading());
+    fetch(`${process.env.REACT_APP_API_LINK}/auth/signin`, {
+        method: 'POST',
+        body: JSON.stringify(data),
+        headers: { 'Content-Type': 'application/json' }
+    }).then((res) => res.json())
+        .then((res) => { return dispatch(signinSuccess(res)), sessionStorage.setItem("signinauthvailed", JSON.stringify(res)) })
+        .catch(() => dispatch(signinError()));
 };
+
+

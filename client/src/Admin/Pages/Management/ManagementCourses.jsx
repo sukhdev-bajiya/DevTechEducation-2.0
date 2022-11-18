@@ -63,7 +63,7 @@ export default function ManagementCoursesTabPages() {
 
 
     return (
-        <Box sx={{ bgcolor: 'background.paper', position: 'relative', minHeight: "70vh" }} >
+        <Box sx={{ bgcolor: 'background.paper', minHeight: "70vh" }} >
             <AppBar position="static" color="default">
                 <Tabs
                     value={managementCoursesvalue}
