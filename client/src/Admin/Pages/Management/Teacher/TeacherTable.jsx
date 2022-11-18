@@ -98,7 +98,7 @@ export default function EnhancedTable() {
                                             <TableCell > {index + 1} </TableCell>
                                             <TableCell align="left">{row.name}</TableCell>
                                             <TableCell align="center">{row.username}</TableCell>
-                                            <TableCell align="center">{row.coursePurchaseItem}</TableCell>
+                                            <TableCell align="center">{row.joiningdate}</TableCell>
                                             <TableCell align="center">{row.email}</TableCell>
                                             <TableCell align="right">{row.number}</TableCell>
                                         </TableRow>
@@ -130,11 +130,11 @@ export default function EnhancedTable() {
     );
 }
 
-function createData(name, username, coursePurchaseItem, email, number) {
+function createData(name, username, joiningdate, email, number) {
     return {
         name,
         username,
-        coursePurchaseItem,
+        joiningdate,
         email,
         number,
     };
@@ -186,7 +186,7 @@ const headCells = [
     {
         id: 'name',
         disablePadding: true,
-        label: 'Student Name',
+        label: 'Teacher Name',
     },
     {
         id: 'username',
@@ -194,9 +194,9 @@ const headCells = [
         label: 'Username',
     },
     {
-        id: 'coursePurchaseItem',
+        id: 'joiningdate',
         disablePadding: false,
-        label: 'Course Item',
+        label: 'Joining Date',
     },
     {
         id: 'email',
@@ -269,7 +269,7 @@ function EnhancedTableToolbar() {
                 id="tableTitle"
                 component="div"
             >
-                Student List
+                Teacher List
             </Typography>
 
             <Tooltip title="Filter list">

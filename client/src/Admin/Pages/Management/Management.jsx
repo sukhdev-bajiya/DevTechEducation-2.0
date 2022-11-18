@@ -8,6 +8,7 @@ import DeleteStudent from './Student/DeleteStudent';
 import EditStudentData from './Student/EditStudentData';
 import AddStudent from './Student/AddStudent';
 import StudentTable from './Student/StudentTable';
+import TeacherTable from './Teacher/TeacherTable';
 
 import PropTypes from 'prop-types';
 import SwipeableViews from 'react-swipeable-views';
@@ -88,14 +89,15 @@ export default function Management() {
                 <ManagementTabPanel value={managementValue} index={0} dir={theme.direction}>
                     <ManagementCoursesTabPages />
                 </ManagementTabPanel>
-                <ManagementTabPanel value={managementValue} index={1} dir={theme.direction}>
-                    TEACHER Teacher
 
+                <ManagementTabPanel value={managementValue} index={1} dir={theme.direction}>
+                    <TeacherTable />
                 </ManagementTabPanel>
+
                 <ManagementTabPanel value={managementValue} index={2} dir={theme.direction}>
                     <StudentTable />
-
                 </ManagementTabPanel>
+
             </SwipeableViews>
             {managementFabs.map((fab, index) => (
                 fab === null ? "" : <Zoom
@@ -110,7 +112,7 @@ export default function Management() {
                 >
                     <SpeedDial
                         ariaLabel={fab.ariaLabel}
-                        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+                        sx={{ position: 'fixed', bottom: 16, left: 16 }}
                         icon={<SpeedDialIcon />}
                     >
                         {fab.actions.map((action) => (

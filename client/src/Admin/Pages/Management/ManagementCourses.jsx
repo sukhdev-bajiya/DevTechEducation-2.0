@@ -24,9 +24,11 @@ import DeleteCourses from './Courses/DeleteCourses'
 import AddUnitSubject from './UnitAndSubject/AddUnitSubject'
 import EditUnitSubjectData from './UnitAndSubject/EditUnitSubjectData'
 import DeleteUnitSubject from './UnitAndSubject/DeleteUnitSubject'
+import UnitAndSubjectTable from './UnitAndSubject/UnitAndSubjectTable'
 import AddLectures from './Lectures/AddLectures'
 import EditLecturesData from './Lectures/EditLecturesData'
 import DeleteLectures from './Lectures/DeleteLectures'
+
 
 export default function ManagementCoursesTabPages() {
 
@@ -85,7 +87,7 @@ export default function ManagementCoursesTabPages() {
                     COURSES  Courses
                 </ManagementCoursesTabPanel>
                 <ManagementCoursesTabPanel value={managementCoursesvalue} index={1} dir={theme.direction}>
-                    UNIT / SUBJECT  Unit / Subject
+                    <UnitAndSubjectTable />
                 </ManagementCoursesTabPanel>
                 <ManagementCoursesTabPanel value={managementCoursesvalue} index={2} dir={theme.direction}>
                     Lectures
@@ -104,7 +106,7 @@ export default function ManagementCoursesTabPages() {
                     <SpeedDial
 
                         ariaLabel={fab.ariaLabel}
-                        sx={{ position: 'fixed', bottom: 16, right: 16 }}
+                        sx={{ position: 'fixed', bottom: 16, left: 16 }}
                         icon={<SpeedDialIcon />}
                     >
                         {fab.actions.map((action, actionIndex) => (

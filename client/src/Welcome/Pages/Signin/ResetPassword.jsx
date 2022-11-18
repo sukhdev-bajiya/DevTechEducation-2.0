@@ -175,15 +175,15 @@ function ResetPassword() {
                             <React.Fragment>
                                 <Typography sx={{ mt: 2, mb: 1, py: 1 }} style={{ display: "flex", justifyContent: "center" }}>
                                     {activeStep === 0 ?
-                                        <form className='welcome_signup_formOutsideBox' onSubmit={inputUserDetailStep1}>
+                                        <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep1}>
                                             <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                <InputLabel htmlFor="welcome_signup_username"> Enter Your Username </InputLabel>
+                                                <InputLabel htmlFor="welcome_resetusername_username"> Enter Your Username </InputLabel>
                                                 <Input
                                                     required
                                                     onChange={handleOnChangeInputBoxUserDetail}
                                                     name="username"
                                                     value={inputUserDetail.username}
-                                                    id="welcome_signin_username"
+                                                    id="welcome_resetusername_username"
                                                     endAdornment={
                                                         <IconButton style={{ width: "40px" }}>
                                                             <AccountCircle />
@@ -192,14 +192,14 @@ function ResetPassword() {
                                                 />
                                             </FormControl>
                                             <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                <InputLabel htmlFor="welcome_signup_email"> Enter Your Email </InputLabel>
+                                                <InputLabel htmlFor="welcome_resetusername_email"> Enter Your Email </InputLabel>
                                                 <Input
                                                     required
                                                     type='email'
                                                     onChange={handleOnChangeInputBoxUserDetail}
                                                     name="email"
                                                     value={inputUserDetail.email}
-                                                    id="welcome_signin_email"
+                                                    id="welcome_resetusername_email"
                                                     endAdornment={
                                                         <IconButton style={{ width: "40px" }}>
                                                             <MailIcon />
@@ -208,14 +208,14 @@ function ResetPassword() {
                                                 />
                                             </FormControl>
                                             <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                <InputLabel htmlFor="welcome_signup_number"> Enter Your Number </InputLabel>
+                                                <InputLabel htmlFor="welcome_resetusername_number"> Enter Your Number </InputLabel>
                                                 <Input
                                                     required
                                                     type='number'
                                                     onChange={handleOnChangeInputBoxUserDetail}
                                                     name="number"
                                                     value={inputUserDetail.number}
-                                                    id="welcome_signin_number"
+                                                    id="welcome_resetusername_number"
 
                                                     endAdornment={
                                                         <IconButton style={{ width: "40px" }}>
@@ -231,26 +231,27 @@ function ResetPassword() {
                                             </Stack>
                                         </form>
                                         : activeStep === 1 ?
-                                            <form className='welcome_signup_formOutsideBox' onSubmit={inputUserDetailStep2}>
+                                            <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep2}>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel variant="standard" htmlFor="welcome_signup_securityQuestion1"> Security Question</InputLabel>
+                                                    <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion1"> Security Question</InputLabel>
                                                     <NativeSelect
-                                                        id="welcome_signup_securityQuestion1"
+                                                        id="welcome_resetusername_securityQuestion1"
                                                         value={inputBoxSecurityQuestion.securityQuestion1}
                                                         onChange={handleOnChangeInputBoxSecurityQuestion}
                                                         name='securityQuestion1'
+                                                        disabled
                                                     >
                                                         {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
                                                     </NativeSelect>
                                                 </FormControl>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_signup_securityAnswer1"> Security Question Answer</InputLabel>
+                                                    <InputLabel htmlFor="welcome_resetusername_securityAnswer1"> Security Question Answer</InputLabel>
                                                     <Input
                                                         required
                                                         onChange={handleOnChangeInputBoxSecurityQuestion}
                                                         name="securityAnswer1"
                                                         value={inputBoxSecurityQuestion.securityAnswer1}
-                                                        id="welcome_signup_securityAnswer1"
+                                                        id="welcome_resetusername_securityAnswer1"
                                                         endAdornment={
                                                             <IconButton style={{ width: "40px" }}>
                                                                 <QuestionMarkIcon />
@@ -259,24 +260,25 @@ function ResetPassword() {
                                                     />
                                                 </FormControl>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel variant="standard" htmlFor="welcome_signup_securityQuestion2"> Security Question</InputLabel>
+                                                    <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion2"> Security Question</InputLabel>
                                                     <NativeSelect
-                                                        id="welcome_signup_securityQuestion2"
+                                                        id="welcome_resetusername_securityQuestion2"
                                                         value={inputBoxSecurityQuestion.securityQuestion2}
                                                         onChange={handleOnChangeInputBoxSecurityQuestion}
                                                         name='securityQuestion2'
+                                                        disabled
                                                     >
                                                         {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
                                                     </NativeSelect>
                                                 </FormControl>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_signup_securityAnswer2"> Security Question Answer</InputLabel>
+                                                    <InputLabel htmlFor="welcome_resetusername_securityAnswer2"> Security Question Answer</InputLabel>
                                                     <Input
                                                         required
                                                         onChange={handleOnChangeInputBoxSecurityQuestion}
                                                         name="securityAnswer2"
                                                         value={inputBoxSecurityQuestion.securityAnswer2}
-                                                        id="welcome_signup_securityAnswer2"
+                                                        id="welcome_resetusername_securityAnswer2"
                                                         endAdornment={
                                                             <IconButton style={{ width: "40px" }}>
                                                                 <QuestionMarkIcon />
@@ -290,14 +292,14 @@ function ResetPassword() {
                                                 </Stack>
                                             </form>
                                             :
-                                            <form className='welcome_signup_formOutsideBox' onSubmit={inputUserDetailStep3}>
+                                            <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep3}>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_signup_password">Password</InputLabel>
+                                                    <InputLabel htmlFor="welcome_resetusername_password">Password</InputLabel>
                                                     <Input
                                                         required
                                                         name="password"
                                                         value={inputBoxNewPassword.password}
-                                                        id="welcome_signup_password"
+                                                        id="welcome_resetusername_password"
                                                         type={valuesPasswordViewPart ? "text" : "password"}
                                                         onChange={handleOnChangeInputBoxNewPassword}
                                                         endAdornment={
@@ -316,12 +318,12 @@ function ResetPassword() {
                                                     />
                                                 </FormControl>
                                                 <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_signup_confirmPassword">Confirm Password</InputLabel>
+                                                    <InputLabel htmlFor="welcome_resetusername_confirmPassword">Confirm Password</InputLabel>
                                                     <Input
                                                         required
                                                         name="confirmPassword"
                                                         value={inputBoxNewPassword.confirmPassword}
-                                                        id="welcome_signup_confirmPassword"
+                                                        id="welcome_resetusername_confirmPassword"
                                                         type={valuesConfirmPasswordViewPart ? "text" : "password"}
                                                         onChange={handleOnChangeInputBoxNewPassword}
                                                         endAdornment={
@@ -342,7 +344,7 @@ function ResetPassword() {
 
                                                 </FormControl>
                                                 <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                                                    <Button type='submit'>Next Step</Button>
+                                                    <Button type='submit'>Update Password</Button>
                                                     <Button onClick={handleReset}>Close</Button>
                                                 </Stack>
                                             </form>
@@ -352,7 +354,7 @@ function ResetPassword() {
                             </React.Fragment>
                         )}
                     </Box>
-                </Box >
+                </Box>
             </DialogContent>
         </Dialog>
     )

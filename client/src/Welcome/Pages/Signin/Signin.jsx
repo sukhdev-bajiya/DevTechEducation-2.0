@@ -40,7 +40,7 @@ export default function SignIn() {
         } else if (signinSuccessData !== null && signinSuccessData.role === "student") {
             navigate("/student/dashboard")
         }
-    }, [signinSuccessData]);
+    }, [signinSuccessData, navigate]);
 
     const [inputBoxValue, setInputBoxValue] = React.useState({
         password: "",

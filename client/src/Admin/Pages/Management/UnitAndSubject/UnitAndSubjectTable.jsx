@@ -100,7 +100,7 @@ export default function EnhancedTable() {
                                             <TableCell align="center">{row.username}</TableCell>
                                             <TableCell align="center">{row.coursePurchaseItem}</TableCell>
                                             <TableCell align="center">{row.email}</TableCell>
-                                            <TableCell align="right">{row.number}</TableCell>
+                                            <TableCell align="center">{row.number}</TableCell>
                                         </TableRow>
                                     );
                                 })}
@@ -186,27 +186,27 @@ const headCells = [
     {
         id: 'name',
         disablePadding: true,
-        label: 'Student Name',
+        label: 'Unit / Subject Name',
     },
     {
-        id: 'username',
+        id: 'courseItem',
         disablePadding: false,
-        label: 'Username',
+        label: 'Course',
     },
     {
-        id: 'coursePurchaseItem',
+        id: 'lecturesItem',
         disablePadding: false,
-        label: 'Course Item',
+        label: 'Lectures Item',
     },
     {
-        id: 'email',
+        id: 'stars',
         disablePadding: false,
-        label: 'Email',
+        label: 'Rating',
     },
     {
-        id: 'number',
+        id: 'unitAndSubjectCreateDate',
         disablePadding: false,
-        label: 'Number',
+        label: 'Date of Unit and Subject',
     },
 ];
 
@@ -269,7 +269,7 @@ function EnhancedTableToolbar() {
                 id="tableTitle"
                 component="div"
             >
-                Student List
+                UnitAndSubject List
             </Typography>
 
             <Tooltip title="Filter list">
