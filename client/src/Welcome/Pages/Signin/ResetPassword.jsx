@@ -163,8 +163,8 @@ function ResetPassword() {
                     <Box>
                         {allStepsCompleted() ? (
                             <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
-                                    Your password successfully updated!
+                                <Typography component="div" sx={{ mt: 2, mb: 1 }}>
+                                    Your password successfully updated !
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
                                     <Box sx={{ flex: '1 1 auto' }} />
@@ -173,7 +173,7 @@ function ResetPassword() {
                             </React.Fragment>
                         ) : (
                             <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1, py: 1 }} style={{ display: "flex", justifyContent: "center" }}>
+                                <Typography component="div" sx={{ mt: 2, mb: 1, py: 1 }} style={{ display: "flex", justifyContent: "center" }}>
                                     {activeStep === 0 ?
                                         <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep1}>
                                             <FormControl sx={{ m: 1, width: "100%" }} variant="standard">

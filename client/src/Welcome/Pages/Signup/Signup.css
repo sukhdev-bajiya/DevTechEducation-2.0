@@ -49,3 +49,60 @@ input[type=number] {
     top: 50px;
     right: 50px;
 }
+
+.alertBoxSuccess {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding: 15px;
+    padding-top: 45px;
+    background-color: rgb(201, 250, 201);
+    min-width: 251px;
+    max-width: 90%;
+    min-height: 200px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 5px;
+}
+
+.alertBoxSuccess_successImg {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    border-radius: 50px;
+    background: rgb(255, 255, 255);
+    display: flex;
+    padding: 10px;
+    top: -35px;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.alertBoxSuccess_successImg img {
+    width: 100%;
+}
+
+.alertBoxSuccess_message {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    padding: 15px 0;
+}
+
+.alertBoxSuccess_button button {
+    padding: 10px 25px;
+    background-color: white;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    color: black;
+    transition: all 0.3s ease-in-out;
+}
+
+.alertBoxSuccess_button button:hover {
+    background-color: black;
+    color: white;
+}

@@ -17,19 +17,25 @@ import Step from '@mui/material/Step';
 import StepButton from '@mui/material/StepButton';
 import Typography from '@mui/material/Typography';
 
-import { NativeSelect } from '@mui/material';
+import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif"
+import { NativeSelect, Tooltip } from '@mui/material';
 import { Stack } from '@mui/system';
+import { resetUsernameFun } from '../../../Redux/action';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 function ResetUsername() {
-    const steps = ['User Detail', 'Security Question', 'Reset Username'];
     const [openFromDialogResetUsername, setOpenFromDialogResetUsername] = React.useState(true);
+
+    const { resetUsernameLoadingFlag, resetUsernameErrorFlag, resetUsernameSuccessData } = useSelector((state) => state);
+    const dispatch = useDispatch();
 
     const [inputUserDetail, setInputBoxUserDetail] = React.useState({
         email: "",
         number: ""
     });
+    const [flagOneTimeValid, setFlagOneTimeValid] = React.useState(true);
 
     // Key press input part
     const handleOnChangeInputBoxUserDetail = (e) => {
@@ -39,18 +45,17 @@ function ResetUsername() {
 
     const inputUserDetailStep1 = (event) => {
         event.preventDefault();
+
+        dispatch(resetUsernameFun(inputUserDetail))
         setInputBoxUserDetail({
             email: "",
             number: "",
         })
-        handleComplete()
     }
 
     const [inputBoxSecurityQuestion, setInputBoxSecurityQuestion] = React.useState({
         securityAnswer1: "",
-        securityAnswer2: "",
-        securityQuestion1: "What is your favorite movie?",
-        securityQuestion2: "Who is your favorite actor, musician, or artist?"
+        securityAnswer2: ""
     });
 
     // Key press input part
@@ -61,33 +66,22 @@ function ResetUsername() {
 
     const inputUserDetailStep2 = (event) => {
         event.preventDefault();
+
+        if (inputBoxSecurityQuestion.securityAnswer1 === resetUsernameSuccessData.user.securityAnswer1 && inputBoxSecurityQuestion.securityAnswer2 === resetUsernameSuccessData.user.securityAnswer2) {
+            handleComplete()
+        } else {
+            alert("Enter Right Answers")
+        }
+
         setInputBoxSecurityQuestion({
             securityAnswer1: "",
-            securityAnswer2: "",
-            securityQuestion1: "What is your favorite movie?",
-            securityQuestion2: "Who is your favorite actor, musician, or artist?"
+            securityAnswer2: ""
         })
-        handleComplete()
+
     }
 
-    const [inputBoxNewUsername, setInputBoxNewUsername] = React.useState({
-        username: ""
-    });
 
-    // Key press input part
-    const handleOnChangeInputBoxNewUsername = (e) => {
-        const { name, value } = e.target;
-        setInputBoxNewUsername({ ...inputBoxNewUsername, [name]: value });
-    };
-
-    const inputUserDetailStep3 = (event) => {
-        event.preventDefault();
-        setInputBoxNewUsername({
-            username: ""
-        })
-        handleComplete()
-    }
-
+    const steps = ['User Detail', 'Security Question', 'Reset Username'];
 
     const [activeStep, setActiveStep] = React.useState(0);
     const [completed, setCompleted] = React.useState({});
@@ -104,13 +98,9 @@ function ResetUsername() {
         return activeStep === totalSteps() - 1;
     };
 
-    const allStepsCompleted = () => {
-        return completedSteps() === totalSteps();
-    };
-
     const handleNext = () => {
         const newActiveStep =
-            isLastStep() && !allStepsCompleted()
+            isLastStep() && completedSteps() !== totalSteps()
                 ? steps.findIndex((step, i) => !(i in completed))
                 : activeStep + 1;
         setActiveStep(newActiveStep);
@@ -128,6 +118,11 @@ function ResetUsername() {
         setOpenFromDialogResetUsername(false)
     };
 
+    if (resetUsernameSuccessData !== null && resetUsernameSuccessData !== undefined && flagOneTimeValid && resetUsernameSuccessData.success) {
+        handleComplete()
+        setFlagOneTimeValid(false)
+    }
+
     return (
         <Dialog open={openFromDialogResetUsername} >
             <DialogTitle style={{ textAlign: "center", fontSize: "28px", fontWeight: "600" }}> Reset Username </DialogTitle>
@@ -144,148 +139,139 @@ function ResetUsername() {
                         ))}
                     </Stepper>
                     <Box>
-                        {allStepsCompleted() ? (
-                            <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1 }}>
-                                    Your username successfully updated!
-                                </Typography>
-                                <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
-                                    <Box sx={{ flex: '1 1 auto' }} />
-                                    <Button onClick={handleReset}>Close</Button>
-                                </Box>
-                            </React.Fragment>
-                        ) : (
-                            <React.Fragment>
-                                <Typography sx={{ mt: 2, mb: 1, py: 1 }} style={{ display: "flex", justifyContent: "center" }}>
-                                    {activeStep === 0 ?
-                                        <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep1}>
-                                            <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                <InputLabel htmlFor="welcome_resetusername_email"> Enter Your Email </InputLabel>
-                                                <Input
-                                                    required
-                                                    type='email'
-                                                    onChange={handleOnChangeInputBoxUserDetail}
-                                                    name="email"
-                                                    value={inputUserDetail.email}
-                                                    id="welcome_resetusername_email"
-                                                    endAdornment={
-                                                        <IconButton style={{ width: "40px" }}>
-                                                            <MailIcon />
-                                                        </IconButton>
-                                                    }
-                                                />
-                                            </FormControl>
-                                            <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                <InputLabel htmlFor="welcome_resetusername_number"> Enter Your Number </InputLabel>
-                                                <Input
-                                                    required
-                                                    type='number'
-                                                    onChange={handleOnChangeInputBoxUserDetail}
-                                                    name="number"
-                                                    value={inputUserDetail.number}
-                                                    id="welcome_resetusername_number"
+                        <Typography component="div" sx={{ mt: 2, mb: 1, py: 1 }} style={{ display: "flex", justifyContent: "center" }}>
+                            {activeStep === 0 ?
+                                <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep1}>
+                                    <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                        <InputLabel htmlFor="welcome_resetusername_email"> Enter Your Email </InputLabel>
+                                        <Input
+                                            required
+                                            type='email'
+                                            onChange={handleOnChangeInputBoxUserDetail}
+                                            name="email"
+                                            value={inputUserDetail.email}
+                                            id="welcome_resetusername_email"
+                                            endAdornment={
+                                                <Tooltip title="Enter your email address">
+                                                    <IconButton style={{ width: "40px" }}>
+                                                        <MailIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            }
+                                        />
+                                    </FormControl>
+                                    <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                        <InputLabel htmlFor="welcome_resetusername_number"> Enter Your Number </InputLabel>
+                                        <Input
+                                            required
+                                            type='number'
+                                            onChange={handleOnChangeInputBoxUserDetail}
+                                            name="number"
+                                            value={inputUserDetail.number}
+                                            id="welcome_resetusername_number"
 
-                                                    endAdornment={
+                                            endAdornment={
+                                                <Tooltip title="Enter your phone number">
+                                                    <IconButton style={{ width: "40px" }}>
+                                                        <PhoneIcon />
+                                                    </IconButton>
+                                                </Tooltip>
+                                            }
+                                        />
+                                        {inputUserDetail.number === "" || inputUserDetail.number.length === 10 ? "" : <p style={{ color: "red", textAlign: 'start' }}>Enter 10 digit number</p>}
+                                    </FormControl>
+                                    <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
+                                        <Button type='submit'>{resetUsernameLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : resetUsernameErrorFlag ? "Enter veiled data" : "Next Step"}</Button>
+                                        <Button onClick={handleReset}>Close</Button>
+                                    </Stack>
+                                </form>
+                                : activeStep === 1 ?
+                                    <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep2}>
+                                        <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                            <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion1"> Security Question</InputLabel>
+                                            <NativeSelect
+                                                id="welcome_resetusername_securityQuestion1"
+                                                value={resetUsernameSuccessData.user.securityQuestion1}
+                                                onChange={handleOnChangeInputBoxSecurityQuestion}
+                                                name='securityQuestion1'
+                                                disabled
+                                            >
+                                                {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
+                                            </NativeSelect>
+                                        </FormControl>
+                                        <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                            <InputLabel htmlFor="welcome_resetusername_securityAnswer1"> Security Question Answer</InputLabel>
+                                            <Input
+                                                required
+                                                onChange={handleOnChangeInputBoxSecurityQuestion}
+                                                name="securityAnswer1"
+                                                value={inputBoxSecurityQuestion.securityAnswer1}
+                                                id="welcome_resetusername_securityAnswer1"
+                                                endAdornment={
+                                                    <Tooltip title="Enter Answer">
                                                         <IconButton style={{ width: "40px" }}>
-                                                            <PhoneIcon />
+                                                            <QuestionMarkIcon />
                                                         </IconButton>
-                                                    }
-                                                />
-                                                {inputUserDetail.number === "" || inputUserDetail.number.length === 10 ? "" : <p style={{ color: "red", textAlign: 'start' }}>Enter 10 digit number</p>}
-                                            </FormControl>
-                                            <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                                                <Button type='submit'>Next Step</Button>
-                                                <Button onClick={handleReset}>Close</Button>
-                                            </Stack>
-                                        </form>
-                                        : activeStep === 1 ?
-                                            <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep2}>
-                                                <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion1"> Security Question</InputLabel>
-                                                    <NativeSelect
-                                                        id="welcome_resetusername_securityQuestion1"
-                                                        value={inputBoxSecurityQuestion.securityQuestion1}
-                                                        onChange={handleOnChangeInputBoxSecurityQuestion}
-                                                        name='securityQuestion1'
-                                                        disabled
-                                                    >
-                                                        {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
-                                                    </NativeSelect>
-                                                </FormControl>
-                                                <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_resetusername_securityAnswer1"> Security Question Answer</InputLabel>
-                                                    <Input
-                                                        required
-                                                        onChange={handleOnChangeInputBoxSecurityQuestion}
-                                                        name="securityAnswer1"
-                                                        value={inputBoxSecurityQuestion.securityAnswer1}
-                                                        id="welcome_resetusername_securityAnswer1"
-                                                        endAdornment={
-                                                            <IconButton style={{ width: "40px" }}>
-                                                                <QuestionMarkIcon />
-                                                            </IconButton>
-                                                        }
-                                                    />
-                                                </FormControl>
-                                                <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion2"> Security Question</InputLabel>
-                                                    <NativeSelect
-                                                        id="welcome_resetusername_securityQuestion2"
-                                                        value={inputBoxSecurityQuestion.securityQuestion2}
-                                                        onChange={handleOnChangeInputBoxSecurityQuestion}
-                                                        name='securityQuestion2'
-                                                        disabled
-                                                    >
-                                                        {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
-                                                    </NativeSelect>
-                                                </FormControl>
-                                                <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_resetusername_securityAnswer2"> Security Question Answer</InputLabel>
-                                                    <Input
-                                                        required
-                                                        onChange={handleOnChangeInputBoxSecurityQuestion}
-                                                        name="securityAnswer2"
-                                                        value={inputBoxSecurityQuestion.securityAnswer2}
-                                                        id="welcome_resetusername_securityAnswer2"
-                                                        endAdornment={
-                                                            <IconButton style={{ width: "40px" }}>
-                                                                <QuestionMarkIcon />
-                                                            </IconButton>
-                                                        }
-                                                    />
-                                                </FormControl>
-                                                <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                                                    <Button type='submit'>Next Step</Button>
-                                                    <Button onClick={handleReset}>Close</Button>
-                                                </Stack>
-                                            </form>
-                                            :
-                                            <form className='welcome_resetusername_formOutsideBox' onSubmit={inputUserDetailStep3}>
-                                                <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-                                                    <InputLabel htmlFor="welcome_resetusername_username"> Enter New Username </InputLabel>
-                                                    <Input
-                                                        required
-                                                        onChange={handleOnChangeInputBoxNewUsername}
-                                                        name="username"
-                                                        value={inputBoxNewUsername.username}
-                                                        id="welcome_resetusername_username"
-                                                        endAdornment={
-                                                            <IconButton style={{ width: "40px" }}>
-                                                                <AccountCircle />
-                                                            </IconButton>
-                                                        }
-                                                    />
-                                                </FormControl>
-                                                <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                                                    <Button type='submit'>Update Username</Button>
-                                                    <Button onClick={handleReset}>Close</Button>
-                                                </Stack>
-                                            </form>
-                                    }
-                                </Typography>
-
-                            </React.Fragment>
-                        )}
+                                                    </Tooltip>
+                                                }
+                                            />
+                                        </FormControl>
+                                        <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                            <InputLabel variant="standard" htmlFor="welcome_resetusername_securityQuestion2"> Security Question</InputLabel>
+                                            <NativeSelect
+                                                id="welcome_resetusername_securityQuestion2"
+                                                value={resetUsernameSuccessData.user.securityQuestion2}
+                                                onChange={handleOnChangeInputBoxSecurityQuestion}
+                                                name='securityQuestion2'
+                                                disabled
+                                            >
+                                                {forgotPasswordQuestionsList.map((ques, index) => <option key={index} value={ques}>{ques}</option>)}
+                                            </NativeSelect>
+                                        </FormControl>
+                                        <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                            <InputLabel htmlFor="welcome_resetusername_securityAnswer2"> Security Question Answer</InputLabel>
+                                            <Input
+                                                required
+                                                onChange={handleOnChangeInputBoxSecurityQuestion}
+                                                name="securityAnswer2"
+                                                value={inputBoxSecurityQuestion.securityAnswer2}
+                                                id="welcome_resetusername_securityAnswer2"
+                                                endAdornment={
+                                                    <Tooltip title="Enter Answer">
+                                                        <IconButton style={{ width: "40px" }}>
+                                                            <QuestionMarkIcon />
+                                                        </IconButton>
+                                                    </Tooltip>
+                                                }
+                                            />
+                                        </FormControl>
+                                        <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
+                                            <Button type='submit'>Next Step</Button>
+                                            <Button onClick={handleReset}>Close</Button>
+                                        </Stack>
+                                    </form>
+                                    :
+                                    <React.Fragment>
+                                        <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
+                                            <InputLabel htmlFor="welcome_resetusername_username"> Username </InputLabel>
+                                            <Input
+                                                disabled
+                                                name="username"
+                                                value={resetUsernameSuccessData.user.username}
+                                                id="welcome_resetusername_username"
+                                                endAdornment={
+                                                    <IconButton style={{ width: "40px" }}>
+                                                        <AccountCircle />
+                                                    </IconButton>
+                                                }
+                                            />
+                                        </FormControl>
+                                        <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
+                                            <Button onClick={handleReset}>Enjoy Learning</Button>
+                                        </Stack>
+                                    </React.Fragment>
+                            }
+                        </Typography>
                     </Box>
                 </Box>
             </DialogContent>

@@ -1,13 +1,23 @@
-import { FREE_LOADING, SIGNIN_LOADING, SIGNIN_ERROR, SIGNIN_SUCCESS, SIGNUP_LOADING, SIGNUP_ERROR, SIGNUP_SUCCESS } from "./actionType";
+import { FREE_LOADING, SIGNIN_LOADING, SIGNIN_ERROR, SIGNIN_SUCCESS, SIGNUP_LOADING, SIGNUP_ERROR, SIGNUP_SUCCESS, RESETPASSWORD_LOADING, RESETPASSWORD_ERROR, RESETPASSWORD_SUCCESS, RESETUSERNAME_LOADING, RESETUSERNAME_ERROR, RESETUSERNAME_SUCCESS } from "./actionType";
 
 const initState = {
     freeLoad: false,
+
     signupLoadingFlag: false,
     signupSuccessData: null,
     signupErrorFlag: false,
+
     signinLoadingFlag: false,
     signinSuccessData: JSON.parse(sessionStorage.getItem("signinauthvailed")) || null,
     signinErrorFlag: false,
+
+    resetUsernameLoadingFlag: false,
+    resetUsernameSuccessData: null,
+    resetUsernameErrorFlag: false,
+
+    resetPasswordLoadingFlag: false,
+    resetPasswordSuccessData: null,
+    resetPasswordErrorFlag: false,
 };
 
 export const reducer = (state = initState, { type, payload }) => {
@@ -16,6 +26,7 @@ export const reducer = (state = initState, { type, payload }) => {
             return {
                 freeLoad: payload
             };
+
         case SIGNUP_LOADING:
             return {
                 signupLoadingFlag: true
@@ -28,8 +39,9 @@ export const reducer = (state = initState, { type, payload }) => {
         case SIGNUP_SUCCESS:
             return {
                 signupLoadingFlag: false,
-                signupSuccessFlag: payload
+                signupSuccessData: payload
             };
+
         case SIGNIN_LOADING:
             return {
                 signinLoadingFlag: true
@@ -45,6 +57,35 @@ export const reducer = (state = initState, { type, payload }) => {
                 signinSuccessData: payload
             };
 
+        case RESETUSERNAME_LOADING:
+            return {
+                resetUsernameLoadingFlag: true
+            };
+        case RESETUSERNAME_ERROR:
+            return {
+                resetUsernameLoadingFlag: false,
+                resetUsernameErrorFlag: true
+            };
+        case RESETUSERNAME_SUCCESS:
+            return {
+                resetUsernameLoadingFlag: false,
+                resetUsernameSuccessData: payload
+            };
+
+        case RESETPASSWORD_LOADING:
+            return {
+                resetPasswordLoadingFlag: true
+            };
+        case RESETPASSWORD_ERROR:
+            return {
+                resetPasswordLoadingFlag: false,
+                resetPasswordErrorFlag: true
+            };
+        case RESETPASSWORD_SUCCESS:
+            return {
+                resetPasswordLoadingFlag: false,
+                resetPasswordSuccessData: payload
+            };
         default:
             return state;
     }

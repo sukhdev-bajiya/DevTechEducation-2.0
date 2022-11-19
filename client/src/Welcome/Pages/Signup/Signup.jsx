@@ -1,6 +1,7 @@
 import React from 'react'
 import './Signup.css'
 import logonight from '../../../assets/images/logonight.png'
+import successImg from '../../../assets/images/success.png'
 import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif"
 
 import Box from "@mui/material/Box";
@@ -17,11 +18,11 @@ import QuestionMarkIcon from '@mui/icons-material/QuestionMark';
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useDispatch, useSelector } from 'react-redux'
 import { userSignUpFun } from '../../../Redux/action'
-import { NativeSelect } from '@mui/material';
+import { NativeSelect, Tooltip } from '@mui/material';
 
 
 // Sign Up Page Return Part
@@ -31,6 +32,7 @@ export default function SignUp() {
 
     const { signupLoadingFlag, signupErrorFlag, signupSuccessData } = useSelector((state) => state);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const [inputBoxValue, setInputBoxValue] = React.useState({
         name: "",
@@ -116,9 +118,11 @@ export default function SignUp() {
                         value={inputBoxValue.name}
                         id="welcome_signin_name"
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <AccountCircle />
-                            </IconButton>
+                            <Tooltip title="Enter your full name and name length is more then 3">
+                                <IconButton style={{ width: "40px" }}>
+                                    <AccountCircle />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -132,9 +136,11 @@ export default function SignUp() {
                         value={inputBoxValue.email}
                         id="welcome_signin_email"
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <MailIcon />
-                            </IconButton>
+                            <Tooltip title="Enter your email address">
+                                <IconButton style={{ width: "40px" }}>
+                                    <MailIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -149,9 +155,11 @@ export default function SignUp() {
                         id="welcome_signin_number"
 
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <PhoneIcon />
-                            </IconButton>
+                            <Tooltip title="Enter your phone number">
+                                <IconButton style={{ width: "40px" }}>
+                                    <PhoneIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                     {inputBoxValue.number === "" || inputBoxValue.number.length === 10 ? "" : <p style={{ color: "red", textAlign: 'start' }}>Enter 10 digit number</p>}
@@ -177,17 +185,19 @@ export default function SignUp() {
                         type={valuesPasswordViewPart ? "text" : "password"}
                         onChange={handleOnChangeInputBoxValue}
                         endAdornment={
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                style={{ width: "40px" }}
-                            >
-                                {valuesPasswordViewPart ? (
-                                    <VisibilityOff />
-                                ) : (
-                                    <Visibility />
-                                )}
-                            </IconButton>
+                            <Tooltip title="Enter 8 digit password">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    style={{ width: "40px" }}
+                                >
+                                    {valuesPasswordViewPart ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -201,17 +211,19 @@ export default function SignUp() {
                         type={valuesPasswordConfirmViewPart ? "text" : "password"}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
                         endAdornment={
-                            <IconButton
-                                aria-label="toggle confirm password visibility"
-                                onClick={handleClickShowPasswordConfirm}
-                                style={{ width: "40px" }}
-                            >
-                                {valuesPasswordConfirmViewPart ? (
-                                    <VisibilityOff />
-                                ) : (
-                                    <Visibility />
-                                )}
-                            </IconButton>
+                            <Tooltip title="Enter same as password">
+                                <IconButton
+                                    aria-label="toggle confirm password visibility"
+                                    onClick={handleClickShowPasswordConfirm}
+                                    style={{ width: "40px" }}
+                                >
+                                    {valuesPasswordConfirmViewPart ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                     {passwordConfirm === "" || inputBoxValue.password === passwordConfirm ? "" : <p style={{ color: "red", textAlign: 'start' }}>Enter the same password</p>}
@@ -239,9 +251,11 @@ export default function SignUp() {
                         value={inputBoxValue.securityAnswer1}
                         id="welcome_signup_securityAnswer1"
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <QuestionMarkIcon />
-                            </IconButton>
+                            <Tooltip title="Answer length is more then 3">
+                                <IconButton style={{ width: "40px" }}>
+                                    <QuestionMarkIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -265,9 +279,11 @@ export default function SignUp() {
                         value={inputBoxValue.securityAnswer2}
                         id="welcome_signup_securityAnswer21"
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <QuestionMarkIcon />
-                            </IconButton>
+                            <Tooltip title="Answer length is more then 3">
+                                <IconButton style={{ width: "40px" }}>
+                                    <QuestionMarkIcon />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -276,11 +292,26 @@ export default function SignUp() {
                     <Button type='submit' disabled={buttonDisable}>{signupLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signupErrorFlag ? "Enter veiled data" : "Sign Up"} </Button>
                 </Stack>
             </form>
+
             <Box><p>You Have Already An Account ? <Link to="/signin" className='welcome_signin_createOne'>Sign In</Link> </p></Box>
+
+            {signupSuccessData === null || signupSuccessData === undefined ? "" :
+                signupSuccessData.success ? <Box className='alertBoxSuccess'>
+                    <Box className='alertBoxSuccess_successImg'>
+                        <img src={successImg} alt="" />
+                    </Box>
+                    <Box className='alertBoxSuccess_message'>
+                        <h2>User Registered Successfully!</h2>
+                        <p>Your Username Is</p>
+                        <h1>{signupSuccessData.user.username}</h1>
+                    </Box>
+                    <Box className='alertBoxSuccess_button'>
+                        <Button onClick={() => navigate("/signin")}>Done</Button>
+                    </Box>
+                </Box> : alert(signupSuccessData.message)}
         </Typography>
     );
 }
-
 
 const forgotPasswordQuestionsList = [
     "What is your favorite movie?",

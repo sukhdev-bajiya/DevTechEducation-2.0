@@ -21,6 +21,7 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux'
 import { userSignInFun } from '../../../Redux/action'
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from '@mui/material';
 
 
 // Sign In Page Return Part
@@ -48,6 +49,7 @@ export default function SignIn() {
         password: "",
         username: "",
     });
+    const [buttonDisable, setButtonDisable] = React.useState(true);
 
     // Password show and hide button part
     const [valuesPasswordViewPart, setvaluesPasswordViewPart] = React.useState(false);
@@ -65,6 +67,12 @@ export default function SignIn() {
     const handleOnChangeInputBoxValue = (e) => {
         const { name, value } = e.target;
         setInputBoxValue({ ...inputBoxValue, [name]: value });
+
+        if (inputBoxValue.password >= 7 && inputBoxValue.username >= 12) {
+            setButtonDisable(false)
+        } else {
+            setButtonDisable(true)
+        }
     };
 
     const outerBoxForForm = {
@@ -106,14 +114,17 @@ export default function SignIn() {
                     <InputLabel htmlFor="welcome_signin_username"> Username </InputLabel>
                     <Input
                         required
+                        type='number'
                         onChange={handleOnChangeInputBoxValue}
                         name="username"
                         value={inputBoxValue.username}
                         id="welcome_signin_username"
                         endAdornment={
-                            <IconButton style={{ width: "40px" }}>
-                                <AccountCircle />
-                            </IconButton>
+                            <Tooltip title="Enter your 13 digit username">
+                                <IconButton style={{ width: "40px" }}>
+                                    <AccountCircle />
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
@@ -127,22 +138,24 @@ export default function SignIn() {
                         type={valuesPasswordViewPart ? "text" : "password"}
                         onChange={handleOnChangeInputBoxValue}
                         endAdornment={
-                            <IconButton
-                                aria-label="toggle password visibility"
-                                onClick={handleClickShowPassword}
-                                style={{ width: "40px" }}
-                            >
-                                {valuesPasswordViewPart ? (
-                                    <VisibilityOff />
-                                ) : (
-                                    <Visibility />
-                                )}
-                            </IconButton>
+                            <Tooltip title="Enter your password">
+                                <IconButton
+                                    aria-label="toggle password visibility"
+                                    onClick={handleClickShowPassword}
+                                    style={{ width: "40px" }}
+                                >
+                                    {valuesPasswordViewPart ? (
+                                        <VisibilityOff />
+                                    ) : (
+                                        <Visibility />
+                                    )}
+                                </IconButton>
+                            </Tooltip>
                         }
                     />
                 </FormControl>
                 <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-                    <Button type='submit'>{signinLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signinErrorFlag ? "Enter veiled data" : "Login"} </Button>
+                    <Button type='submit' disabled={buttonDisable}>{signinLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signinErrorFlag ? "Enter veiled data" : "Login"} </Button>
                 </Stack>
             </form>
 
