@@ -64,7 +64,7 @@ AuthRouter.post("/resetpassword", async (req, res) => {
     if (devtechUser.length > 0) {
       return res.status(201).send({ success: true, error: false, message: "Go to Security Questions", user: devtechUser[0] });
     } else {
-      return res.status(201).send("Wrong Credentials");
+      return res.status(201).send({ success: false, error: true, message: "Wrong Credentials", user: {} });
     }
   } catch (error) {
     return res.status(500).send(error.message);
@@ -82,12 +82,13 @@ AuthRouter.post("/resetpassword/newpassword", async (req, res) => {
 
 AuthRouter.post("/resetusername", async (req, res) => {
   try {
+    console.log("I am Calling", req.body)
     const { email, number } = req.body;
     const devtechUser = await devtechUserModel.find({ email, number }, { securityQuestion1: 1, securityAnswer1: 1, securityQuestion2: 1, securityAnswer2: 1, _id: 1, username: 1 });
     if (devtechUser.length > 0) {
       return res.status(201).send({ success: true, error: false, message: "Go to Security Questions", user: devtechUser[0] });
     } else {
-      return res.status(201).send("Wrong Credentials");
+      return res.status(201).send({ success: false, error: true, message: "Wrong Credentials", user: {} });
     }
   } catch (error) {
     return res.status(500).send(error.message);

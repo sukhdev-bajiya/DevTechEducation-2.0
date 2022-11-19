@@ -80,6 +80,7 @@ export const userSignInFun = (data) => (dispatch) => {
 
 
 export const resetUsernameFun = (data) => (dispatch) => {
+    console.log("I am Calling")
     dispatch(resetUsernameLoading());
     fetch(`${process.env.REACT_APP_API_LINK}/auth/resetusername`, {
         method: 'POST',

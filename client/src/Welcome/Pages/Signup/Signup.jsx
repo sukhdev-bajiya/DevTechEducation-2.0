@@ -292,7 +292,6 @@ export default function SignUp() {
                     <Button type='submit' disabled={buttonDisable}>{signupLoadingFlag ? <img src={freeLoadGif} alt="" style={{ width: "50px" }} /> : signupErrorFlag ? "Enter veiled data" : "Sign Up"} </Button>
                 </Stack>
             </form>
-
             <Box><p>You Have Already An Account ? <Link to="/signin" className='welcome_signin_createOne'>Sign In</Link> </p></Box>
 
             {signupSuccessData === null || signupSuccessData === undefined ? "" :
@@ -309,6 +308,7 @@ export default function SignUp() {
                         <Button onClick={() => navigate("/signin")}>Done</Button>
                     </Box>
                 </Box> : alert(signupSuccessData.message)}
+
         </Typography>
     );
 }

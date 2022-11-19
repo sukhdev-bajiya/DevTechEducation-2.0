@@ -20,7 +20,7 @@ import Typography from '@mui/material/Typography';
 import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif"
 import { NativeSelect, Tooltip } from '@mui/material';
 import { Stack } from '@mui/system';
-import { resetUsernameFun } from '../../../Redux/action';
+import { resetUsernameFun, resetUsernameSuccess } from '../../../Redux/action';
 import { useDispatch, useSelector } from 'react-redux';
 
 
@@ -115,6 +115,7 @@ function ResetUsername() {
     const handleReset = () => {
         setActiveStep(0);
         setCompleted({});
+        dispatch(resetUsernameSuccess(null))
         setOpenFromDialogResetUsername(false)
     };
 
@@ -169,7 +170,6 @@ function ResetUsername() {
                                             name="number"
                                             value={inputUserDetail.number}
                                             id="welcome_resetusername_number"
-
                                             endAdornment={
                                                 <Tooltip title="Enter your phone number">
                                                     <IconButton style={{ width: "40px" }}>
@@ -260,9 +260,11 @@ function ResetUsername() {
                                                 value={resetUsernameSuccessData.user.username}
                                                 id="welcome_resetusername_username"
                                                 endAdornment={
-                                                    <IconButton style={{ width: "40px" }}>
-                                                        <AccountCircle />
-                                                    </IconButton>
+                                                    <Tooltip title="Enter your 13 digit username">
+                                                        <IconButton style={{ width: "40px" }}>
+                                                            <AccountCircle />
+                                                        </IconButton>
+                                                    </Tooltip>
                                                 }
                                             />
                                         </FormControl>
