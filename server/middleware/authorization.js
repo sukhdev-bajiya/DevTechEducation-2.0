@@ -46,7 +46,7 @@ AuthRouter.post("/signup", async (req, res) => {
 AuthRouter.post("/signin", async (req, res) => {
   try {
     const { username, password } = req.body;
-    const devtechUser = await devtechUserModel.find({ username, password });
+    const devtechUser = await devtechUserModel.find({ username, password }, { securityQuestion1: 0, securityAnswer1: 0, securityQuestion2: 0, securityAnswer2: 0, password: 0 });
     if (devtechUser.length > 0) {
       return res.status(201).send({ success: true, error: false, message: "Login Successful", user: devtechUser[0] });
     } else {
@@ -57,4 +57,44 @@ AuthRouter.post("/signin", async (req, res) => {
   }
 });
 
+AuthRouter.post("/resetpassword", async (req, res) => {
+  try {
+    const { username, email, number } = req.body;
+    const devtechUser = await devtechUserModel.find({ username, email, number }, { securityQuestion1: 1, securityAnswer1: 1, securityQuestion2: 1, securityAnswer2: 1, _id: 1 });
+    if (devtechUser.length > 0) {
+      return res.status(201).send({ success: true, error: false, message: "Go to Security Questions", user: devtechUser[0] });
+    } else {
+      return res.status(201).send("Wrong Credentials");
+    }
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+AuthRouter.post("/resetpassword/newpassword", async (req, res) => {
+  try {
+    const { password, id } = req.body;
+    await devtechUserModel.findByIdAndUpdate({ _id: id }, { password: password })
+    return res.status(201).send({ success: true, error: false, message: "Password updated successfully" });
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+AuthRouter.post("/resetusername", async (req, res) => {
+  try {
+    const { email, number } = req.body;
+    const devtechUser = await devtechUserModel.find({ email, number }, { securityQuestion1: 1, securityAnswer1: 1, securityQuestion2: 1, securityAnswer2: 1, _id: 1, username: 1 });
+    if (devtechUser.length > 0) {
+      return res.status(201).send({ success: true, error: false, message: "Go to Security Questions", user: devtechUser[0] });
+    } else {
+      return res.status(201).send("Wrong Credentials");
+    }
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
+});
+
+
 export default AuthRouter;
+
+

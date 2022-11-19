@@ -70,3 +70,5 @@ const userSchema = new mongoose.Schema(
 
 const devtechUserModel = mongoose.model("devtechUser", userSchema, "devtechUsers");
 export default devtechUserModel;
+
+
