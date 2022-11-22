@@ -185,7 +185,7 @@ function ResetPassword() {
                     <Box>
                         {allStepsCompleted() ? (
                             <React.Fragment>
-                                <Typography component="div" sx={{ mt: 2, mb: 1 }}>
+                                <Typography component="div" sx={{ mt: 2, mb: 1 }} style={{ display: "flex", justifyContent: "center", fontSize: "22px" }}>
                                     Your password successfully updated !
                                 </Typography>
                                 <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>

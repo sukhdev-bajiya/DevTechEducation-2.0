@@ -17,8 +17,14 @@ import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import FilterListIcon from '@mui/icons-material/FilterList';
 import { visuallyHidden } from '@mui/utils';
+import { useDispatch } from 'react-redux';
+import { getallstudentuserlistFun } from '../../../../Redux/action';
 
 export default function EnhancedTable() {
+
+    const dispatch = useDispatch();
+    dispatch(getallstudentuserlistFun())
+
     const [order, setOrder] = React.useState('asc');
     const [orderBy, setOrderBy] = React.useState('calories');
     const [selected, setSelected] = React.useState([]);

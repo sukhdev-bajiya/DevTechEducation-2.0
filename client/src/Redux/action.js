@@ -113,3 +113,12 @@ export const resetAndUpdatePasswordFun = (data) => (dispatch) => {
         .catch(() => dispatch(resetPasswordError()));
 };
 
+export const getallstudentuserlistFun = () => (dispatch) => {
+    console.log("I am calling")
+    fetch(`${process.env.REACT_APP_API_LINK}/auth/getalluserlist`, {
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'AAAAAAAAAAAAAAAAAAAAAMvjiAEAAAAA' }
+    }).then((res) => res.json())
+        .then((res) => console.log(res))
+};
+

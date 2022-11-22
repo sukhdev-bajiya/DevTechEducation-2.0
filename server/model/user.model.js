@@ -31,20 +31,16 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     securityQuestion1: {
-      type: String,
-      required: true,
+      type: String
     },
     securityAnswer1: {
-      type: String,
-      required: true,
+      type: String
     },
     securityQuestion2: {
-      type: String,
-      required: true,
+      type: String
     },
     securityAnswer2: {
-      type: String,
-      required: true,
+      type: String
     },
     postAddress: {
       address: {
