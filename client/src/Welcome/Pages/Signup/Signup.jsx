@@ -60,6 +60,7 @@ export default function SignUp() {
 
     const signupformdata = (event) => {
         event.preventDefault();
+        inputBoxValue.role = "student"
         dispatch(userSignUpFun(inputBoxValue))
         setPasswordConfirm("")
         setInputBoxValue({

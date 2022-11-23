@@ -14,13 +14,12 @@ import MenuIcon from '@mui/icons-material/Menu';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { useSelector, useDispatch } from 'react-redux';
-import { signinSuccess } from '../../../Redux/action'
+import { useSelector } from 'react-redux';
 
 export default function Navbar() {
     const { signinSuccessData } = useSelector((state) => state);
     const navigate = useNavigate();
-    const dispatch = useDispatch();
+
 
     React.useEffect(() => {
         if (signinSuccessData === null || signinSuccessData.user.role !== "admin") {
@@ -28,61 +27,23 @@ export default function Navbar() {
         }
     },);
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
 
     const handleMobileMenuClose = () => {
         setMobileMoreAnchorEl(null);
-    };
-
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
     };
 
     const handleMobileMenuOpen = (event) => {
         setMobileMoreAnchorEl(event.currentTarget);
     };
 
-    const userLogout = () => {
-        sessionStorage.clear();
-        dispatch(signinSuccess(null))
-        navigate("/")
-    }
+    const studentNotifications = "new";
 
-    const studentNotifications = 21;
-
-
-    const menuId = 'primary_search_account_menu';
     const mobileMenuId = 'primary_search_account_menu_mobile';
 
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={() => { return handleMenuClose, navigate("/admin/profile") }}>Profile</MenuItem>
-            <MenuItem onClick={() => { return handleMenuClose, userLogout() }}>Logout</MenuItem>
-        </Menu>
-    );
 
     const renderMobileMenu = (
         <Menu
@@ -118,7 +79,7 @@ export default function Navbar() {
                 </IconButton>
                 <p>Courses</p>
             </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
+            <MenuItem onClick={() => navigate("/admin/profile")}>
                 <IconButton
                     size="large"
                     aria-label="account of current user"
@@ -157,11 +118,11 @@ export default function Navbar() {
                             size="large"
                             edge="end"
                             aria-label="account of current user"
-                            aria-controls={menuId}
                             aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
                             color="inherit"
+                            onClick={() => navigate("/admin/profile")}
                         >
+
                             <AccountCircle />
                         </IconButton>
                     </Box>
@@ -180,7 +141,6 @@ export default function Navbar() {
                 </Toolbar>
             </AppBar>
             {renderMobileMenu}
-            {renderMenu}
         </Box>
     );
 }

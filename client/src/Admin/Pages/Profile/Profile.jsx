@@ -95,3 +95,11 @@ export default function Profile() {
         </Box>
     );
 }
+
+
+// const dispatch = useDispatch();
+// const userLogout = () => {
+//     sessionStorage.clear();
+//     dispatch(signinSuccess(null))
+//     navigate("/")
+// }

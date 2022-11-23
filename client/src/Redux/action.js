@@ -115,7 +115,7 @@ export const resetAndUpdatePasswordFun = (data) => (dispatch) => {
 
 export const getallstudentuserlistFun = () => (dispatch) => {
     console.log("I am calling")
-    fetch(`${process.env.REACT_APP_API_LINK}/auth/getalluserlist`, {
+    fetch(`${process.env.REACT_APP_API_LINK}/student/getalluserlist`, {
         method: 'GET',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'AAAAAAAAAAAAAAAAAAAAAMvjiAEAAAAA' }
     }).then((res) => res.json())
