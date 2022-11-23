@@ -4,10 +4,11 @@ const StudentAuthRouter = express.Router();
 
 StudentAuthRouter.get("/getalluserlist", async (req, res) => {
   let user = req.header("Authorization")
+  let userType = req.header("userType")
   try {
     let userAuth = await devtechUserModel.findById(user);
     if (userAuth && (userAuth.role === "admin" || userAuth.role === "teacher")) {
-      let devtechUser = await devtechUserModel.find();
+      let devtechUser = await devtechUserModel.findAll({ role: userType });
       return res.status(201).send({ success: true, error: false, message: "", user: devtechUser[0] });
     } else {
       return res.status(201).send({ success: false, error: true, message: "Wrong Credentials", user: {} });
