@@ -4,7 +4,6 @@ const AuthRouter = express.Router();
 
 AuthRouter.post("/signup", async (req, res) => {
   const data = req.body;
-  data.role = "student";
   data.email = data.email.toLowerCase();
   data.username = Date.now()
   const { number, email } = req.body;
@@ -94,24 +93,18 @@ AuthRouter.post("/resetusername", async (req, res) => {
   }
 });
 
-
-AuthRouter.get("/getalluserlist", async (req, res) => {
-  console.log(req.header("Authorization"))
-  return res.status(201).send({ status: "Hiii." })
-  // try {
-  //   const { email, number } = req.body;
-  //   const devtechUser = await devtechUserModel.find({ email, number }, { securityQuestion1: 1, securityAnswer1: 1, securityQuestion2: 1, securityAnswer2: 1, _id: 1, username: 1 });
-  //   if (devtechUser.length > 0) {
-  //     return res.status(201).send({ success: true, error: false, message: "Go to Security Questions", user: devtechUser[0] });
-  //   } else {
-  //     return res.status(201).send({ success: false, error: true, message: "Wrong Credentials", user: {} });
-  //   }
-  // } catch (error) {
-  //   return res.status(500).send(error.message);
-  // }
+AuthRouter.get("/getloginuserprofile", async (req, res) => {
+  let id = req.header("user")
+  try {
+    const devtechUser = await devtechUserModel.findById(id, { securityQuestion1: 0, securityAnswer1: 0, securityQuestion2: 0, securityAnswer2: 0, password: 0 });
+    if (devtechUser !== null && devtechUser !== undefined) {
+      return res.status(201).send({ success: true, error: false, message: "User", user: devtechUser });
+    } else {
+      return res.status(201).send({ success: false, error: true, message: "Wrong Credentials", user: {} });
+    }
+  } catch (error) {
+    return res.status(500).send(error.message);
+  }
 });
 
-
 export default AuthRouter;
-
-
