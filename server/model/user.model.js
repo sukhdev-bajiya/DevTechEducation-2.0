@@ -31,16 +31,16 @@ const userSchema = new mongoose.Schema(
       required: true,
     },
     securityQuestion1: {
-      type: String
+      type: String,
     },
     securityAnswer1: {
-      type: String
+      type: String,
     },
     securityQuestion2: {
-      type: String
+      type: String,
     },
     securityAnswer2: {
-      type: String
+      type: String,
     },
     postAddress: {
       address: {
@@ -54,9 +54,9 @@ const userSchema = new mongoose.Schema(
       },
       pincode: {
         type: Number,
-      }
+      },
     },
-    courses: [mongoose.Schema.Types.ObjectId]
+    courses: [mongoose.Schema.Types.ObjectId],
   },
   {
     versionKey: false,
@@ -64,7 +64,9 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-const devtechUserModel = mongoose.model("devtechUser", userSchema, "devtechUsers");
+const devtechUserModel = mongoose.model(
+  "devtechUser",
+  userSchema,
+  "devtechUsers"
+);
 export default devtechUserModel;
-
-

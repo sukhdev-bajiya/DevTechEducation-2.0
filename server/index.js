@@ -1,11 +1,13 @@
 import express from "express";
+import cors from "cors";
+import cookieParser from "cookie-parser";
 import connection from "./config/index.js";
 import AuthRouter from "./middleware/authorization.js";
 import StudentAuthRouter from "./middleware/studentauth.js";
 
-import cors from "cors";
 const app = express();
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(cors());
 
