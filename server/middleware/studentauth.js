@@ -1,11 +1,12 @@
 import express from "express";
+import Jwt from "jsonwebtoken";
 import devtechUserModel from "../model/user.model.js";
 
 const StudentAuthRouter = express.Router();
+const ServerToken = process.env.JwtToken;
 
 StudentAuthRouter.get("/getalluserlist", async (req, res) => {
-  // let user = req.header("Authorization");
-  // let usertype = req.header("userType");
+  let token = req.header("devtechusercookie");
   // try {
   //   let userAuth = await devtechUserModel.findById(user);
   //   if (
@@ -37,7 +38,9 @@ StudentAuthRouter.get("/getalluserlist", async (req, res) => {
   //   return res.status(500).send(error.message);
   // }
 
-  console.log(req.cookies.devtechusercookie);
+  const user = await Jwt.verify(token, ServerToken);
+
+  return res.status(201).send(user);
 });
 
 export default StudentAuthRouter;

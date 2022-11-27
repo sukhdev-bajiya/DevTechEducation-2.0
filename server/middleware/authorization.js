@@ -1,6 +1,7 @@
 import express from "express";
 import bcrypt from "bcryptjs";
 import Jwt from "jsonwebtoken";
+import CryptoJS from "crypto-js";
 
 import devtechUserModel from "../model/user.model.js";
 const AuthRouter = express.Router();
@@ -57,34 +58,36 @@ AuthRouter.post("/signin", async (req, res) => {
     const devtechUser = await devtechUserModel.findOne(
       { username },
       {
-        securityQuestion1: 0,
         securityAnswer1: 0,
-        securityQuestion2: 0,
         securityAnswer2: 0,
       }
     );
     if (devtechUser && (await bcrypt.compare(password, devtechUser.password))) {
       devtechUser.password = "Welcome to Dev Tech Education";
       const token = await Jwt.sign(
-        { id: devtechUser._id.toString() },
-        ServerToken
+        { id: devtechUser._id.toString(), role: devtechUser.role },
+        ServerToken,
+        { expiresIn: "30s" }
       );
 
-      // set token in cookies part
-      // res.cookie("devtechusercookie", token, {
-      //   httpOnly: true,
-      //   expiresIn: "12h",
-      // });
-      res.cookie("devtechusercookie", token);
-
-      // get token in cookies part
-      // console.log(req.cookies.devtechusercookie);
+      const data = CryptoJS.AES.encrypt(
+        JSON.stringify(devtechUser),
+        token
+      ).toString();
 
       return res.status(201).send({
         success: true,
         error: false,
         message: "Login Successful",
-        user: devtechUser,
+        user: {
+          role: devtechUser.role,
+          username: devtechUser.username,
+          name: devtechUser.name,
+          email: devtechUser.email,
+          number: devtechUser.number,
+        },
+        data,
+        token,
       });
     } else {
       return res.status(201).send({
@@ -131,6 +134,7 @@ AuthRouter.post("/resetpassword", async (req, res) => {
     return res.status(500).send(error.message);
   }
 });
+
 AuthRouter.post("/resetpassword/newpassword", async (req, res) => {
   try {
     const { password, id } = req.body;
