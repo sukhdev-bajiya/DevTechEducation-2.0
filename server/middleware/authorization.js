@@ -64,10 +64,11 @@ AuthRouter.post("/signin", async (req, res) => {
     );
     if (devtechUser && (await bcrypt.compare(password, devtechUser.password))) {
       devtechUser.password = "Welcome to Dev Tech Education";
+
       const token = await Jwt.sign(
         { id: devtechUser._id.toString(), role: devtechUser.role },
         ServerToken,
-        { expiresIn: "30s" }
+        { expiresIn: "1d" }
       );
 
       const data = CryptoJS.AES.encrypt(
