@@ -30,6 +30,9 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    securityQuestionFlag: {
+      type: Boolean,
+    },
     securityQuestion1: {
       type: String,
     },

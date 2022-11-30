@@ -4,57 +4,86 @@ import Jwt from "jsonwebtoken";
 import CryptoJS from "crypto-js";
 
 import devtechUserModel from "../model/user.model.js";
+import emailTemplate from "./emailtemplate.js";
+
 const AuthRouter = express.Router();
 
 const ServerToken = process.env.JwtToken;
+const EmailToken = process.env.EmailToken;
 
+// User Signup routes
 AuthRouter.post("/signup", async (req, res) => {
+  // Get signup information
   const data = req.body;
+
+  // Update email, username, flag and password
   data.email = data.email.toLowerCase();
   data.username = Date.now();
+  data.securityQuestionFlag = false;
+  data.password = data.email.split("@")[0];
+
+  // Update email body
+  const emailBody = emailTemplate(data.name, data.username, data.password);
+
+  // Convert password to secure password
   data.password = await bcrypt.hash(data.password, 10);
-  const { number, email } = data;
 
   try {
+    // Find user already registered or not
+    const { number, email } = data;
     const user = await devtechUserModel.findOne({
       $or: [{ number }, { email: { $regex: email, $options: "i" } }],
     });
-    let obj;
-    if (user) {
-      obj = {
-        success: false,
-        error: false,
-        message: "User data already exists",
-        user: {},
-      };
-    } else {
-      const devtechUser = devtechUserModel(data);
-      await devtechUser.save();
 
+    // Output Obj
+    let obj;
+
+    if (user) {
+      // Output Obj User already exists
       obj = {
         success: true,
         error: false,
-        message: "User created successfully",
-        user: {
-          username: data.username,
-        },
+        message: "User already exists with same number and email",
+      };
+    } else {
+      // Add new user
+      const devtechUser = devtechUserModel(data);
+      await devtechUser.save();
+
+      // Send mail to user
+      fetch(
+        `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
+      );
+
+      // Output Obj User created successfully
+      obj = {
+        success: true,
+        error: false,
+        message: `User created successfully, Username and password send successfully on ${email}`,
       };
     }
+    // Send response back
     return res.status(201).send(obj);
   } catch (error) {
+    // Error part
     let obj = {
       success: false,
       error: true,
       message: error.message,
     };
 
+    // Send response back
     return res.status(500).send(obj);
   }
 });
 
+// User Signin routes
 AuthRouter.post("/signin", async (req, res) => {
   try {
+    // Get signin information
     const { username, password } = req.body;
+
+    // Find user
     const devtechUser = await devtechUserModel.findOne(
       { username },
       {
@@ -62,21 +91,30 @@ AuthRouter.post("/signin", async (req, res) => {
         securityAnswer2: 0,
       }
     );
+
+    // Output Obj
+    let Obj;
+
+    // Check user already registered or password same
     if (devtechUser && (await bcrypt.compare(password, devtechUser.password))) {
+      // Change password
       devtechUser.password = "Welcome to Dev Tech Education";
 
+      // Create JWT token for user with expire time
       const token = await Jwt.sign(
         { id: devtechUser._id.toString(), role: devtechUser.role },
         ServerToken,
-        { expiresIn: "1d" }
+        { expiresIn: "6h" }
       );
 
+      // Change user data format json to string
       const data = CryptoJS.AES.encrypt(
         JSON.stringify(devtechUser),
         token
       ).toString();
 
-      return res.status(201).send({
+      // Login Successful
+      Obj = {
         success: true,
         error: false,
         message: "Login Successful",
@@ -89,24 +127,260 @@ AuthRouter.post("/signin", async (req, res) => {
         },
         data,
         token,
-      });
+      };
     } else {
-      return res.status(201).send({
+      // Wrong Credentials
+      Obj = {
         success: false,
         error: false,
         message: "Wrong Credentials",
         user: {},
-      });
+      };
     }
+
+    // Send response back
+    return res.status(201).send(Obj);
   } catch (error) {
-    return res.status(500).send(error.message);
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+
+    // Send response back
+    return res.status(500).send(Obj);
   }
 });
 
-AuthRouter.post("/resetpassword", async (req, res) => {
+// Goto Dashboard routes (user already logged in)
+AuthRouter.get("/goto/dashboard", async (req, res) => {
   try {
+    let token = req.header("token");
+    await Jwt.verify(token, ServerToken, async (error, response) => {
+      if (error) {
+        return res.status(401).send(error);
+      } else {
+        const devtechUser = await devtechUserModel.findById(
+          { _id: response.id },
+          {
+            securityAnswer1: 0,
+            securityAnswer2: 0,
+          }
+        );
+
+        const data = CryptoJS.AES.encrypt(
+          JSON.stringify(devtechUser),
+          token
+        ).toString();
+
+        return res.status(201).send({
+          success: true,
+          error: false,
+          message: "Login Successful",
+          user: {
+            role: devtechUser.role,
+            username: devtechUser.username,
+            name: devtechUser.name,
+            email: devtechUser.email,
+            number: devtechUser.number,
+          },
+          data,
+        });
+      }
+    });
+  } catch (error) {
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+
+    // Send response back
+    return res.status(500).send(Obj);
+  }
+});
+
+// Update User Profile routes
+AuthRouter.post("/update/profile", async (req, res) => {
+  try {
+    // Get user information
+    let user = req.body;
+    let token = req.header("token");
+
+    // Verify token and update data
+    await Jwt.verify(token, ServerToken, async (error, response) => {
+      if (error) {
+        // Error part
+        let Obj = {
+          success: false,
+          error: true,
+          message: error.message,
+        };
+
+        // Send response back
+        return res.status(500).send(Obj);
+      } else {
+        // Find user
+        const devtechUser = await devtechUserModel.findById(
+          { _id: response.id },
+          {
+            password: 1,
+          }
+        );
+
+        // Output Obj
+        let Obj;
+
+        // Check password valid or not
+        if (await bcrypt.compare(user.oldpassword, devtechUser.password)) {
+          // Update Value
+          user.password = await bcrypt.hash(user.password, 10);
+          let user_date = {
+            name: user.name,
+            dateofbirth: user.dateofbirth,
+            password: user.password,
+            securityQuestionFlag: true,
+            securityQuestion1: user.securityQuestion1,
+            securityAnswer1: user.securityAnswer1,
+            securityQuestion2: user.securityQuestion2,
+            securityAnswer2: user.securityAnswer2,
+            postAddress: {
+              address: user.address,
+              city: user.city,
+              state: user.state,
+              pincode: user.pincode,
+            },
+          };
+
+          // Update user
+          await devtechUserModel.findByIdAndUpdate(
+            { _id: response.id },
+            {
+              ...user_date,
+            }
+          );
+
+          // Find user
+          const devtechUpdateUser = await devtechUserModel.findById(
+            { _id: response.id },
+            {
+              securityAnswer1: 0,
+              securityAnswer2: 0,
+            }
+          );
+
+          // Change user data format json to string
+          const data = CryptoJS.AES.encrypt(
+            JSON.stringify(devtechUpdateUser),
+            token
+          ).toString();
+
+          // User profile updated successfully
+          Obj = {
+            success: true,
+            error: false,
+            message: "User profile updated successfully",
+            user: {
+              role: devtechUpdateUser.role,
+              username: devtechUpdateUser.username,
+              name: devtechUpdateUser.name,
+              email: devtechUpdateUser.email,
+              number: devtechUpdateUser.number,
+            },
+            data,
+          };
+        } else {
+          // Wrong Credentials
+          Obj = {
+            success: false,
+            error: false,
+            message: "Wrong Credentials",
+            user: {},
+          };
+        }
+
+        // Send response back
+        return res.status(201).send();
+      }
+    });
+  } catch (error) {
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+
+    // Send response back
+    return res.status(500).send(Obj);
+  }
+});
+
+// User Get Username routes
+AuthRouter.post("/get/username", async (req, res) => {
+  try {
+    // Get user information
+    const { email, number } = req.body;
+
+    // Find user
+    const devtechUser = await devtechUserModel.findOne(
+      { email, number },
+      {
+        securityQuestion1: 1,
+        securityAnswer1: 1,
+        securityQuestion2: 1,
+        securityAnswer2: 1,
+        securityQuestionFlag: 1,
+        _id: 1,
+        username: 1,
+      }
+    );
+
+    // Output Obj
+    let Obj;
+
+    if (devtechUser) {
+      // Go to Security Questions
+      Obj = {
+        success: true,
+        error: false,
+        message: "Go to Security Questions",
+        user: devtechUser,
+      };
+    } else {
+      // Wrong Credentials
+      Obj = {
+        success: false,
+        error: false,
+        message: "Wrong Credentials",
+        user: {},
+      };
+    }
+
+    // Send response back
+    return res.status(201).send(Obj);
+  } catch (error) {
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+    // Send response back
+    return res.status(500).send(Obj);
+  }
+});
+
+// User Reset Password routes
+AuthRouter.post("/reset/password", async (req, res) => {
+  try {
+    // Get user information
     const { username, email, number } = req.body;
-    const devtechUser = await devtechUserModel.find(
+
+    // Find user
+    const devtechUser = await devtechUserModel.findOne(
       { username, email, number },
       {
         securityQuestion1: 1,
@@ -116,74 +390,72 @@ AuthRouter.post("/resetpassword", async (req, res) => {
         _id: 1,
       }
     );
-    if (devtechUser.length > 0) {
-      return res.status(201).send({
+
+    // Output Obj
+    let Obj;
+
+    if (devtechUser) {
+      // Go to Security Questions
+      Obj = {
         success: true,
         error: false,
         message: "Go to Security Questions",
-        user: devtechUser[0],
-      });
+        user: devtechUser,
+      };
     } else {
-      return res.status(201).send({
+      // Wrong Credentials
+      Obj = {
         success: false,
         error: true,
         message: "Wrong Credentials",
         user: {},
-      });
+      };
     }
+
+    // Send response back
+    return res.status(201).send(Obj);
   } catch (error) {
-    return res.status(500).send(error.message);
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+    // Send response back
+    return res.status(500).send(Obj);
   }
 });
 
-AuthRouter.post("/resetpassword/newpassword", async (req, res) => {
+// User Update Password routes
+AuthRouter.post("/update/password", async (req, res) => {
   try {
-    const { password, id } = req.body;
+    // Get user information
+    const { password, user } = req.body;
+
+    // Convert password to secure password
+    let newpassword = await bcrypt.hash(password, 10);
+
+    // Find user and update password
     await devtechUserModel.findByIdAndUpdate(
-      { _id: id },
-      { password: password }
+      { _id: user },
+      { password: newpassword }
     );
+
+    // Send response back
     return res.status(201).send({
       success: true,
       error: false,
-      message: "Password updated successfully",
+      message: "User password updated successfully",
     });
   } catch (error) {
-    return res.status(500).send(error.message);
-  }
-});
-
-AuthRouter.post("/resetusername", async (req, res) => {
-  try {
-    const { email, number } = req.body;
-    const devtechUser = await devtechUserModel.find(
-      { email, number },
-      {
-        securityQuestion1: 1,
-        securityAnswer1: 1,
-        securityQuestion2: 1,
-        securityAnswer2: 1,
-        _id: 1,
-        username: 1,
-      }
-    );
-    if (devtechUser.length > 0) {
-      return res.status(201).send({
-        success: true,
-        error: false,
-        message: "Go to Security Questions",
-        user: devtechUser[0],
-      });
-    } else {
-      return res.status(201).send({
-        success: false,
-        error: true,
-        message: "Wrong Credentials",
-        user: {},
-      });
-    }
-  } catch (error) {
-    return res.status(500).send(error.message);
+    // Error part
+    let Obj = {
+      success: false,
+      error: true,
+      message: error.message,
+    };
+    // Send response back
+    return res.status(500).send(Obj);
   }
 });
 
