@@ -6,7 +6,7 @@ const StudentAuthRouter = express.Router();
 const ServerToken = process.env.JwtToken;
 
 StudentAuthRouter.get("/getalluserlist", async (req, res) => {
-  let token = req.header("devtechusercookie");
+  let token = req.header("Authorization");
   // try {
   //   let userAuth = await devtechUserModel.findById(user);
   //   if (
@@ -38,9 +38,9 @@ StudentAuthRouter.get("/getalluserlist", async (req, res) => {
   //   return res.status(500).send(error.message);
   // }
 
-  const user = await Jwt.verify(token, ServerToken);
+  console.log(token);
 
-  return res.status(201).send(user);
+  return res.status(201).send({ user: token });
 });
 
 export default StudentAuthRouter;

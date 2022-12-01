@@ -98,8 +98,13 @@ export const userSignInFun = (data) => (dispatch) => {
     .catch(() => dispatch(signinError()));
 };
 
+//
+//
+// User already logged in
+//
+//
+
 export const gotoDashboard = () => (dispatch) => {
-  console.log("I am calling");
   fetch(`${process.env.REACT_APP_API_LINK}/auth/goto/dashboard`, {
     method: "GET",
     headers: {
@@ -113,6 +118,33 @@ export const gotoDashboard = () => (dispatch) => {
         dispatch(signinSuccess(res)),
         sessionStorage.setItem("user", JSON.stringify(res)),
         localStorage.setItem("user", JSON.stringify(res.data))
+      );
+    })
+    .catch(() => dispatch(signinError()));
+};
+
+//
+//
+// User profile update
+//
+//
+
+export const updateUserProfileFun = (data) => (dispatch) => {
+  dispatch(signinLoading());
+  fetch(`${process.env.REACT_APP_API_LINK}/auth/update/profile`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      token: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      return (
+        dispatch(signinSuccess(res)),
+        localStorage.setItem("user", JSON.stringify(res.data)),
+        sessionStorage.setItem("user", JSON.stringify(res))
       );
     })
     .catch(() => dispatch(signinError()));
@@ -139,7 +171,7 @@ export const resetPasswordSuccess = (payload) => ({
 
 export const resetPasswordFun = (data) => (dispatch) => {
   dispatch(resetPasswordLoading());
-  fetch(`${process.env.REACT_APP_API_LINK}/auth/resetpassword`, {
+  fetch(`${process.env.REACT_APP_API_LINK}/auth/reset/password`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
@@ -151,7 +183,7 @@ export const resetPasswordFun = (data) => (dispatch) => {
 
 export const resetAndUpdatePasswordFun = (data) => (dispatch) => {
   dispatch(resetPasswordLoading());
-  fetch(`${process.env.REACT_APP_API_LINK}/auth/resetpassword/newpassword`, {
+  fetch(`${process.env.REACT_APP_API_LINK}/auth/update/password`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
@@ -181,9 +213,8 @@ export const resetUsernameSuccess = (payload) => ({
 });
 
 export const resetUsernameFun = (data) => (dispatch) => {
-  console.log("I am Calling");
   dispatch(resetUsernameLoading());
-  fetch(`${process.env.REACT_APP_API_LINK}/auth/resetusername`, {
+  fetch(`${process.env.REACT_APP_API_LINK}/auth/get/username`, {
     method: "POST",
     body: JSON.stringify(data),
     headers: { "Content-Type": "application/json" },
@@ -201,13 +232,14 @@ export const resetUsernameFun = (data) => (dispatch) => {
 
 export const getallstudentuserlistFun = () => (dispatch) => {
   console.log("I am calling");
-  fetch(`${process.env.REACT_APP_API_LINK}/student/getalluserlist`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: cookies.get("devtechusercookie"),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => console.log(res));
+  // fetch(`${process.env.REACT_APP_API_LINK}/student/getalluserlist`, {
+  //   method: "GET",
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //     Authorization: cookies.get("devtechusercookie"),
+  //   },
+  // })
+  //   .then((res) => res.json())
+  //   .then((res) => console.log(res));
+  //   .catch((err) => console.log(err));
 };

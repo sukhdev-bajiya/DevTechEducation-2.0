@@ -30,9 +30,6 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    securityQuestionFlag: {
-      type: Boolean,
-    },
     securityQuestion1: {
       type: String,
     },
@@ -55,11 +52,16 @@ const userSchema = new mongoose.Schema(
       state: {
         type: String,
       },
+      country: {
+        type: String,
+      },
       pincode: {
         type: Number,
       },
     },
     courses: [mongoose.Schema.Types.ObjectId],
+    lastUpdateData: [],
+    lastLogin: [],
   },
   {
     versionKey: false,
