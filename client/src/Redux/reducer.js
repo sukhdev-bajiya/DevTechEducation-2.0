@@ -1,92 +1,106 @@
-import { FREE_LOADING, SIGNIN_LOADING, SIGNIN_ERROR, SIGNIN_SUCCESS, SIGNUP_LOADING, SIGNUP_ERROR, SIGNUP_SUCCESS, RESETPASSWORD_LOADING, RESETPASSWORD_ERROR, RESETPASSWORD_SUCCESS, RESETUSERNAME_LOADING, RESETUSERNAME_ERROR, RESETUSERNAME_SUCCESS } from "./actionType";
+import {
+  FREE_LOADING,
+  SIGNIN_LOADING,
+  SIGNIN_ERROR,
+  SIGNIN_SUCCESS,
+  SIGNUP_LOADING,
+  SIGNUP_ERROR,
+  SIGNUP_SUCCESS,
+  RESETPASSWORD_LOADING,
+  RESETPASSWORD_ERROR,
+  RESETPASSWORD_SUCCESS,
+  RESETUSERNAME_LOADING,
+  RESETUSERNAME_ERROR,
+  RESETUSERNAME_SUCCESS,
+} from "./actionType";
 
 const initState = {
-    freeLoad: false,
+  freeLoad: false,
 
-    signupLoadingFlag: false,
-    signupSuccessData: null,
-    signupErrorFlag: false,
+  signupLoadingFlag: false,
+  signupSuccessData: null,
+  signupErrorFlag: false,
 
-    signinLoadingFlag: false,
-    signinSuccessData: JSON.parse(sessionStorage.getItem("signinauthvailed")) || null,
-    signinErrorFlag: false,
+  signinLoadingFlag: false,
+  signinSuccessData: JSON.parse(sessionStorage.getItem("user")) || null,
+  signinErrorFlag: false,
 
-    resetUsernameLoadingFlag: false,
-    resetUsernameSuccessData: null,
-    resetUsernameErrorFlag: false,
+  resetUsernameLoadingFlag: false,
+  resetUsernameSuccessData: null,
+  resetUsernameErrorFlag: false,
 
-    resetPasswordLoadingFlag: false,
-    resetPasswordSuccessData: null,
-    resetPasswordErrorFlag: false,
+  resetPasswordLoadingFlag: false,
+  resetPasswordSuccessData: null,
+  resetPasswordErrorFlag: false,
 };
 
 export const reducer = (state = initState, { type, payload }) => {
-    switch (type) {
-        case FREE_LOADING:
-            return {
-                freeLoad: payload
-            };
+  switch (type) {
+    case FREE_LOADING:
+      return {
+        freeLoad: payload,
+      };
 
-        case SIGNUP_LOADING:
-            return {
-                signupLoadingFlag: true
-            };
-        case SIGNUP_ERROR:
-            return {
-                signupLoadingFlag: false,
-                signupErrorFlag: true
-            };
-        case SIGNUP_SUCCESS:
-            return {
-                signupLoadingFlag: false,
-                signupSuccessData: payload
-            };
+    case SIGNUP_LOADING:
+      return {
+        signupLoadingFlag: true,
+      };
+    case SIGNUP_ERROR:
+      return {
+        signupLoadingFlag: false,
+        signupErrorFlag: true,
+      };
+    case SIGNUP_SUCCESS:
+      return {
+        signupLoadingFlag: false,
+        signupSuccessData: payload,
+      };
 
-        case SIGNIN_LOADING:
-            return {
-                signinLoadingFlag: true
-            };
-        case SIGNIN_ERROR:
-            return {
-                signinLoadingFlag: false,
-                signinErrorFlag: true
-            };
-        case SIGNIN_SUCCESS:
-            return {
-                signinLoadingFlag: false,
-                signinSuccessData: payload
-            };
+    case SIGNIN_LOADING:
+      return {
+        signinLoadingFlag: true,
+      };
+    case SIGNIN_ERROR:
+      return {
+        signinLoadingFlag: false,
+        signinErrorFlag: true,
+      };
+    case SIGNIN_SUCCESS:
+      return {
+        signinLoadingFlag: false,
+        signinSuccessData: payload,
+      };
 
-        case RESETUSERNAME_LOADING:
-            return {
-                resetUsernameLoadingFlag: true
-            };
-        case RESETUSERNAME_ERROR:
-            return {
-                resetUsernameLoadingFlag: false,
-                resetUsernameErrorFlag: true
-            };
-        case RESETUSERNAME_SUCCESS:
-            return {
-                resetUsernameLoadingFlag: false,
-                resetUsernameSuccessData: payload
-            };
+    case RESETUSERNAME_LOADING:
+      return {
+        resetUsernameLoadingFlag: true,
+      };
+    case RESETUSERNAME_ERROR:
+      return {
+        resetUsernameLoadingFlag: false,
+        resetUsernameErrorFlag: true,
+      };
+    case RESETUSERNAME_SUCCESS:
+      return {
+        resetUsernameLoadingFlag: false,
+        resetUsernameSuccessData: payload,
+      };
 
-        case RESETPASSWORD_LOADING:
-            return {
-                resetPasswordLoadingFlag: true
-            };
-        case RESETPASSWORD_ERROR:
-            return {
-                resetPasswordLoadingFlag: false,
-                resetPasswordErrorFlag: true
-            };
-        case RESETPASSWORD_SUCCESS:
-            return {
-                resetPasswordLoadingFlag: false,
-                resetPasswordSuccessData: payload
-            };
-        default:
-            return state;
-    }
+    case RESETPASSWORD_LOADING:
+      return {
+        resetPasswordLoadingFlag: true,
+      };
+    case RESETPASSWORD_ERROR:
+      return {
+        resetPasswordLoadingFlag: false,
+        resetPasswordErrorFlag: true,
+      };
+    case RESETPASSWORD_SUCCESS:
+      return {
+        resetPasswordLoadingFlag: false,
+        resetPasswordSuccessData: payload,
+      };
+    default:
+      return state;
+  }
 };

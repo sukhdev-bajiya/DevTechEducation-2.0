@@ -1,11 +1,17 @@
-import React from 'react'
+import React, { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { gotoDashboard } from "../../../Redux/action";
 
 function Home() {
-    document.title = "Dev Tech Education || Home"
+  document.title = "Dev Tech Education || Home";
 
-    return (
-        <div style={{ height: "10000px" }}>Home</div>
-    )
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(gotoDashboard());
+  }, [dispatch]);
+
+  return <div style={{ height: "10000px" }}>Home</div>;
 }
 
-export default Home
+export default Home;

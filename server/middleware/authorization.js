@@ -41,7 +41,7 @@ AuthRouter.post("/signup", async (req, res) => {
     if (user) {
       // Output Obj User already exists
       obj = {
-        success: true,
+        success: false,
         error: false,
         message: "User already exists with same number and email",
       };
@@ -51,9 +51,9 @@ AuthRouter.post("/signup", async (req, res) => {
       await devtechUser.save();
 
       // Send mail to user
-      fetch(
-        `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
-      );
+      // fetch(
+      //   `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
+      // );
 
       // Output Obj User created successfully
       obj = {
@@ -156,10 +156,21 @@ AuthRouter.post("/signin", async (req, res) => {
 // Goto Dashboard routes (user already logged in)
 AuthRouter.get("/goto/dashboard", async (req, res) => {
   try {
-    let token = req.header("token");
+    let token = req.header("Authorization");
+    console.log(token);
+    console.log(1);
     await Jwt.verify(token, ServerToken, async (error, response) => {
+      console.log(2);
       if (error) {
-        return res.status(401).send(error);
+        // Error part
+        let Obj = {
+          success: false,
+          error: true,
+          message: error.message,
+        };
+
+        // Send response back
+        return res.status(401).send(Obj);
       } else {
         const devtechUser = await devtechUserModel.findById(
           { _id: response.id },
@@ -207,6 +218,7 @@ AuthRouter.post("/update/profile", async (req, res) => {
   try {
     // Get user information
     let user = req.body;
+
     let token = req.header("token");
 
     // Verify token and update data
@@ -233,8 +245,16 @@ AuthRouter.post("/update/profile", async (req, res) => {
         // Output Obj
         let Obj;
 
-        // Check password valid or not
+        if (
+          user.password === "" ||
+          user.password === null ||
+          user.password === undefined
+        ) {
+          user.password = devtechUser.password;
+        }
+
         if (await bcrypt.compare(user.oldpassword, devtechUser.password)) {
+          // Check password valid or not
           // Update Value
           user.password = await bcrypt.hash(user.password, 10);
           let user_date = {
