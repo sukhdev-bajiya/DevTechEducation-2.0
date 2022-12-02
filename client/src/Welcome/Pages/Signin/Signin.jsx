@@ -274,4 +274,7 @@ const outerBoxForForm = {
   paddingTop: "25px",
   backgroundImage: `url(${backgroundImage})`,
   backgroundSize: "cover",
+  borderLeft: "0px",
+  borderStyle: "double",
+  padding: "15px 0",
 };

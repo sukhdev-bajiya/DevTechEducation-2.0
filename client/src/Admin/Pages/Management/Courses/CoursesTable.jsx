@@ -1,4 +1,5 @@
 import * as React from "react";
+import { getdatatoprint } from "../../../../Redux/function";
 
 import PropTypes from "prop-types";
 import Box from "@mui/material/Box";
@@ -17,16 +18,15 @@ import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
-import { getdatatoprint } from "../../../../Redux/function";
 
-export default function EnhancedTable() {
+export default function CoursesTable() {
   const [order, setOrder] = React.useState("asc");
   const [orderBy, setOrderBy] = React.useState("calories");
   const [selected, setSelected] = React.useState([]);
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
-  let rows = getdatatoprint("c_s_user") || [];
+  let rows = getdatatoprint("c_c_course") || [];
 
   const handleRequestSort = (event, property) => {
     const isAsc = orderBy === property && order === "asc";
@@ -95,12 +95,12 @@ export default function EnhancedTable() {
                     >
                       <TableCell> {index + 1} </TableCell>
                       <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="center">{row.username}</TableCell>
+                      <TableCell align="center">{row.subjextItem}</TableCell>
+                      <TableCell align="center">{row.lecturesItem}</TableCell>
+                      <TableCell align="center">{row.fee}</TableCell>
                       <TableCell align="center">
-                        {row.coursePurchaseItem || 0}
+                        {row.unitAndSubjectCreateDate}
                       </TableCell>
-                      <TableCell align="center">{row.email}</TableCell>
-                      <TableCell align="right">{row.number}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -162,27 +162,27 @@ const headCells = [
   {
     id: "name",
     disablePadding: true,
-    label: "Student Name",
+    label: "Course Name",
   },
   {
-    id: "username",
+    id: "subjextItem",
     disablePadding: false,
-    label: "Username",
+    label: "Subject Item",
   },
   {
-    id: "coursePurchaseItem",
+    id: "lecturesItem",
     disablePadding: false,
-    label: "Course Item",
+    label: "Lectures Item",
   },
   {
-    id: "email",
+    id: "fee",
     disablePadding: false,
-    label: "Email",
+    label: "Fees",
   },
   {
-    id: "number",
+    id: "unitAndSubjectCreateDate",
     disablePadding: false,
-    label: "Number",
+    label: "Total Student",
   },
 ];
 
@@ -242,7 +242,7 @@ function EnhancedTableToolbar() {
         id="tableTitle"
         component="div"
       >
-        Student List
+        Course List
       </Typography>
 
       <Tooltip title="Filter list">

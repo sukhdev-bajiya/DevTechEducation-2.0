@@ -11,5 +11,16 @@ const getuserdata = () => {
   let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
   return originalText;
 };
+const getdatatoprint = (val) => {
+  let data = localStorage.getItem(val);
+  let devtechusercookie = cookies.get("devtechusercookie");
+  let bytes = CryptoJS.AES.decrypt(data, devtechusercookie);
+  let originalText = JSON.parse(bytes.toString(CryptoJS.enc.Utf8));
+  return originalText;
+};
 
-export { getuserdata };
+export { getuserdata, getdatatoprint };
+
+{
+  /* <Button onClick={() => window.print()}>Print Page</Button>; */
+}

@@ -21,6 +21,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import AddCourses from "./Courses/AddCourses";
 import EditCoursesData from "./Courses/EditCoursesData";
 import DeleteCourses from "./Courses/DeleteCourses";
+import CoursesTable from "./Courses/CoursesTable";
 import AddUnitSubject from "./UnitAndSubject/AddUnitSubject";
 import EditUnitSubjectData from "./UnitAndSubject/EditUnitSubjectData";
 import DeleteUnitSubject from "./UnitAndSubject/DeleteUnitSubject";
@@ -28,6 +29,7 @@ import UnitAndSubjectTable from "./UnitAndSubject/UnitAndSubjectTable";
 import AddLectures from "./Lectures/AddLectures";
 import EditLecturesData from "./Lectures/EditLecturesData";
 import DeleteLectures from "./Lectures/DeleteLectures";
+import LecturesTable from "./Lectures/LecturesTable";
 
 export default function ManagementCoursesTabPages() {
   document.title = "Dev Tech Education || Admin || Management";
@@ -102,7 +104,7 @@ export default function ManagementCoursesTabPages() {
           index={0}
           dir={theme.direction}
         >
-          COURSES Courses
+          <CoursesTable />
         </ManagementCoursesTabPanel>
         <ManagementCoursesTabPanel
           value={managementCoursesvalue}
@@ -116,7 +118,7 @@ export default function ManagementCoursesTabPages() {
           index={2}
           dir={theme.direction}
         >
-          Lectures
+          <LecturesTable />
         </ManagementCoursesTabPanel>
       </SwipeableViews>
       {managementFabs.map((fab, fabIndex) =>

@@ -13,6 +13,7 @@ import {
   RESETUSERNAME_ERROR,
   RESETUSERNAME_SUCCESS,
   USER_PROFILE_UPDATE,
+  ADD_USER_STATUS,
 } from "./actionType";
 
 const initState = {
@@ -35,6 +36,7 @@ const initState = {
   resetPasswordErrorFlag: false,
 
   userProfileUpdate: null,
+  addUserStatus: null,
 };
 
 export const reducer = (state = initState, { type, payload }) => {
@@ -106,6 +108,10 @@ export const reducer = (state = initState, { type, payload }) => {
     case USER_PROFILE_UPDATE:
       return {
         userProfileUpdate: payload,
+      };
+    case ADD_USER_STATUS:
+      return {
+        addUserStatus: payload,
       };
     default:
       return state;

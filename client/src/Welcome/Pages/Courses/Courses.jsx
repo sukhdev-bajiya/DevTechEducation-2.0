@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import WebsiteUnderConstruction from "../../../ErrorPage/WebsiteUnderConstruction";
 
 function Courses() {
-    return (
-        <div>Courses</div>
-    )
+  return <WebsiteUnderConstruction />;
 }
 
-export default Courses
+export default Courses;

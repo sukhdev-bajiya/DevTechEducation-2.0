@@ -500,12 +500,15 @@ const outerBoxForForm = {
   display: "flex",
   flexWrap: "wrap",
   flexDirection: "column",
-  margin: "50px auto",
+  margin: "auto",
   borderRadius: "10px",
   textAlign: "center",
   fontFamily: "play",
   alignItems: "center",
   gap: "50px",
+  borderLeft: "0px",
+  borderStyle: "double",
+  padding: "15px 0",
 };
 
 //   Security Question List

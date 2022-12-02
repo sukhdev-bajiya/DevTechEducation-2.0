@@ -16,6 +16,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import { Tooltip } from "@mui/material";
 
 export default function Navbar() {
   const navigate = useNavigate();
@@ -29,9 +30,9 @@ export default function Navbar() {
   });
 
   const userLogout = () => {
+    cookies.remove("devtechusercookie");
     sessionStorage.clear();
     localStorage.clear();
-    cookies.remove("devtechusercookie");
     window.open("/", "_self"); // navigate("/");
   };
 
@@ -135,47 +136,55 @@ export default function Navbar() {
 
             <Box sx={{ flexGrow: 1 }} />
             <Box sx={{ display: { xs: "none", md: "flex" } }}>
-              <IconButton
-                size="large"
-                color="inherit"
-                onClick={() => {
-                  navigate("/admin/management");
-                }}
-              >
-                <AutoStoriesIcon />
-              </IconButton>
-              <IconButton
-                size="large"
-                aria-label={`show ${studentNotifications} new notifications`}
-                color="inherit"
-                onClick={() => {
-                  navigate("/admin/notifications");
-                }}
-              >
-                <Badge badgeContent={studentNotifications} color="error">
-                  <NotificationsIcon />
-                </Badge>
-              </IconButton>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={() => navigate("/admin/profile")}
-              >
-                <AccountCircle />
-              </IconButton>
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-haspopup="true"
-                color="inherit"
-                onClick={userLogout}
-              >
-                <LogoutIcon />
-              </IconButton>
+              <Tooltip title="Teacher, Student and Courses Management">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/admin/management");
+                  }}
+                >
+                  <AutoStoriesIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Notifications">
+                <IconButton
+                  size="large"
+                  aria-label={`show ${studentNotifications} new notifications`}
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/admin/notifications");
+                  }}
+                >
+                  <Badge badgeContent={studentNotifications} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="User Profile">
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={() => navigate("/admin/profile")}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="User Logout">
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={userLogout}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
             </Box>
             <Box sx={{ display: { xs: "flex", md: "none" } }}>
               <IconButton

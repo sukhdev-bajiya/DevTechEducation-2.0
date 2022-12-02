@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import WebsiteUnderConstruction from "../../../ErrorPage/WebsiteUnderConstruction";
 
 function EventsAndContests() {
-    return (
-        <div>EventsAndContests</div>
-    )
+  return <WebsiteUnderConstruction />;
 }
 
-export default EventsAndContests
+export default EventsAndContests;

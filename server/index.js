@@ -1,12 +1,10 @@
 import express from "express";
 import cors from "cors";
-import Jwt from "jsonwebtoken";
-import CryptoJS from "crypto-js";
 import cookieParser from "cookie-parser";
 
 import connection from "./config/index.js";
 import AuthRouter from "./middleware/authorization.js";
-import StudentAuthRouter from "./middleware/studentauth.js";
+import UserAuthRouter from "./middleware/userauth.js";
 
 const app = express();
 
@@ -15,8 +13,7 @@ app.use(express.json());
 app.use(cors());
 
 app.use("/auth", AuthRouter);
-
-app.use("/student", StudentAuthRouter);
+app.use("/user", UserAuthRouter);
 
 app.get("/", (req, res) => {
   return res.status(200).send("DEV TECH EDUCATION");

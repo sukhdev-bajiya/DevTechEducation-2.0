@@ -29,6 +29,7 @@ import AdminProfile from "./Admin/Pages/Profile/Profile";
 import AdminDashboard from "./Admin/Pages/Dashboard/Dashboard";
 import AdminManagement from "./Admin/Pages/Management/Management";
 import AdminNotifications from "./Admin/Pages/Notifications/Notifications";
+import Error404 from "./ErrorPage/Error404";
 
 function App() {
   console.log(`Welcome to - 
@@ -38,6 +39,13 @@ function App() {
     ||     ||  ||||||    ||   ||        ||      ||||||  ||      ||||||||  
     ||     ||  ||         || ||         ||      ||      ||      ||    ||  
     ||||||||   ||||||      |||          ||      ||||||   |||||  ||    || `);
+
+  // window.onbeforeunload = () => {
+  //   console.log("first");
+  //   let user = sessionStorage.getItem("user")
+
+  //   // localStorage.clear();
+  // };
 
   return (
     <Routes>
@@ -192,6 +200,7 @@ function App() {
           </>
         }
       />
+      <Route path="*" element={<Error404 />} />
     </Routes>
   );
 }

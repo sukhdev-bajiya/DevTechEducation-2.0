@@ -13,6 +13,7 @@ import {
   RESETUSERNAME_ERROR,
   RESETUSERNAME_SUCCESS,
   USER_PROFILE_UPDATE,
+  ADD_USER_STATUS,
 } from "./actionType";
 
 import Cookies from "universal-cookie";
@@ -91,7 +92,8 @@ export const userSignInFun = (data) => (dispatch) => {
     .then((res) => {
       return (
         dispatch(signinSuccess(res)),
-        cookies.set("devtechusercookie", res.token, { path: "/" })
+        cookies.set("devtechusercookie", res.token, { path: "/" }),
+        dispatch(getallstudentuserlistFun())
       );
     })
     .catch(() => dispatch(signinError()));
@@ -225,15 +227,58 @@ export const resetUsernameFun = (data) => (dispatch) => {
 //
 
 export const getallstudentuserlistFun = () => (dispatch) => {
-  console.log("I am calling");
-  // fetch(`${process.env.REACT_APP_API_LINK}/student/getalluserlist`, {
-  //   method: "GET",
-  //   headers: {
-  //     "Content-Type": "application/json",
-  //     Authorization: cookies.get("devtechusercookie"),
-  //   },
-  // })
-  //   .then((res) => res.json())
-  //   .then((res) => console.log(res));
-  //   .catch((err) => console.log(err));
+  fetch(`${process.env.REACT_APP_API_LINK}/user/getalluserlist`, {
+    method: "GET",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      console.log("i am called");
+      if (res.success) {
+        if (res.teacher) localStorage.setItem("c_t_user", res.teacher);
+        if (res.student) localStorage.setItem("c_s_user", res.student);
+        if (res.course) localStorage.setItem("c_c_course", res.course);
+        if (res.lecture) localStorage.setItem("c_l_course", res.lecture);
+        if (res.subject) localStorage.setItem("c_s_course", res.subject);
+      }
+    })
+    .catch((err) => console.log(err));
+};
+
+//
+//
+//
+//
+//
+
+export const addnewUser = (payload) => ({
+  type: ADD_USER_STATUS,
+  payload,
+});
+
+export const addnewUserFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/user/add/newuser`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        console.log("i am calling");
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 5000);
+    })
+    .catch((err) => console.log(err));
 };

@@ -1,9 +1,8 @@
-import React from 'react'
+import React from "react";
+import WebsiteUnderConstruction from "../../../ErrorPage/WebsiteUnderConstruction";
 
 function ReferAndEarn() {
-    return (
-        <div>ReferAndEarn</div>
-    )
+  return <WebsiteUnderConstruction />;
 }
 
-export default ReferAndEarn
+export default ReferAndEarn;

@@ -19,7 +19,6 @@ AuthRouter.post("/signup", async (req, res) => {
   // Update email, username, flag and password
   data.email = data.email.toLowerCase();
   data.username = Date.now();
-  data.securityQuestionFlag = false;
   data.password = data.email.split("@")[0];
 
   // Update email body
@@ -344,7 +343,6 @@ AuthRouter.post("/get/username", async (req, res) => {
         securityAnswer1: 1,
         securityQuestion2: 1,
         securityAnswer2: 1,
-        securityQuestionFlag: 1,
         _id: 1,
         username: 1,
       }

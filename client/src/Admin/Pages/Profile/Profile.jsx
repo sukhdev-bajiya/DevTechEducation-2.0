@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { signinSuccess, userprofileupdating } from "../../../Redux/action";
 import UserProfile from "./UserProfile";
+import WebsiteUnderConstruction from "../../../ErrorPage/WebsiteUnderConstruction";
 
 export default function Profile() {
   document.title = "Dev Tech Education || Admin || Profile";
@@ -128,7 +129,7 @@ export default function Profile() {
           <UpdateProfile />
         </TabPanel>
         <TabPanel value={value} index={2} dir={theme.direction}>
-          SETTINGS
+          <WebsiteUnderConstruction />
         </TabPanel>
       </SwipeableViews>
 
