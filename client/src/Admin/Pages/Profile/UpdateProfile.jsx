@@ -16,10 +16,9 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Stack from "@mui/material/Stack";
 import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
-import { useNavigate } from "react-router-dom";
-
-import { useDispatch } from "react-redux";
 import { NativeSelect, Tooltip } from "@mui/material";
+
+import { useDispatch, useSelector } from "react-redux";
 import { getuserdata } from "../../../Redux/function";
 import { updateUserProfileFun } from "../../../Redux/action";
 
@@ -27,7 +26,8 @@ import { updateUserProfileFun } from "../../../Redux/action";
 
 export default function UpdateProfile() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+
+  const { userProfileUpdate } = useSelector((state) => state);
 
   // set user Input Box Value
   let devTechUserData = getuserdata();
@@ -67,7 +67,6 @@ export default function UpdateProfile() {
       devTechUserData.securityQuestion2 ||
       "Who is your favorite actor, musician, or artist?",
   });
-
   const [inputBoxAddressValue, setInputBoxAddressValue] = React.useState(
     inputBoxAddressValuefromuser
   );
@@ -82,10 +81,29 @@ export default function UpdateProfile() {
     setInputBoxAddressValue({ ...inputBoxAddressValue, [name]: value });
   };
 
+  // update user data function
   const userprofileupdateformdata = (event) => {
     event.preventDefault();
     inputBoxValue.postAddress = inputBoxAddressValue;
     dispatch(updateUserProfileFun(inputBoxValue));
+
+    setInputBoxValue({
+      name: devTechUserData.name,
+      username: devTechUserData.username,
+      password: "",
+      confirmPassword: "",
+      oldpassword: "",
+      email: devTechUserData.email,
+      number: devTechUserData.number,
+      dateofbirth: devTechUserData.dateofbirth,
+      securityAnswer1: "",
+      securityAnswer2: "",
+      securityQuestion1:
+        devTechUserData.securityQuestion1 || "What is your favorite movie?",
+      securityQuestion2:
+        devTechUserData.securityQuestion2 ||
+        "Who is your favorite actor, musician, or artist?",
+    });
   };
 
   // Password show and hide button part
@@ -462,7 +480,16 @@ export default function UpdateProfile() {
         </FormControl>
 
         <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
-          <Button type="submit">Update Profile</Button>
+          <Button type="submit">
+            {userProfileUpdate !== null &&
+            userProfileUpdate !== undefined &&
+            userProfileUpdate.status === "loading" ? (
+              <img src={freeLoadGif} alt="" style={{ width: "50px" }} />
+            ) : (
+              ""
+            )}
+            Update Profile
+          </Button>
         </Stack>
       </form>
     </Typography>

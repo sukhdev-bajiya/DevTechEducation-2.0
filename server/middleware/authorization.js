@@ -229,9 +229,7 @@ AuthRouter.post("/update/profile", async (req, res) => {
       if (error) {
         // Error part
         let Obj = {
-          success: false,
-          error: true,
-          message: error.message,
+          status: "error",
         };
 
         // Send response back
@@ -295,25 +293,25 @@ AuthRouter.post("/update/profile", async (req, res) => {
 
           // User profile updated successfully
           Obj = {
-            success: true,
-            error: false,
-            message: "User profile updated successfully",
-            user: {
-              role: devtechUpdateUser.role,
-              username: devtechUpdateUser.username,
-              name: devtechUpdateUser.name,
-              email: devtechUpdateUser.email,
-              number: devtechUpdateUser.number,
+            status: "true",
+            data: {
+              success: true,
+              error: false,
+              message: "User profile updated successfully",
+              user: {
+                role: devtechUpdateUser.role,
+                username: devtechUpdateUser.username,
+                name: devtechUpdateUser.name,
+                email: devtechUpdateUser.email,
+                number: devtechUpdateUser.number,
+              },
+              data,
             },
-            data,
           };
         } else {
           // Wrong Credentials
           Obj = {
-            success: false,
-            error: false,
-            message: "Wrong Credentials",
-            user: {},
+            status: "false",
           };
         }
 
@@ -324,9 +322,7 @@ AuthRouter.post("/update/profile", async (req, res) => {
   } catch (error) {
     // Error part
     let Obj = {
-      success: false,
-      error: true,
-      message: error.message,
+      status: "error",
     };
 
     // Send response back

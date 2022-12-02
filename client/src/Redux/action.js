@@ -12,6 +12,7 @@ import {
   RESETUSERNAME_LOADING,
   RESETUSERNAME_ERROR,
   RESETUSERNAME_SUCCESS,
+  USER_PROFILE_UPDATE,
 } from "./actionType";
 
 import Cookies from "universal-cookie";
@@ -54,7 +55,7 @@ export const userSignUpFun = (data) => (dispatch) => {
         dispatch(signupSuccess(res)),
         setTimeout(() => {
           dispatch(signupSuccess(null));
-        }, 5000)
+        }, 7000)
       );
     })
     .catch(() => dispatch(signupError()));
@@ -90,8 +91,6 @@ export const userSignInFun = (data) => (dispatch) => {
     .then((res) => {
       return (
         dispatch(signinSuccess(res)),
-        localStorage.setItem("user", JSON.stringify(res.data)),
-        sessionStorage.setItem("user", JSON.stringify(res)),
         cookies.set("devtechusercookie", res.token, { path: "/" })
       );
     })
@@ -105,22 +104,18 @@ export const userSignInFun = (data) => (dispatch) => {
 //
 
 export const gotoDashboard = () => (dispatch) => {
-  fetch(`${process.env.REACT_APP_API_LINK}/auth/goto/dashboard`, {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
-      Authorization: cookies.get("devtechusercookie"),
-    },
-  })
-    .then((res) => res.json())
-    .then((res) => {
-      return (
-        dispatch(signinSuccess(res)),
-        sessionStorage.setItem("user", JSON.stringify(res)),
-        localStorage.setItem("user", JSON.stringify(res.data))
-      );
+  if (cookies.get("devtechusercookie")) {
+    fetch(`${process.env.REACT_APP_API_LINK}/auth/goto/dashboard`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: cookies.get("devtechusercookie"),
+      },
     })
-    .catch(() => dispatch(signinError()));
+      .then((res) => res.json())
+      .then((res) => dispatch(signinSuccess(res)))
+      .catch(() => dispatch(signinError()));
+  }
 };
 
 //
@@ -129,8 +124,13 @@ export const gotoDashboard = () => (dispatch) => {
 //
 //
 
+export const userprofileupdating = (payload) => ({
+  type: USER_PROFILE_UPDATE,
+  payload,
+});
+
 export const updateUserProfileFun = (data) => (dispatch) => {
-  dispatch(signinLoading());
+  dispatch(userprofileupdating({ status: "loading" }));
   fetch(`${process.env.REACT_APP_API_LINK}/auth/update/profile`, {
     method: "POST",
     body: JSON.stringify(data),
@@ -140,14 +140,8 @@ export const updateUserProfileFun = (data) => (dispatch) => {
     },
   })
     .then((res) => res.json())
-    .then((res) => {
-      return (
-        dispatch(signinSuccess(res)),
-        localStorage.setItem("user", JSON.stringify(res.data)),
-        sessionStorage.setItem("user", JSON.stringify(res))
-      );
-    })
-    .catch(() => dispatch(signinError()));
+    .then((res) => dispatch(userprofileupdating(res)))
+    .catch(() => dispatch(userprofileupdating({ status: "error" })));
 };
 
 //

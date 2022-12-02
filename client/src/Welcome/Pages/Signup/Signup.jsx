@@ -2,6 +2,7 @@ import React from "react";
 import "./Signup.css";
 import logonight from "../../../assets/images/logonight.png";
 import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif";
+import backgroundImage from "../../../assets/images/backgroundImage.webp";
 
 import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
@@ -305,4 +306,7 @@ const outerBoxForForm = {
   fontFamily: "play",
   alignItems: "center",
   gap: "50px",
+  paddingTop: "25px",
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: "cover",
 };

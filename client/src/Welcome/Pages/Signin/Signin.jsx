@@ -1,6 +1,7 @@
 import React from "react";
 import "./Signin.css";
 import logonight from "../../../assets/images/logonight.png";
+import backgroundImage from "../../../assets/images/backgroundImage.webp";
 import freeLoadGif from "../../../assets/gif/loaderspinnergif.gif";
 import ResetPassword from "./ResetPassword";
 import ResetUsername from "./ResetUsername";
@@ -61,6 +62,8 @@ export default function SignIn() {
       } else if (signinSuccessData.user.role === "student") {
         navigate("/student/dashboard");
       }
+      localStorage.setItem("user", signinSuccessData.data);
+      sessionStorage.setItem("user", JSON.stringify(signinSuccessData));
     }
     if (
       signinSuccessData &&
@@ -268,4 +271,7 @@ const outerBoxForForm = {
   fontFamily: "play",
   alignItems: "center",
   gap: "50px",
+  paddingTop: "25px",
+  backgroundImage: `url(${backgroundImage})`,
+  backgroundSize: "cover",
 };

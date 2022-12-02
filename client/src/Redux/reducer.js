@@ -12,6 +12,7 @@ import {
   RESETUSERNAME_LOADING,
   RESETUSERNAME_ERROR,
   RESETUSERNAME_SUCCESS,
+  USER_PROFILE_UPDATE,
 } from "./actionType";
 
 const initState = {
@@ -32,6 +33,8 @@ const initState = {
   resetPasswordLoadingFlag: false,
   resetPasswordSuccessData: null,
   resetPasswordErrorFlag: false,
+
+  userProfileUpdate: null,
 };
 
 export const reducer = (state = initState, { type, payload }) => {
@@ -99,6 +102,10 @@ export const reducer = (state = initState, { type, payload }) => {
       return {
         resetPasswordLoadingFlag: false,
         resetPasswordSuccessData: payload,
+      };
+    case USER_PROFILE_UPDATE:
+      return {
+        userProfileUpdate: payload,
       };
     default:
       return state;
