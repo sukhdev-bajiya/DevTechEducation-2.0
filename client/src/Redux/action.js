@@ -90,11 +90,16 @@ export const userSignInFun = (data) => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      return (
-        dispatch(signinSuccess(res)),
-        cookies.set("devtechusercookie", res.token, { path: "/" }),
-        dispatch(getallstudentuserlistFun())
-      );
+      if (res.userDeactive) {
+        alert("User is not active, please contact your administrator");
+        return dispatch(signinError(res));
+      } else {
+        return (
+          cookies.set("devtechusercookie", res.token, { path: "/" }),
+          dispatch(signinSuccess(res)),
+          dispatch(getallstudentuserlistFun())
+        );
+      }
     })
     .catch(() => dispatch(signinError()));
 };
@@ -236,7 +241,6 @@ export const getallstudentuserlistFun = () => (dispatch) => {
   })
     .then((res) => res.json())
     .then((res) => {
-      console.log("i am called");
       if (res.success) {
         if (res.teacher) localStorage.setItem("c_t_user", res.teacher);
         if (res.student) localStorage.setItem("c_s_user", res.student);
@@ -244,8 +248,7 @@ export const getallstudentuserlistFun = () => (dispatch) => {
         if (res.lecture) localStorage.setItem("c_l_course", res.lecture);
         if (res.subject) localStorage.setItem("c_s_course", res.subject);
       }
-    })
-    .catch((err) => console.log(err));
+    });
 };
 
 //
@@ -271,7 +274,6 @@ export const addnewUserFun = (data) => (dispatch) => {
     .then((res) => res.json())
     .then((res) => {
       if (res.status === "true") {
-        console.log("i am calling");
         dispatch(getallstudentuserlistFun());
       }
       dispatch(addnewUser(res));
@@ -280,5 +282,49 @@ export const addnewUserFun = (data) => (dispatch) => {
         dispatch(addnewUser(null));
       }, 5000);
     })
-    .catch((err) => console.log(err));
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const deActiveUserFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/user/deactive`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 5000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const editUserFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/user/edit`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 5000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
 };

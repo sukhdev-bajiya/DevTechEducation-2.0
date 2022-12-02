@@ -20,6 +20,7 @@ AuthRouter.post("/signup", async (req, res) => {
   data.email = data.email.toLowerCase();
   data.username = Date.now();
   data.password = data.email.split("@")[0];
+  data.userDeactive = false;
 
   // Update email body
   const emailBody = emailTemplate(data.name, data.username, data.password);
@@ -103,7 +104,10 @@ AuthRouter.post("/signin", async (req, res) => {
 
       // Create JWT token for user with expire time
       const token = await Jwt.sign(
-        { id: devtechUser._id.toString(), role: devtechUser.role },
+        {
+          id: devtechUser._id.toString(),
+          role: devtechUser.role,
+        },
         ServerToken,
         { expiresIn: "6h" }
       );
@@ -116,6 +120,7 @@ AuthRouter.post("/signin", async (req, res) => {
 
       // Login Successful
       Obj = {
+        userDeactive: devtechUser.userDeactive || false,
         success: true,
         error: false,
         message: "Login Successful",

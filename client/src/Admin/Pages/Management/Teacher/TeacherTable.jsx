@@ -96,9 +96,15 @@ export default function EnhancedTable() {
                       <TableCell> {index + 1} </TableCell>
                       <TableCell align="left">{row.name}</TableCell>
                       <TableCell align="center">{row.username}</TableCell>
-                      <TableCell align="center">{row.createdAt}</TableCell>
                       <TableCell align="center">{row.email}</TableCell>
                       <TableCell align="right">{row.number}</TableCell>
+                      <TableCell align="center">
+                        {row.userDeactive ? (
+                          <span style={{ color: "red" }}>Deactive</span>
+                        ) : (
+                          <span style={{ color: "green" }}>Active</span>
+                        )}
+                      </TableCell>
                     </TableRow>
                   );
                 })}
@@ -168,11 +174,6 @@ const headCells = [
     label: "Username",
   },
   {
-    id: "joiningdate",
-    disablePadding: false,
-    label: "Joining Date",
-  },
-  {
     id: "email",
     disablePadding: false,
     label: "Email",
@@ -181,6 +182,11 @@ const headCells = [
     id: "number",
     disablePadding: false,
     label: "Number",
+  },
+  {
+    id: "userActive",
+    disablePadding: false,
+    label: "Teacher Status",
   },
 ];
 

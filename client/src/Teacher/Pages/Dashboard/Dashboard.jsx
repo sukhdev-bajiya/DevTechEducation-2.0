@@ -1,10 +1,8 @@
-import React from 'react'
+import React from "react";
 
 function Dashboard() {
-    document.title = "Dev Tech Education || Admin || Dashboard"
-    return (
-        <div>Dashboard</div>
-    )
+  document.title = "Dev Tech Education || Teacher || Dashboard";
+  return <div>Dashboard</div>;
 }
 
-export default Dashboard
+export default Dashboard;

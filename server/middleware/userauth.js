@@ -193,6 +193,7 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
         data.email = data.email.toLowerCase();
         data.username = Date.now();
         data.password = data.email.split("@")[0];
+        data.userDeactive = false;
 
         // Update email body
         const emailBody = emailTemplate(
@@ -214,7 +215,6 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           Obj = {
             status: "false",
           };
-          console.log(3);
         } else {
           // Add new user
           const devtechUser = devtechUserModel(data);
@@ -226,6 +226,102 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           // );
 
           // Output Obj User created successfully
+          Obj = {
+            status: "true",
+          };
+        }
+        // Send response back
+        return res.status(201).send(Obj);
+      }
+    });
+  } catch (error) {
+    // Error part
+    let Obj = {
+      status: "error",
+    };
+    // Send response back
+    return res.status(401).send(Obj);
+  }
+});
+UserAuthRouter.post("/deactive", async (req, res) => {
+  let token = req.header("Authorization");
+  let data = req.body;
+  try {
+    await Jwt.verify(token, ServerToken, async (error, response) => {
+      if (error) {
+        // Error part
+        let Obj = {
+          status: "error",
+        };
+        // Send response back
+        return res.status(401).send(Obj);
+      } else {
+        // Success part
+        let Obj;
+
+        // Add new user
+        await devtechUserModel.findByIdAndUpdate(
+          { _id: data.user },
+          {
+            userDeactive: data.ac,
+          }
+        );
+
+        // Output Obj
+        Obj = {
+          status: "true",
+        };
+        // Send response back
+        return res.status(201).send(Obj);
+      }
+    });
+  } catch (error) {
+    // Error part
+    let Obj = {
+      status: "error",
+    };
+    // Send response back
+    return res.status(401).send(Obj);
+  }
+});
+UserAuthRouter.post("/edit", async (req, res) => {
+  let token = req.header("Authorization");
+  let data = req.body;
+  try {
+    await Jwt.verify(token, ServerToken, async (error, response) => {
+      if (error) {
+        // Error part
+        let Obj = {
+          status: "error",
+        };
+        // Send response back
+        return res.status(401).send(Obj);
+      } else {
+        // Success part
+        let Obj;
+        data.email = data.email.toLowerCase();
+        const { email, number } = req.body;
+        const user = await devtechUserModel.find({
+          $or: [{ number }, { email: { $regex: email, $options: "i" } }],
+        });
+
+        if (user.length === 2 && user[1].username !== data.username) {
+          // Output Obj
+          Obj = {
+            status: "false",
+          };
+        } else {
+          // Add new user
+          await devtechUserModel.findByIdAndUpdate(
+            { _id: data.user },
+            {
+              name: data.name,
+              email: data.email,
+              number: data.number,
+            }
+          );
+
+          // Output Obj
           Obj = {
             status: "true",
           };

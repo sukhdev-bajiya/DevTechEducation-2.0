@@ -251,7 +251,7 @@ export default function UpdateProfile() {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-          <InputLabel htmlFor="user_profile_update_state">state</InputLabel>
+          <InputLabel htmlFor="user_profile_update_state">State</InputLabel>
           <Input
             onChange={handleOnChangeInputBoxAddressValue}
             name="state"
@@ -267,7 +267,7 @@ export default function UpdateProfile() {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-          <InputLabel htmlFor="user_profile_update_country">country</InputLabel>
+          <InputLabel htmlFor="user_profile_update_country">Country</InputLabel>
           <Input
             disabled
             onChange={handleOnChangeInputBoxAddressValue}
@@ -284,7 +284,7 @@ export default function UpdateProfile() {
           />
         </FormControl>
         <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
-          <InputLabel htmlFor="user_profile_update_pincode">pincode</InputLabel>
+          <InputLabel htmlFor="user_profile_update_pincode">Pincode</InputLabel>
           <Input
             onChange={handleOnChangeInputBoxAddressValue}
             name="pincode"
