@@ -3,7 +3,6 @@ import freeLoadGif from "../../../../assets/gif/loaderspinnergif.gif";
 
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
-import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
@@ -195,7 +194,7 @@ function AddStudent() {
           </Stack>
         </form>
 
-        {/* User Registered Successfully Alert */}
+        {/* User Successfully Alert */}
         <Collapse sx={{ width: "100%" }} in={addStudentSuccessfullyAlert}>
           <Alert
             severity="success"
@@ -220,7 +219,7 @@ function AddStudent() {
             registered email -{" "}
           </Alert>
         </Collapse>
-        {/* User Registration Failed Alert */}
+        {/* User Failed Alert */}
         <Collapse sx={{ width: "100%" }} in={addStudentFailedAlert}>
           <Alert
             severity="warning"
@@ -244,7 +243,7 @@ function AddStudent() {
             <strong>Use other Email or Number!</strong>
           </Alert>
         </Collapse>
-        {/* User Registration Failed Alert */}
+        {/* User Error Alert */}
         <Collapse sx={{ width: "100%" }} in={addStudentErrorAlert}>
           <Alert
             severity="error"

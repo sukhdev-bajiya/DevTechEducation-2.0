@@ -15,8 +15,18 @@ import CommentIcon from "@mui/icons-material/Comment";
 import MailIcon from "@mui/icons-material/Mail";
 import PhoneIcon from "@mui/icons-material/Phone";
 import BadgeIcon from "@mui/icons-material/Badge";
-import { Box, NativeSelect, Tooltip, Typography } from "@mui/material";
+import {
+  Box,
+  Collapse,
+  NativeSelect,
+  Tooltip,
+  Typography,
+} from "@mui/material";
 import { Stack } from "@mui/system";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getdatatoprint } from "../../../../Redux/function";
 import { editUserFun } from "../../../../Redux/action";
@@ -69,6 +79,9 @@ function EditStudentData() {
 
     setInputreasonBoxValue("");
     setInputuserBoxValue("");
+    setInputusernameBoxValue("");
+    setInputuseremailBoxValue("");
+    setInputusernumberBoxValue("");
     setDevTechUserData({
       name: "",
       username: "",
@@ -76,6 +89,33 @@ function EditStudentData() {
       number: "",
     });
   };
+
+  //   User Successfully Alert State
+  const [editStudentSuccessfullyAlert, setEditStudentSuccessfullyAlert] =
+    React.useState(false);
+
+  //   User Failed Alert State
+  const [editStudentFailedAlert, setEditStudentFailedAlert] =
+    React.useState(false);
+
+  //   User Error Alert State
+  const [editStudentErrorAlert, setEditStudentErrorAlert] =
+    React.useState(false);
+
+  // Alert State handle by Effect
+  React.useEffect(() => {
+    if (!addUserStatus || !addUserStatus.status) {
+      setEditStudentSuccessfullyAlert(false);
+      setEditStudentFailedAlert(false);
+      setEditStudentErrorAlert(false);
+    } else if (addUserStatus.status === "true") {
+      setEditStudentSuccessfullyAlert(true);
+    } else if (addUserStatus.status === "false") {
+      setEditStudentFailedAlert(true);
+    } else if (addUserStatus.status === "error") {
+      setEditStudentErrorAlert(true);
+    }
+  }, [addUserStatus]);
 
   return (
     <Dialog open={openFromDialogEditStudentData}>
@@ -251,6 +291,76 @@ function EditStudentData() {
           </Stack>
         </form>
       </Typography>
+
+      {/* User Successfully Alert */}
+      <Collapse sx={{ width: "100%" }} in={editStudentSuccessfullyAlert}>
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setEditStudentSuccessfullyAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Data Update <strong> Successfully </strong>
+          </AlertTitle>
+        </Alert>
+      </Collapse>
+      {/* User Failed Alert */}
+      <Collapse sx={{ width: "100%" }} in={editStudentFailedAlert}>
+        <Alert
+          severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setEditStudentFailedAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Update <strong> Failed </strong>
+          </AlertTitle>
+          Student already exists with <br /> same Email or Number <br /> -{" "}
+          <strong>Use other Email or Number!</strong>
+        </Alert>
+      </Collapse>
+      {/* User Error Alert */}
+      <Collapse sx={{ width: "100%" }} in={editStudentErrorAlert}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setEditStudentErrorAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Data Update <strong> Failed </strong>
+          </AlertTitle>
+          <strong>Try after some time!</strong>
+        </Alert>
+      </Collapse>
     </Dialog>
   );
 }

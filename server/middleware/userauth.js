@@ -300,18 +300,17 @@ UserAuthRouter.post("/edit", async (req, res) => {
         // Success part
         let Obj;
         data.email = data.email.toLowerCase();
-        const { email, number } = req.body;
+        const { username, email, number } = req.body;
         const user = await devtechUserModel.find({
-          $or: [{ number }, { email: { $regex: email, $options: "i" } }],
+          $or: [
+            { username },
+            { number },
+            { email: { $regex: email, $options: "i" } },
+          ],
         });
 
-        if (user.length === 2 && user[1].username !== data.username) {
-          // Output Obj
-          Obj = {
-            status: "false",
-          };
-        } else {
-          // Add new user
+        if (user.length === 1) {
+          // update user
           await devtechUserModel.findByIdAndUpdate(
             { _id: data.user },
             {
@@ -324,6 +323,11 @@ UserAuthRouter.post("/edit", async (req, res) => {
           // Output Obj
           Obj = {
             status: "true",
+          };
+        } else {
+          // Output Obj
+          Obj = {
+            status: "false",
           };
         }
         // Send response back

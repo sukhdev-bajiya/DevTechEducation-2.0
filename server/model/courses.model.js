@@ -17,6 +17,15 @@ const courseSchema = new mongoose.Schema(
     fee: {
       type: String,
     },
+    subjectItem: {
+      type: Number,
+    },
+    lectureItem: {
+      type: Number,
+    },
+    totalStudent: {
+      type: Number,
+    },
     subject: [mongoose.Schema.Types.ObjectId],
   },
   {

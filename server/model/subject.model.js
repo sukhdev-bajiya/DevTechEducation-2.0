@@ -17,6 +17,12 @@ const subjectSchema = new mongoose.Schema(
     courses: {
       type: String,
     },
+    rating: {
+      type: Number,
+    },
+    lectureItem: {
+      type: Number,
+    },
     lectures: [mongoose.Schema.Types.ObjectId],
   },
   {

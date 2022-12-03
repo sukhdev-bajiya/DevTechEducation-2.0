@@ -36,6 +36,9 @@ const lectureSchema = new mongoose.Schema(
     subject: {
       type: String,
     },
+    rating: {
+      type: Number,
+    },
   },
   {
     versionKey: false,

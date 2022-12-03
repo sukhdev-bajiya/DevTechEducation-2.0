@@ -15,8 +15,12 @@ import CommentIcon from "@mui/icons-material/Comment";
 import MailIcon from "@mui/icons-material/Mail";
 import PhoneIcon from "@mui/icons-material/Phone";
 import BadgeIcon from "@mui/icons-material/Badge";
-import { NativeSelect, Tooltip, Typography } from "@mui/material";
+import { NativeSelect, Tooltip, Typography, Collapse } from "@mui/material";
 import { Stack } from "@mui/system";
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import CloseIcon from "@mui/icons-material/Close";
+
 import { useDispatch, useSelector } from "react-redux";
 import { getdatatoprint } from "../../../../Redux/function";
 import { deActiveUserFun } from "../../../../Redux/action";
@@ -74,6 +78,35 @@ function DeleteStudent() {
       active: true,
     });
   };
+
+  //   User Successfully Alert State
+  const [
+    deactiveStudentSuccessfullyAlert,
+    setDeactiveStudentSuccessfullyAlert,
+  ] = React.useState(false);
+
+  //   User Failed Alert State
+  const [deactiveStudentFailedAlert, setDeactiveStudentFailedAlert] =
+    React.useState(false);
+
+  //   User Error Alert State
+  const [deactiveStudentErrorAlert, setDeactiveStudentErrorAlert] =
+    React.useState(false);
+
+  // Alert State handle by Effect
+  React.useEffect(() => {
+    if (!addUserStatus || !addUserStatus.status) {
+      setDeactiveStudentSuccessfullyAlert(false);
+      setDeactiveStudentFailedAlert(false);
+      setDeactiveStudentErrorAlert(false);
+    } else if (addUserStatus.status === "true") {
+      setDeactiveStudentSuccessfullyAlert(true);
+    } else if (addUserStatus.status === "false") {
+      setDeactiveStudentFailedAlert(true);
+    } else if (addUserStatus.status === "error") {
+      setDeactiveStudentErrorAlert(true);
+    }
+  }, [addUserStatus]);
 
   return (
     <Dialog open={openFromDialogDeleteStudent}>
@@ -197,6 +230,78 @@ function DeleteStudent() {
           </Stack>
         </form>
       </Typography>
+
+      {/* User Successfully Alert */}
+      <Collapse sx={{ width: "100%" }} in={deactiveStudentSuccessfullyAlert}>
+        <Alert
+          severity="success"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setDeactiveStudentSuccessfullyAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Activation
+            <strong> Successfully </strong>
+          </AlertTitle>
+        </Alert>
+      </Collapse>
+      {/* User Failed Alert */}
+      <Collapse sx={{ width: "100%" }} in={deactiveStudentFailedAlert}>
+        <Alert
+          severity="warning"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setDeactiveStudentFailedAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Activation
+            <strong> Failed </strong>
+          </AlertTitle>
+          <strong>Try after some time!</strong>
+        </Alert>
+      </Collapse>
+      {/* User Error Alert */}
+      <Collapse sx={{ width: "100%" }} in={deactiveStudentErrorAlert}>
+        <Alert
+          severity="error"
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setDeactiveStudentErrorAlert(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+        >
+          <AlertTitle>
+            Student Activation
+            <strong> Failed </strong>
+          </AlertTitle>
+          <strong>Try after some time!</strong>
+        </Alert>
+      </Collapse>
     </Dialog>
   );
 }

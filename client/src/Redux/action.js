@@ -324,7 +324,7 @@ export const editUserFun = (data) => (dispatch) => {
 
       setTimeout(() => {
         dispatch(addnewUser(null));
-      }, 5000);
+      }, 3000);
     })
     .catch((err) => dispatch(addnewUser(err)));
 };
