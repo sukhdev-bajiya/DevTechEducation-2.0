@@ -17,6 +17,7 @@ import Paper from "@mui/material/Paper";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import FilterListIcon from "@mui/icons-material/FilterList";
+
 import { visuallyHidden } from "@mui/utils";
 
 export default function CoursesTable() {
@@ -89,17 +90,21 @@ export default function CoursesTable() {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.name)}
+                      onClick={(event) => handleClick(event, row.title)}
                       tabIndex={-1}
                       key={index}
                     >
                       <TableCell> {index + 1} </TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="center">{row.subjextItem}</TableCell>
-                      <TableCell align="center">{row.lecturesItem}</TableCell>
-                      <TableCell align="center">{row.fee}</TableCell>
+                      <TableCell align="left">{row.title}</TableCell>
                       <TableCell align="center">
-                        {row.unitAndSubjectCreateDate}
+                        {row.subject.join(", ")}
+                      </TableCell>
+                      {/* <TableCell align="center">
+                        {row.lectureItem || 0}
+                      </TableCell> */}
+                      <TableCell align="center">₹ {row.fee}</TableCell>
+                      <TableCell align="center">
+                        {row.totalStudent || 0}
                       </TableCell>
                     </TableRow>
                   );
@@ -169,11 +174,11 @@ const headCells = [
     disablePadding: false,
     label: "Subject Item",
   },
-  {
-    id: "lecturesItem",
-    disablePadding: false,
-    label: "Lectures Item",
-  },
+  // {
+  //   id: "lecturesItem",
+  //   disablePadding: false,
+  //   label: "Lectures Item",
+  // },
   {
     id: "fee",
     disablePadding: false,

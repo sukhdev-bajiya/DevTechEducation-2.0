@@ -43,6 +43,7 @@ function DeleteStudent() {
 
   const [inputreasonBoxValue, setInputreasonBoxValue] = React.useState("");
   const [inputuserBoxValue, setInputuserBoxValue] = React.useState("");
+
   const [inputacBoxValue, setInputacBoxValue] = React.useState(true);
 
   const setuserinform = () => {
@@ -105,6 +106,9 @@ function DeleteStudent() {
       setDeactiveStudentFailedAlert(true);
     } else if (addUserStatus.status === "error") {
       setDeactiveStudentErrorAlert(true);
+    }
+    if (devtechUserList.length > 0) {
+      setInputuserBoxValue(devtechUserList[0]._id);
     }
   }, [addUserStatus]);
 

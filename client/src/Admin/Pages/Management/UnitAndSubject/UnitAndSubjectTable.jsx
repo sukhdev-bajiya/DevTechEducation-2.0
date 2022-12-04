@@ -94,13 +94,15 @@ export default function EnhancedTable() {
                       key={index}
                     >
                       <TableCell> {index + 1} </TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="center">{row.courseItem}</TableCell>
-                      <TableCell align="center">{row.lecturesItem}</TableCell>
-                      <TableCell align="center">{row.stars}</TableCell>
+                      <TableCell align="left">{row.title}</TableCell>
                       <TableCell align="center">
-                        {row.unitAndSubjectCreateDate}
+                        {row.courses.join(", ")}
                       </TableCell>
+                      <TableCell align="center">
+                        {row.lectures.length}
+                      </TableCell>
+                      {/* <TableCell align="center">{row.stars || 0}</TableCell> */}
+                      <TableCell align="center">{row.createdAt || 0}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -174,15 +176,15 @@ const headCells = [
     disablePadding: false,
     label: "Lectures Item",
   },
-  {
-    id: "stars",
-    disablePadding: false,
-    label: "Rating",
-  },
+  // {
+  //   id: "stars",
+  //   disablePadding: false,
+  //   label: "Rating",
+  // },
   {
     id: "unitAndSubjectCreateDate",
     disablePadding: false,
-    label: "Total Student",
+    label: "Create Date",
   },
 ];
 

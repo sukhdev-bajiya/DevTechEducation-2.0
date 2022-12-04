@@ -14,16 +14,14 @@ const subjectSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    courses: {
-      type: String,
-    },
+    courses: [],
     rating: {
       type: Number,
     },
     lectureItem: {
       type: Number,
     },
-    lectures: [mongoose.Schema.Types.ObjectId],
+    lectures: [],
   },
   {
     versionKey: false,

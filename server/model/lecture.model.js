@@ -30,12 +30,7 @@ const lectureSchema = new mongoose.Schema(
     image: {
       type: String,
     },
-    courses: {
-      type: String,
-    },
-    subject: {
-      type: String,
-    },
+    subject: [],
     rating: {
       type: Number,
     },

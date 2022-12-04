@@ -328,3 +328,204 @@ export const editUserFun = (data) => (dispatch) => {
     })
     .catch((err) => dispatch(addnewUser(err)));
 };
+
+export const addNewCourseFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/add/course`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const editCourseFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/edit/course`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const deleteCourseFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/delete/course`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+
+export const addNewSubjectFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/add/subject`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const editSubjectFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/edit/subject`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const deleteSubjectFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/delete/subject`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+
+export const addNewLecturesFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/add/lectures`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const editLecturesFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/edit/lectures`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};
+export const deleteLecturesFun = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/delete/lectures`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};

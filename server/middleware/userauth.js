@@ -210,7 +210,7 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           $or: [{ number }, { email: { $regex: email, $options: "i" } }],
         });
 
-        if (user) {
+        if (user && response.role === "student") {
           // Output Obj User already exists
           Obj = {
             status: "false",
@@ -259,18 +259,25 @@ UserAuthRouter.post("/deactive", async (req, res) => {
         // Success part
         let Obj;
 
-        // Add new user
-        await devtechUserModel.findByIdAndUpdate(
-          { _id: data.user },
-          {
-            userDeactive: data.ac,
-          }
-        );
+        if (response.role !== "student") {
+          // Add new user
+          await devtechUserModel.findByIdAndUpdate(
+            { _id: data.user },
+            {
+              userDeactive: data.ac,
+            }
+          );
 
-        // Output Obj
-        Obj = {
-          status: "true",
-        };
+          // Output Obj
+          Obj = {
+            status: "true",
+          };
+        } else {
+          Obj = {
+            status: "false",
+          };
+        }
+
         // Send response back
         return res.status(201).send(Obj);
       }
@@ -309,7 +316,7 @@ UserAuthRouter.post("/edit", async (req, res) => {
           ],
         });
 
-        if (user.length === 1) {
+        if (user.length === 1 && response.role !== "student") {
           // update user
           await devtechUserModel.findByIdAndUpdate(
             { _id: data.user },

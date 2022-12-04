@@ -94,13 +94,13 @@ export default function LecturesTable() {
                       key={index}
                     >
                       <TableCell> {index + 1} </TableCell>
-                      <TableCell align="left">{row.name}</TableCell>
-                      <TableCell align="center">{row.courseItem}</TableCell>
-                      <TableCell align="center">{row.subjectItem}</TableCell>
-                      <TableCell align="center">{row.stars}</TableCell>
+                      <TableCell align="left">{row.title}</TableCell>
                       <TableCell align="center">
-                        {row.lectureCreateDate}
+                        {row.subject.join(", ")}
                       </TableCell>
+                      <TableCell align="center">{row.subDescription}</TableCell>
+                      {/* <TableCell align="center">{row.stars}</TableCell> */}
+                      <TableCell align="center">{row.createdAt}</TableCell>
                     </TableRow>
                   );
                 })}
@@ -165,19 +165,14 @@ const headCells = [
     label: "Lecture Name",
   },
   {
-    id: "courseItem",
-    disablePadding: false,
-    label: "Course",
-  },
-  {
     id: "subjectItem",
     disablePadding: false,
     label: "Subject",
   },
   {
-    id: "stars",
+    id: "subDescription",
     disablePadding: false,
-    label: "Rating",
+    label: "Sub Description",
   },
   {
     id: "lectureCreateDate",

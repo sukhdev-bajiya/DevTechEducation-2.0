@@ -106,6 +106,9 @@ function DeleteTeacher() {
     } else if (addUserStatus.status === "error") {
       setDeactiveTeacherErrorAlert(true);
     }
+    if (devtechUserList.length > 0) {
+      setInputuserBoxValue(devtechUserList[0]._id);
+    }
   }, [addUserStatus]);
 
   return (

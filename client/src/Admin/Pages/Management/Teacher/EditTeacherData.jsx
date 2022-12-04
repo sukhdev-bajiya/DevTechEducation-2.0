@@ -115,6 +115,9 @@ function EditTeacherData() {
     } else if (addUserStatus.status === "error") {
       setEditTeacherErrorAlert(true);
     }
+    if (devtechUserList.length > 0) {
+      setInputuserBoxValue(devtechUserList[0]._id);
+    }
   }, [addUserStatus]);
 
   return (

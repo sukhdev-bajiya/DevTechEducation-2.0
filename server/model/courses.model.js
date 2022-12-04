@@ -26,7 +26,7 @@ const courseSchema = new mongoose.Schema(
     totalStudent: {
       type: Number,
     },
-    subject: [mongoose.Schema.Types.ObjectId],
+    subject: [],
   },
   {
     versionKey: false,
