@@ -66,7 +66,7 @@ export default function SignIn() {
           navigate("/student/dashboard");
         }
         setloading(false);
-      }, 2000);
+      }, 5000);
       localStorage.setItem("user", signinSuccessData.data);
       sessionStorage.setItem("user", JSON.stringify(signinSuccessData));
     }
