@@ -374,7 +374,7 @@ const outerBoxForForm = {
   fontFamily: "play",
   alignItems: "center",
   overflow: "hidden",
-  pEditing: "0 20px 0 10px",
+  padding: "0 20px 0 10px",
 };
 
 const ITEM_HEIGHT = 48;

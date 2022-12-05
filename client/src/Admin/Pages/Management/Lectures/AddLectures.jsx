@@ -207,7 +207,6 @@ function AddLectures() {
           <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
             <InputLabel htmlFor="add_lectures_image">Lectures Image</InputLabel>
             <Input
-              required
               onChange={handleOnChangeInputBoxValue}
               name="image"
               type="url"
@@ -225,7 +224,6 @@ function AddLectures() {
           <FormControl sx={{ m: 1, width: "100%" }} variant="standard">
             <InputLabel htmlFor="add_lectures_video">Lectures Video</InputLabel>
             <Input
-              required
               onChange={handleOnChangeInputBoxValue}
               name="video"
               type="url"

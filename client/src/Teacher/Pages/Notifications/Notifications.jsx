@@ -1,10 +1,10 @@
-import React from 'react'
-import './Notifications.css'
+import React from "react";
+import "./Notifications.css";
+import WebsiteUnderConstruction from "../../../ErrorPage/WebsiteUnderConstruction";
 
 function Notifications() {
-    return (
-        <div>Notifications</div>
-    )
+  document.title = "Dev Tech Education || Teacher || Management";
+  return <WebsiteUnderConstruction />;
 }
 
-export default Notifications
+export default Notifications;

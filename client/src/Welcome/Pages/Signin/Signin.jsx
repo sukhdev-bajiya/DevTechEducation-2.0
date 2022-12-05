@@ -40,6 +40,7 @@ export default function SignIn() {
 
   //   User Login Failed Alert State
   const [userLoginFailedAlert, setUserLoginFailedAlert] = React.useState(false);
+  const [loading, setloading] = React.useState(false);
 
   //   User Registration Error Alert State
   const [userLoginErrorAlert, setUserLoginErrorAlert] = React.useState(false);
@@ -55,13 +56,17 @@ export default function SignIn() {
       signinSuccessData.success &&
       !signinSuccessData.error
     ) {
-      if (signinSuccessData.user.role === "admin") {
-        navigate("/admin/dashboard");
-      } else if (signinSuccessData.user.role === "teacher") {
-        navigate("/teacher/dashboard");
-      } else if (signinSuccessData.user.role === "student") {
-        navigate("/student/dashboard");
-      }
+      setloading(true);
+      setTimeout(() => {
+        if (signinSuccessData.user.role === "admin") {
+          navigate("/admin/dashboard");
+        } else if (signinSuccessData.user.role === "teacher") {
+          navigate("/teacher/dashboard");
+        } else if (signinSuccessData.user.role === "student") {
+          navigate("/student/dashboard");
+        }
+        setloading(false);
+      }, 2000);
       localStorage.setItem("user", signinSuccessData.data);
       sessionStorage.setItem("user", JSON.stringify(signinSuccessData));
     }
@@ -104,7 +109,7 @@ export default function SignIn() {
     dispatch(userSignInFun(inputBoxValue));
 
     // Empty form data
-    setInputBoxValue({ password: "", username: "" });
+    // setInputBoxValue({ password: "", username: "" });
   };
 
   // Open Option for Reset Password and Get Username Function
@@ -174,7 +179,7 @@ export default function SignIn() {
         </FormControl>
         <Stack direction="row" spacing={1} style={{ margin: "auto" }}>
           <Button type="submit">
-            {signinLoadingFlag ? (
+            {signinLoadingFlag || loading ? (
               <img src={freeLoadGif} alt="" style={{ width: "50px" }} />
             ) : (
               ""
@@ -221,7 +226,7 @@ export default function SignIn() {
           <AlertTitle>
             User Signin <strong> Failed </strong>
           </AlertTitle>
-          <strong>Enter valid Email or Password!</strong>
+          <strong>Enter valid Username or Password!</strong>
         </Alert>
       </Collapse>
       {/* User Login Failed Alert */}

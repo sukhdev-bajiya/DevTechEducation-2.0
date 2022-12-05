@@ -30,7 +30,7 @@ export default function Navbar() {
   });
 
   const userLogout = () => {
-    cookies.remove("devtechusercookie");
+    cookies.set("devtechusercookie", "", { path: "/" });
     sessionStorage.clear();
     localStorage.clear();
     window.open("/", "_self"); // navigate("/");
@@ -161,7 +161,7 @@ export default function Navbar() {
                   </Badge>
                 </IconButton>
               </Tooltip>
-              <Tooltip title="User Profile">
+              <Tooltip title="Profile">
                 <IconButton
                   size="large"
                   edge="end"
@@ -173,7 +173,7 @@ export default function Navbar() {
                   <AccountCircle />
                 </IconButton>
               </Tooltip>
-              <Tooltip title="User Logout">
+              <Tooltip title="Logout">
                 <IconButton
                   size="large"
                   edge="end"

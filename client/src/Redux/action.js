@@ -111,7 +111,10 @@ export const userSignInFun = (data) => (dispatch) => {
 //
 
 export const gotoDashboard = () => (dispatch) => {
-  if (cookies.get("devtechusercookie")) {
+  if (
+    cookies.get("devtechusercookie") &&
+    cookies.get("devtechusercookie") !== ""
+  ) {
     fetch(`${process.env.REACT_APP_API_LINK}/auth/goto/dashboard`, {
       method: "GET",
       headers: {

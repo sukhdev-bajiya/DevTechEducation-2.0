@@ -6,13 +6,13 @@ import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
-import Typography from "@mui/material/Typography";
-import Menu from "@mui/material/Menu";
-import MenuIcon from "@mui/icons-material/Menu";
+// import Typography from "@mui/material/Typography";
+// import Menu from "@mui/material/Menu";
+// import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Button from "@mui/material/Button";
+// import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
-import MenuItem from "@mui/material/MenuItem";
+// import MenuItem from "@mui/material/MenuItem";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import PersonAddAlt1Icon from "@mui/icons-material/PersonAddAlt1";
 
@@ -20,15 +20,15 @@ import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const navigate = useNavigate();
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
+  // const [anchorElNav, setAnchorElNav] = React.useState(null);
 
-  const handleOpenNavMenu = (event) => {
-    setAnchorElNav(event.currentTarget);
-  };
+  // const handleOpenNavMenu = (event) => {
+  //   setAnchorElNav(event.currentTarget);
+  // };
 
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
+  // const handleCloseNavMenu = () => {
+  //   setAnchorElNav(null);
+  // };
 
   return (
     <Box sx={{ flexGrow: 1 }}>
@@ -55,7 +55,7 @@ const Navbar = () => {
                 />
               </Box>
 
-              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              {/* <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
                 <IconButton
                   size="large"
                   aria-label="account of current user"
@@ -115,7 +115,7 @@ const Navbar = () => {
                     </Typography>
                   </MenuItem>
                 </Menu>
-              </Box>
+              </Box> */}
 
               <Box
                 sx={{
@@ -137,7 +137,7 @@ const Navbar = () => {
                 />
               </Box>
               <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-                <Button
+                {/* <Button
                   sx={{ my: 2, color: "white", display: "block" }}
                   onClick={() => {
                     return handleCloseNavMenu(), navigate("/courses");
@@ -163,7 +163,7 @@ const Navbar = () => {
                 >
                   {" "}
                   EVENTS & CONTESTS{" "}
-                </Button>
+                </Button> */}
               </Box>
 
               <Box sx={{ flexGrow: 0 }}>

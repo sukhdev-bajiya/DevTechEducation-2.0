@@ -134,6 +134,7 @@ UserAuthRouter.get("/getalluserlist", async (req, res) => {
           // User part
           let course = await devtechCourseModel.find();
           let subject = await devtechSubjectModel.find();
+          let lecture = await devtechLectureModel.find();
 
           course = CryptoJS.AES.encrypt(
             JSON.stringify(course),
@@ -149,6 +150,7 @@ UserAuthRouter.get("/getalluserlist", async (req, res) => {
             error: false,
             course,
             subject,
+            lecture,
           };
         } else {
           Obj = {

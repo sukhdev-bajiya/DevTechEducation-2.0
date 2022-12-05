@@ -1,179 +1,208 @@
-import React from 'react'
-import './Navbar.css'
-import logoday from '../../../assets/images/logoday.png'
+import React from "react";
+import "./Navbar.css";
+import logoday from "../../../assets/images/logoday.png";
 import { useNavigate } from "react-router-dom";
+import Cookies from "universal-cookie";
 
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Badge from '@mui/material/Badge';
-import MenuItem from '@mui/material/MenuItem';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import AccountCircle from '@mui/icons-material/AccountCircle';
-import NotificationsIcon from '@mui/icons-material/Notifications';
-import AutoStoriesIcon from '@mui/icons-material/AutoStories';
-import { useSelector } from 'react-redux';
-
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Badge from "@mui/material/Badge";
+import MenuItem from "@mui/material/MenuItem";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import LogoutIcon from "@mui/icons-material/Logout";
+import AccountCircle from "@mui/icons-material/AccountCircle";
+import NotificationsIcon from "@mui/icons-material/Notifications";
+import AutoStoriesIcon from "@mui/icons-material/AutoStories";
+import { Tooltip } from "@mui/material";
 
 export default function Navbar() {
-    const { signinSuccessData } = useSelector((state) => state);
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+  const cookies = new Cookies();
 
-    React.useEffect(() => {
-        if (signinSuccessData === null || signinSuccessData.user.role !== "student") {
-            navigate("/signin")
-        }
-    },);
+  React.useEffect(() => {
+    let data = JSON.parse(sessionStorage.getItem("user"));
+    if (data === undefined || data === null || data.user.role !== "student") {
+      navigate("/signin");
+    }
+  });
 
-    const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
+  const userLogout = () => {
+    cookies.set("devtechusercookie", "", { path: "/" });
+    sessionStorage.clear();
+    localStorage.clear();
+    window.open("/", "_self"); // navigate("/");
+  };
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
-    const handleProfileMenuOpen = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
+  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+  const handleMobileMenuClose = () => {
+    setMobileMoreAnchorEl(null);
+  };
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+  const handleMobileMenuOpen = (event) => {
+    setMobileMoreAnchorEl(event.currentTarget);
+  };
 
-    const handleMobileMenuOpen = (event) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
+  const studentNotifications = "new";
 
-    const studentNotifications = 21;
+  const mobileMenuId = "primary_search_account_menu_mobile";
 
-
-    const menuId = 'primary_search_account_menu';
-    const mobileMenuId = 'primary_search_account_menu_mobile';
-
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
+  const renderMobileMenu = (
+    <Menu
+      anchorEl={mobileMoreAnchorEl}
+      anchorOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      id={mobileMenuId}
+      keepMounted
+      transformOrigin={{
+        vertical: "top",
+        horizontal: "right",
+      }}
+      open={isMobileMenuOpen}
+      onClose={handleMobileMenuClose}
+    >
+      <MenuItem
+        onClick={() => {
+          navigate("/student/notifications");
+        }}
+      >
+        <IconButton
+          size="large"
+          aria-label={`show ${studentNotifications} new notifications`}
+          color="inherit"
         >
-            <MenuItem onClick={() => { return handleMenuClose, navigate("/student/profile") }}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
-        </Menu>
-    );
-
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
+          <Badge badgeContent={studentNotifications} color="error">
+            <NotificationsIcon />
+          </Badge>
+        </IconButton>
+        <p>Notifications</p>
+      </MenuItem>
+      <MenuItem
+        onClick={() => {
+          navigate("/student/management");
+        }}
+      >
+        <IconButton size="large" color="inherit">
+          <AutoStoriesIcon />
+        </IconButton>
+        <p>Courses</p>
+      </MenuItem>
+      <MenuItem onClick={() => navigate("/student/profile")}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary_search_account_menu"
+          aria-haspopup="true"
+          color="inherit"
         >
-            <MenuItem onClick={() => { navigate("/student/notifications") }} >
-                <IconButton
-                    size="large"
-                    aria-label={`show ${studentNotifications} new notifications`}
-                    color="inherit"
-                >
-                    <Badge badgeContent={studentNotifications} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={() => { navigate("/student/management") }} >
-                <IconButton size="large" color="inherit" >
-                    <AutoStoriesIcon />
-                </IconButton>
-                <p>Courses</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary_search_account_menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <img src={logoday} onClick={() => { navigate("/student/dashboard") }} alt="DEV TECH EDUCATION" className='navbar_Logo' />
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
+      <MenuItem onClick={userLogout}>
+        <IconButton
+          size="large"
+          aria-label="user logout"
+          aria-controls="primary_search_account_menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <LogoutIcon />
+        </IconButton>
+        <p>Logout</p>
+      </MenuItem>
+    </Menu>
+  );
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Box style={{ position: "fixed", width: "100%", zIndex: "10" }}>
+        <AppBar position="static">
+          <Toolbar>
+            <img
+              src={logoday}
+              onClick={() => {
+                navigate("/student/dashboard");
+              }}
+              alt="DEV TECH EDUCATION"
+              className="navbar_Logo"
+            />
 
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" color="inherit" onClick={() => { navigate("/student/management") }} >
-                            <AutoStoriesIcon />
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label={`show ${studentNotifications} new notifications`}
-                            color="inherit"
-                            onClick={() => { navigate("/student/notifications") }}
-                        >
-                            <Badge badgeContent={studentNotifications} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-                        <IconButton
-                            size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
-                            color="inherit"
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
-    );
+            <Box sx={{ flexGrow: 1 }} />
+            <Box sx={{ display: { xs: "none", md: "flex" } }}>
+              <Tooltip title="My Courses">
+                <IconButton
+                  size="large"
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/student/management");
+                  }}
+                >
+                  <AutoStoriesIcon />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Notifications">
+                <IconButton
+                  size="large"
+                  aria-label={`show ${studentNotifications} new notifications`}
+                  color="inherit"
+                  onClick={() => {
+                    navigate("/student/notifications");
+                  }}
+                >
+                  <Badge badgeContent={studentNotifications} color="error">
+                    <NotificationsIcon />
+                  </Badge>
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Profile">
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={() => navigate("/student/profile")}
+                >
+                  <AccountCircle />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Logout">
+                <IconButton
+                  size="large"
+                  edge="end"
+                  aria-label="account of current user"
+                  aria-haspopup="true"
+                  color="inherit"
+                  onClick={userLogout}
+                >
+                  <LogoutIcon />
+                </IconButton>
+              </Tooltip>
+            </Box>
+            <Box sx={{ display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="show more"
+                aria-controls={mobileMenuId}
+                aria-haspopup="true"
+                onClick={handleMobileMenuOpen}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          </Toolbar>
+        </AppBar>
+        {renderMobileMenu}
+      </Box>
+      <Box style={{ height: "65px" }}></Box>
+    </Box>
+  );
 }
