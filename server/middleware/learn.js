@@ -489,4 +489,60 @@ LearnRouter.post("/delete/lectures", async (req, res) => {
   }
 });
 
+LearnRouter.post("/buy/course", async (req, res) => {
+  let token = req.header("Authorization");
+  let data = req.body;
+  try {
+    await Jwt.verify(token, ServerToken, async (error, response) => {
+      if (error) {
+        // Error part
+        let Obj = {
+          status: "error",
+        };
+        // Send response back
+        return res.status(401).send(Obj);
+      } else {
+        // Success part
+        let Obj;
+        if (response.role === "student") {
+          // update user
+
+          let allr = await devtechUserModel.find({
+            _id: response.id,
+            courses: { $in: data.title },
+          });
+
+          if (allr.length === 0) {
+            await devtechUserModel.update(
+              {
+                _id: response.id,
+              },
+              { $push: { courses: data.title } }
+            );
+          }
+
+          // Output Obj
+          Obj = {
+            status: "true",
+          };
+        } else {
+          // Output Obj
+          Obj = {
+            status: "false",
+          };
+        }
+        // Send response back
+        return res.status(201).send(Obj);
+      }
+    });
+  } catch (error) {
+    // Error part
+    let Obj = {
+      status: "error",
+    };
+    // Send response back
+    return res.status(401).send(Obj);
+  }
+});
+
 export default LearnRouter;

@@ -81,6 +81,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 7px;
 }
 .homePage_course_listItemBtn button {
   padding: 7px 15px;
@@ -88,6 +89,10 @@
   background-color: rgb(94, 165, 245);
   border-radius: 5px;
   color: white;
+}
+
+.homePage_course_listItemBtn button:first-child {
+  cursor: pointer;
 }
 
 .homePage_welcome_background {

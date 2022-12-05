@@ -51,9 +51,9 @@ AuthRouter.post("/signup", async (req, res) => {
       await devtechUser.save();
 
       // Send mail to user
-      // fetch(
-      //   `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
-      // );
+      fetch(
+        `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
+      );
 
       // Output Obj User created successfully
       obj = {

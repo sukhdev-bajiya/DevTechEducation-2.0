@@ -532,3 +532,26 @@ export const deleteLecturesFun = (data) => (dispatch) => {
     })
     .catch((err) => dispatch(addnewUser(err)));
 };
+
+export const buyaCourse = (data) => (dispatch) => {
+  fetch(`${process.env.REACT_APP_API_LINK}/learn/buy/course`, {
+    method: "POST",
+    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: cookies.get("devtechusercookie"),
+    },
+  })
+    .then((res) => res.json())
+    .then((res) => {
+      if (res.status === "true") {
+        dispatch(getallstudentuserlistFun());
+      }
+      dispatch(addnewUser(res));
+
+      setTimeout(() => {
+        dispatch(addnewUser(null));
+      }, 3000);
+    })
+    .catch((err) => dispatch(addnewUser(err)));
+};

@@ -144,6 +144,10 @@ UserAuthRouter.get("/getalluserlist", async (req, res) => {
             JSON.stringify(subject),
             token
           ).toString();
+          lecture = CryptoJS.AES.encrypt(
+            JSON.stringify(lecture),
+            token
+          ).toString();
 
           Obj = {
             success: true,
@@ -223,9 +227,9 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           await devtechUser.save();
 
           // Send mail to user
-          // fetch(
-          //   `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
-          // );
+          fetch(
+            `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
+          );
 
           // Output Obj User created successfully
           Obj = {

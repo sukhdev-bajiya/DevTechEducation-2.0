@@ -98,11 +98,7 @@ export default function Profile() {
         position: "relative",
       }}
     >
-      <AppBar
-        position="static"
-        color="default"
-        style={{ position: "fixed", width: "100%", zIndex: "7" }}
-      >
+      <AppBar position="static" color="default">
         <Tabs
           value={value}
           onChange={handleChange}
@@ -116,7 +112,7 @@ export default function Profile() {
           <Tab label="SETTINGS" {...a11yProps(2)} />
         </Tabs>
       </AppBar>
-      <Box style={{ height: "60px" }}></Box>
+      <Box style={{ height: "15px" }}></Box>
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}

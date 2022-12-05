@@ -62,7 +62,7 @@ const userSchema = new mongoose.Schema(
         type: Number,
       },
     },
-    courses: [mongoose.Schema.Types.ObjectId],
+    courses: [],
     lastUpdateData: [],
     lastLogin: [],
   },
