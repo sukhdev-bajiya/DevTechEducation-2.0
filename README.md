@@ -63,8 +63,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](https://user-images.githubusercontent.com/106476212/205861227-641f6d4f-2fd3-470f-b530-fe09ffc56489.png)
 
+![1.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314542225/715IW01cq.png)
 
 <br>
 
@@ -72,7 +72,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/2.png)
+
+![2.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314571590/HFi840A6s.png)
 
 <br>
 
@@ -80,7 +81,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/3.png)
+
+![3.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314584243/EK06AH6mL.png)
 
 <br>
 
@@ -88,7 +90,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/4.png)
+
+![4.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314594131/G7wgaNU4t.png)
 
 <br>
 
@@ -100,10 +103,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/5.png)
-![image](./Blog/6.png)
-![image](./Blog/7.png)
-![image](./Blog/8.png)
+
+![5.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314607322/sgnGfgb5P.png)
+![6.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314614408/bCjt8igOD.png)
+![7.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314623048/mYwqmLjv8.png)
+![8.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314629394/nrc_wBwon.png)
 
 <!-- ![image](./Blog/) -->
 
@@ -125,10 +129,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/9.png)
-![image](./Blog/10.png)
-![image](./Blog/11.png)
-![image](./Blog/12.png)
+
+![9.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314659718/Jp-H32BpQ.png)
+![10.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314664313/QPiU8DGfo.png)
+![11.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314668017/VJQ8vXWsO.png)
+![12.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314671354/TLF6RTtVd.png)
 
 <!-- ![image](./Blog/) -->
 
@@ -150,10 +155,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/13.png)
-![image](./Blog/14.png)
-![image](./Blog/15.png)
-![image](./Blog/16.png)
+
+![13.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314680911/-9RhWw_Mi.png)
+![14.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314686667/mmI0FJxqD.png)
+![15.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314691379/vy10JvH1w.png)
+![16.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314695754/1pyLogH03.png)
 
 <br>
 
@@ -173,10 +179,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/17.png)
-![image](./Blog/18.png)
-![image](./Blog/19.png)
-![image](./Blog/20.png)
+
+![17.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314705167/4J9mcAsWX.png)
+![18.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314709578/f_eVvepnF.png)
+![19.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314716017/HL4WwiUbT.png)
+![20.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314721790/0fTq-Ig7q.png)
 
 <br>
 
@@ -196,10 +203,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/21.png)
-![image](./Blog/22.png)
-![image](./Blog/23.png)
-![image](./Blog/24.png)
+
+![21.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314734110/qw1H45-2w.png)
+![22.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314739159/QK0neTqan.png)
+![23.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314744005/NqULWR6hS.png)
+![24.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314749277/jY3p-o04E.png)
 
 #### **Student list** 👆🏼 💻
 
@@ -213,7 +221,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/25.png)
+
+![25.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314812655/h8lumc-rl.png)
 
 <br>
 
@@ -223,7 +232,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/26.png)
+
+![26.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314824129/1m3VU1Evy.png)
 
 > ---------------------- Admin Part Done ----------------------
 
@@ -241,14 +251,16 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/27.png)
+
+![27.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314833515/IPLoaW2ZC.png)
 
 <br>
 
 ## 👨‍💼 **Course and Subject List** 👇 💻
 
-![image](./Blog/28.png)
-![image](./Blog/29.png)
+
+![28.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314844973/CU8QudoIL.png)
+![29.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314851240/HJw1DT72s.png)
 
 ## 👨‍💼 **Create and Manage lecture** 👇 💻
 
@@ -258,10 +270,11 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/30.png)
-![image](./Blog/31.png)
-![image](./Blog/32.png)
-![image](./Blog/33.png)
+
+![30.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314868005/ORXXfP0RC.png)
+![31.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314875509/axSaXXCdu.png)
+![32.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314884263/hoAMuYzCb.png)
+![33.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314891665/dyx9UYXmM.png)
 
 <br>
 
@@ -279,10 +292,10 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/21.png)
-![image](./Blog/22.png)
-![image](./Blog/23.png)
-![image](./Blog/24.png)
+![21.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314734110/qw1H45-2w.png)
+![22.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314739159/QK0neTqan.png)
+![23.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314744005/NqULWR6hS.png)
+![24.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314749277/jY3p-o04E.png)
 
 <br>
 
@@ -296,7 +309,7 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/25.png)
+![25.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314812655/h8lumc-rl.png)
 
 <br>
 
@@ -306,7 +319,7 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/26.png)
+![26.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314824129/1m3VU1Evy.png)
 
 > ---------------------- Teacher Part Done ----------------------
 
@@ -328,7 +341,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/34.png)
+
+![34.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314983997/pCzgCzDXN.png)
 
 <br>
 
@@ -338,17 +352,20 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 > - Step 1: Click Buy Now
 
-![image](./Blog/35.png)
+
+![35.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314997378/gqfiya6wT.png)
 
 > - Step 2: View Course
 
-![image](./Blog/36.png)
+
+![36.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315043304/tH03FvNdj.png)
 
 > - Step 2: Make Payment
 
-![image](./Blog/36.1.png)
-![image](./Blog/36.2.png)
-![image](./Blog/37.png)
+
+![36.1.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315054231/6MGdnr0tX.png)
+![36.2.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315061172/mxSgeF01_.png)
+![37.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315069536/tV8A2Nf95.png)
 
 <br>
 
@@ -367,7 +384,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/38.png)
+
+![38.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315084411/Xo1Zlc9MS.png)
 
 <br>
 
@@ -375,7 +393,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/39.png)
+
+![39.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315096028/ESXRQKOYC.png)
 
 <br>
 
@@ -383,7 +402,8 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/40.png)
+
+![40.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670315104987/932_XrNXJ.png)
 
 <br>
 
@@ -391,7 +411,7 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/25.png)
+![25.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314812655/h8lumc-rl.png)
 
 <br>
 
@@ -401,11 +421,7 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-![image](./Blog/26.png)
+![26.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1670314824129/1m3VU1Evy.png)
 
 > ---------------------- Student Part Done ----------------------
-
-<br>
-
-
 <!-- # _redirects  =  /* /index.html 200 -->
