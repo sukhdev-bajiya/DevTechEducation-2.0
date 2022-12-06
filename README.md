@@ -24,11 +24,47 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
+# Project
+
+> GitHub - [Code](https://github.com/sukhdev-bajiya/DevTechEducation) <br>
+> Netlify - [Live demo](https://devtecheducation.netlify.app/) <br>
+> Hash node - [Blog](https://devtecheducation.hashnode.dev/dev-tech-education)
+
+# Technology Used
+
+> • React <br>
+> • Redux <br>
+> • Redux-Thunk <br>
+> • React-Router <br>
+> • Material-UI <br>
+> • Express-js <br>
+> • Mongoose <br>
+> • Google-Apps-Script <br>
+> • Jsonwebtoken <br>
+> • Bcryptjs <br>
+> • Crypto-js <br>
+> • Cors <br>
+> • Universal-cookie <br>
+
+# Tools
+
+> • VS Code <br>
+> • Github <br>
+> • Netlify <br>
+> • Render <br>
+> • Thunder Client <br>
+> • Mongodb-Atlas <br>
+> • CorelDRAW <br>
+
+<br>
+<br>
+
 ## **DevTechEducation landing page** 👇 💻
 
 <br>
 
-![image](./Blog/1.png)
+![image](https://user-images.githubusercontent.com/106476212/205861227-641f6d4f-2fd3-470f-b530-fe09ffc56489.png)
+
 
 <br>
 
@@ -371,36 +407,5 @@ I am pursuing a Full Stack Web Development course at Masai school, In Masai scho
 
 <br>
 
-# Project
-
-> GitHub - [Code](https://github.com/sukhdev-bajiya/DevTechEducation) <br>
-> Netlify - [Live demo](https://devtecheducation.netlify.app/) <br>
-> Hash node - [Blog](https://devtecheducation.hashnode.dev/dev-tech-education)
-
-# Technology Used
-
-> • React <br>
-> • Redux <br>
-> • Redux-Thunk <br>
-> • React-Router <br>
-> • Material-UI <br>
-> • Express-js <br>
-> • Mongoose <br>
-> • Google-Apps-Script <br>
-> • Jsonwebtoken <br>
-> • Bcryptjs <br>
-> • Crypto-js <br>
-> • Cors <br>
-> • Universal-cookie <br>
-
-# Tools
-
-> • VS Code <br>
-> • Github <br>
-> • Netlify <br>
-> • Render <br>
-> • Thunder Client <br>
-> • Mongodb-Atlas <br>
-> • CorelDRAW <br>
 
 <!-- # _redirects  =  /* /index.html 200 -->
