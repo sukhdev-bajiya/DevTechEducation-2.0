@@ -4,7 +4,7 @@ import Jwt from "jsonwebtoken";
 import CryptoJS from "crypto-js";
 
 import devtechUserModel from "../model/user.model.js";
-import emailTemplate from "./emailtemplate.js";
+import { emailTemplate } from "./emailtemplate.js";
 
 const AuthRouter = express.Router();
 
