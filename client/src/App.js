@@ -40,13 +40,6 @@ function App() {
     ||     ||  ||         || ||         ||      ||      ||      ||    ||  
     ||||||||   ||||||      |||          ||      ||||||   |||||  ||    || `);
 
-  // window.onbeforeunload = () => {
-  //   console.log("first");
-  //   let user = sessionStorage.getItem("user")
-
-  //   // localStorage.clear();
-  // };
-
   return (
     <Routes>
       <Route
