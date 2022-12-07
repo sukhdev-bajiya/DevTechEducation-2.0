@@ -545,7 +545,7 @@ export const buyaCourse = (data) => (dispatch) => {
     .then((res) => res.json())
     .then((res) => {
       if (res.status === "true") {
-        dispatch(getallstudentuserlistFun());
+        localStorage.setItem("user", res.data);
       }
       dispatch(addnewUser(res));
 
