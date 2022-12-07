@@ -1,12 +1,11 @@
-import express from "express";
-import Jwt from "jsonwebtoken";
-import CryptoJS from "crypto-js";
-import bcrypt from "bcryptjs";
-import emailTemplate from "./emailtemplate.js";
-import devtechUserModel from "../model/user.model.js";
-import devtechCourseModel from "../model/courses.model.js";
-import devtechLectureModel from "../model/lecture.model.js";
-import devtechSubjectModel from "../model/subject.model.js";
+const express = require("express");
+const Jwt = require("jsonwebtoken");
+const CryptoJS = require("crypto-js");
+const bcrypt = require("bcryptjs");
+const { devtechUserModel } = require("../model/user.model.js");
+const { devtechCourseModel } = require("../model/courses.model.js");
+const { devtechLectureModel } = require("../model/lecture.model.js");
+const { devtechSubjectModel } = require("../model/subject.model.js");
 
 const UserAuthRouter = express.Router();
 const ServerToken = process.env.JwtToken;
@@ -201,13 +200,6 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
         data.password = data.email.split("@")[0];
         data.userDeactive = false;
 
-        // Update email body
-        const emailBody = emailTemplate(
-          data.name,
-          data.username,
-          data.password
-        );
-
         // Convert password to secure password
         data.password = await bcrypt.hash(data.password, 10);
 
@@ -216,7 +208,7 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           $or: [{ number }, { email: { $regex: email, $options: "i" } }],
         });
 
-        if (user && response.role === "student") {
+        if (user || response.role === "student") {
           // Output Obj User already exists
           Obj = {
             status: "false",
@@ -226,14 +218,16 @@ UserAuthRouter.post("/add/newuser", async (req, res) => {
           const devtechUser = devtechUserModel(data);
           await devtechUser.save();
 
-          // Send mail to user
-          fetch(
-            `${EmailToken}?Name=${data.name}&Email=${email}&Number=${number}&Template=${emailBody}&Subject=Dev Tech Education Online Course Platform Login Credentials`
-          );
-
           // Output Obj User created successfully
           Obj = {
             status: "true",
+            data: {
+              username: data.username,
+              password: data.password,
+              name: data.name,
+              email: data.email,
+              number: data.number,
+            },
           };
         }
         // Send response back
@@ -357,4 +351,6 @@ UserAuthRouter.post("/edit", async (req, res) => {
   }
 });
 
-export default UserAuthRouter;
+// export default UserAuthRouter;
+
+module.exports = { UserAuthRouter };
