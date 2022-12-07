@@ -1,11 +1,9 @@
-import express from "express";
-import Jwt from "jsonwebtoken";
-import CryptoJS from "crypto-js";
-import bcrypt from "bcryptjs";
-import devtechUserModel from "../model/user.model.js";
-import devtechCourseModel from "../model/courses.model.js";
-import devtechLectureModel from "../model/lecture.model.js";
-import devtechSubjectModel from "../model/subject.model.js";
+const express = require("express");
+const Jwt = require("jsonwebtoken");
+const { devtechUserModel } = require("../model/user.model.js");
+const { devtechCourseModel } = require("../model/courses.model.js");
+const { devtechLectureModel } = require("../model/lecture.model.js");
+const { devtechSubjectModel } = require("../model/subject.model.js");
 
 const LearnRouter = express.Router();
 const ServerToken = process.env.JwtToken;
@@ -521,9 +519,26 @@ LearnRouter.post("/buy/course", async (req, res) => {
             );
           }
 
+          const devtechUser = await devtechUserModel.findById(
+            { _id: response.id },
+            {
+              securityAnswer1: 0,
+              securityAnswer2: 0,
+              lastLogin: 0,
+              lastUpdateData: 0,
+              password: 0,
+            }
+          );
+
+          const data = CryptoJS.AES.encrypt(
+            JSON.stringify(devtechUser),
+            token
+          ).toString();
+
           // Output Obj
           Obj = {
             status: "true",
+            data,
           };
         } else {
           // Output Obj
@@ -545,4 +560,6 @@ LearnRouter.post("/buy/course", async (req, res) => {
   }
 });
 
-export default LearnRouter;
+// export default LearnRouter;
+
+module.exports = { LearnRouter };
